@@ -1,0 +1,1641 @@
+:root {
+  --position-name: (a, f, r, sta, sti);
+  --position-value: (absolute, fixed, relative, static, sticky);
+  --display-name: (fx, ifx, b, ib, tb, tbcap, tbcell, tbcol, tbcolg, tbftg, tbhdg, tbrowg, tbrow, n);
+  --display-value: (flex, inline-flex, block, inline-block, table, table-caption, table-cell, table-column, table-column-group, table-footer-group, table-header-group, table-row-group, table-row, none);
+  --flex-direction-name: (row, row-r, col, col-r);
+  --flex-direction-value: (row, row-reverse, column, column-reverse);
+  --flex-wrapname: (w, w-r, no);
+  --flex-wrapvalue: (wrap, wrapreverse, nowrap);
+  --justify-content-name: (s, e, c, betw, aro, eve);
+  --justify-content-value: (flex-start, flex-end, center, space-between, space-around, space-evenly);
+  --align-items-name: (s, e, c, base, str);
+  --align-items-value: (flex-start, flex-end, center, baseline, stretch);
+  --text-align-name: (l, c, r, js);
+  --text-align-value: (left, center, right, justify);
+}
+
+@each $name, $nameidx in var(--position-name) {
+  @each $value, $valueidx in var(--position-value) {
+    @if $nameidx == $valueidx {
+      .Pos\($(name)\) {
+        position: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--display-name) {
+  @each $value, $valueidx in var(--display-value) {
+    @if $nameidx == $valueidx {
+      .D\($(name)\) {
+        display: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--flex-direction-name) {
+  @each $value, $valueidx in var(--flex-direction-value) {
+    @if $nameidx == $valueidx {
+      .Fxd\($(name)\) {
+        flex-direction: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--flex-wrapname) {
+  @each $value, $valueidx in var(--flex-wrapvalue) {
+    @if $nameidx == $valueidx {
+      .Fxw\($(name)\) {
+        flex-wrap: $(value);
+      }
+    }
+  }
+}
+
+.Fxg {
+  flex-grow: 1;
+}
+
+.Fxsh {
+  flex-shrink: 0;
+}
+
+@each $name, $nameidx in var(--justify-content-name) {
+  @each $value, $valueidx in var(--justify-content-value) {
+    @if $nameidx == $valueidx {
+      .Jc\($(name)\) {
+        justify-content: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--align-items-name) {
+  @each $value, $valueidx in var(--align-items-value) {
+    @if $nameidx == $valueidx {
+      .Ai\($(name)\) {
+        align-items: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--text-align-name) {
+  @each $value, $valueidx in var(--text-align-value) {
+    @if $nameidx == $valueidx {
+      .Ta\($(name)\) {
+        text-align: $(value);
+      }
+    }
+  }
+}
+
+@for $i from 1 to 4 {
+  .Col\($(i)\/5\) {
+    width: calc($(i) / 5 * 100%);
+  }
+}
+
+@for $i from 1 to 11 {
+  .Col\($(i)\/12\) {
+    width: calc($(i) / 12 * 100%);
+  }
+}
+
+@each $name, $value in var(--color) {
+  .C\($(name)\) {
+    color: $(value);
+  }
+
+  .Bgc\($(name)\) {
+    background-color: $(value);
+  }
+
+  @for $i from 0 to 90 by 10 {
+    .Bgc\($(name)\:$(i)\) {
+      background-color: rgba($(value), calc($(i) / 100));
+    }
+  }
+}
+
+.Mx\(auto\) {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.M\(-1\) {
+  margin: -1px;
+}
+
+.Mt\(-1\) {
+  margin-top: -1px;
+}
+
+.Mr\(-1\) {
+  margin-right: -1px;
+}
+
+.Mb\(-1\) {
+  margin-bottom: -1px;
+}
+
+.Ml\(-1\) {
+  margin-left: -1px;
+}
+
+.Mx\(-1\) {
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.My\(-1\) {
+  margin-top: -1px;
+  margin-bottom: -1px;
+}
+
+.M\(1\) {
+  margin: 1px;
+}
+
+.Mt\(1\) {
+  margin-top: 1px;
+}
+
+.Mr\(1\) {
+  margin-right: 1px;
+}
+
+.Mb\(1\) {
+  margin-bottom: 1px;
+}
+
+.Ml\(1\) {
+  margin-left: 1px;
+}
+
+.Mx\(1\) {
+  margin-right: 1px;
+  margin-left: 1px;
+}
+
+.My\(1\) {
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.P\(1\) {
+  padding: 1px;
+}
+
+.Pt\(1\) {
+  padding-top: 1px;
+}
+
+.Pr\(1\) {
+  padding-right: 1px;
+}
+
+.Pb\(1\) {
+  padding-bottom: 1px;
+}
+
+.Pl\(1\) {
+  padding-left: 1px;
+}
+
+.Px\(1\) {
+  padding-right: 1px;
+  padding-left: 1px;
+}
+
+.Py\(1\) {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+
+@mixin maxPC {
+  @for $i from 2 to 12 {
+    .M\(-$(i)\) {
+      margin: -$(i)px;
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: -$(i)px;
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: -$(i)px;
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: -$(i)px;
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: -$(i)px;
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: -$(i)px;
+      margin-left: -$(i)px;
+    }
+
+    .My\(-$(i)\) {
+      margin-top: -$(i)px;
+      margin-bottom: -$(i)px;
+    }
+
+    .M\($(i)\) {
+      margin: $(i)px;
+    }
+
+    .Mt\($(i)\) {
+      margin-top: $(i)px;
+    }
+
+    .Mr\($(i)\) {
+      margin-right: $(i)px;
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: $(i)px;
+    }
+
+    .Ml\($(i)\) {
+      margin-left: $(i)px;
+    }
+
+    .Mx\($(i)\) {
+      margin-right: $(i)px;
+      margin-left: $(i)px;
+    }
+
+    .My\($(i)\) {
+      margin-top: $(i)px;
+      margin-bottom: $(i)px;
+    }
+
+    .P\($(i)\) {
+      padding: $(i)px;
+    }
+
+    .Pt\($(i)\) {
+      padding-top: $(i)px;
+    }
+
+    .Pr\($(i)\) {
+      padding-right: $(i)px;
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: $(i)px;
+    }
+
+    .Pl\($(i)\) {
+      padding-left: $(i)px;
+    }
+
+    .Px\($(i)\) {
+      padding-right: $(i)px;
+      padding-left: $(i)px;
+    }
+
+    .Py\($(i)\) {
+      padding-top: $(i)px;
+      padding-bottom: $(i)px;
+    }
+  }
+
+  @for $i from 14 to 16 by 2 {
+    .M\(-$(i)\) {
+      margin: -$(i)px;
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: -$(i)px;
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: -$(i)px;
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: -$(i)px;
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: -$(i)px;
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: -$(i)px;
+      margin-left: -$(i)px;
+    }
+
+    .My\(-$(i)\) {
+      margin-top: -$(i)px;
+      margin-bottom: -$(i)px;
+    }
+
+    .M\($(i)\) {
+      margin: $(i)px;
+    }
+
+    .Mt\($(i)\) {
+      margin-top: $(i)px;
+    }
+
+    .Mr\($(i)\) {
+      margin-right: $(i)px;
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: $(i)px;
+    }
+
+    .Ml\($(i)\) {
+      margin-left: $(i)px;
+    }
+
+    .Mx\($(i)\) {
+      margin-right: $(i)px;
+      margin-left: $(i)px;
+    }
+
+    .My\($(i)\) {
+      margin-top: $(i)px;
+      margin-bottom: $(i)px;
+    }
+
+    .P\($(i)\) {
+      padding: $(i)px;
+    }
+
+    .Pt\($(i)\) {
+      padding-top: $(i)px;
+    }
+
+    .Pr\($(i)\) {
+      padding-right: $(i)px;
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: $(i)px;
+    }
+
+    .Pl\($(i)\) {
+      padding-left: $(i)px;
+    }
+
+    .Px\($(i)\) {
+      padding-right: $(i)px;
+      padding-left: $(i)px;
+    }
+
+    .Py\($(i)\) {
+      padding-top: $(i)px;
+      padding-bottom: $(i)px;
+    }
+  }
+
+  @for $i from 20 to 40 by 4 {
+    .M\(-$(i)\) {
+      margin: -$(i)px;
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: -$(i)px;
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: -$(i)px;
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: -$(i)px;
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: -$(i)px;
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: -$(i)px;
+      margin-left: -$(i)px;
+    }
+
+    .My\(-$(i)\) {
+      margin-top: -$(i)px;
+      margin-bottom: -$(i)px;
+    }
+
+    .M\($(i)\) {
+      margin: $(i)px;
+    }
+
+    .Mt\($(i)\) {
+      margin-top: $(i)px;
+    }
+
+    .Mr\($(i)\) {
+      margin-right: $(i)px;
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: $(i)px;
+    }
+
+    .Ml\($(i)\) {
+      margin-left: $(i)px;
+    }
+
+    .Mx\($(i)\) {
+      margin-right: $(i)px;
+      margin-left: $(i)px;
+    }
+
+    .My\($(i)\) {
+      margin-top: $(i)px;
+      margin-bottom: $(i)px;
+    }
+
+    .P\($(i)\) {
+      padding: $(i)px;
+    }
+
+    .Pt\($(i)\) {
+      padding-top: $(i)px;
+    }
+
+    .Pr\($(i)\) {
+      padding-right: $(i)px;
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: $(i)px;
+    }
+
+    .Pl\($(i)\) {
+      padding-left: $(i)px;
+    }
+
+    .Px\($(i)\) {
+      padding-right: $(i)px;
+      padding-left: $(i)px;
+    }
+
+    .Py\($(i)\) {
+      padding-top: $(i)px;
+      padding-bottom: $(i)px;
+    }
+  }
+
+  @each $desktopkey in var(--desktop-fontsize) {
+    .Fz\($(desktopkey)\), .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,p\), .Fz\($(desktopkey)\,pt\) {
+      font-size: $(desktopkey)px;
+    }
+  }
+}
+
+@mixin PC {
+  @each $name, $nameidx in var(--position-name) {
+    @each $value, $valueidx in var(--position-value) {
+      @if $nameidx == $valueidx {
+        .Pos\($(name)\,p\), .Pos\($(name)\,pt\) {
+          position: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--display-name) {
+    @each $value, $valueidx in var(--display-value) {
+      @if $nameidx == $valueidx {
+        .D\($(name)\,p\), .D\($(name)\,pt\) {
+          display: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-direction-name) {
+    @each $value, $valueidx in var(--flex-direction-value) {
+      @if $nameidx == $valueidx {
+        .Fxd\($(name)\,p\), .Fxd\($(name)\,pt\) {
+          flex-direction: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-wrapname) {
+    @each $value, $valueidx in var(--flex-wrapvalue) {
+      @if $nameidx == $valueidx {
+        .Fxw\($(name)\,p\), .Fxw\($(name)\,pt\) {
+          flex-wrap: $(value);
+        }
+      }
+    }
+  }
+
+  .Fxg\(p\), .Fxg\(pt\) {
+    flex-grow: 1;
+  }
+
+  .Fxsh\(p\), .Fxsh\(pt\) {
+    flex-shrink: 0;
+  }
+
+  @each $name, $nameidx in var(--justify-content-name) {
+    @each $value, $valueidx in var(--justify-content-value) {
+      @if $nameidx == $valueidx {
+        .Jc\($(name)\,p\), .Jc\($(name)\,pt\) {
+          justify-content: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--align-items-name) {
+    @each $value, $valueidx in var(--align-items-value) {
+      @if $nameidx == $valueidx {
+        .Ai\($(name)\,p\), .Ai\($(name)\,pt\) {
+          align-items: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--text-align-name) {
+    @each $value, $valueidx in var(--text-align-value) {
+      @if $nameidx == $valueidx {
+        .Ta\($(name)\,p\), .Ta\($(name)\,pt\) {
+          text-align: $(value);
+        }
+      }
+    }
+  }
+
+  @for $i from 1 to 4 {
+    .Col\($(i)\/5\,p\), .Col\($(i)\/5\,pt\) {
+      width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 11 {
+    .Col\($(i)\/12\,p\), .Col\($(i)\/12\,pt\) {
+      width: calc($(i) / 12 * 100%);
+    }
+  }
+}
+
+@mixin minPC {
+  @for $i from 2 to 12 {
+    .M\(-$(i)\) {
+      margin: vmp(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmp(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+      margin-left: vmp(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmp($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmp($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmp($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmp($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmp($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmp($(i) px);
+      margin-left: vmp($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmp($(i) px);
+      margin-bottom: vmp($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmp($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmp($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmp($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmp($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmp($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmp($(i) px);
+      padding-left: vmp($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmp($(i) px);
+      padding-bottom: vmp($(i) px);
+    }
+  }
+
+  @for $i from 14 to 16 by 2 {
+    .M\(-$(i)\) {
+      margin: vmp(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmp(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+      margin-left: vmp(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmp($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmp($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmp($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmp($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmp($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmp($(i) px);
+      margin-left: vmp($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmp($(i) px);
+      margin-bottom: vmp($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmp($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmp($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmp($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmp($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmp($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmp($(i) px);
+      padding-left: vmp($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmp($(i) px);
+      padding-bottom: vmp($(i) px);
+    }
+  }
+
+  @for $i from 20 to 40 by 4 {
+    .M\(-$(i)\) {
+      margin: vmp(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmp(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmp(-$(i) px);
+      margin-left: vmp(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmp(-$(i) px);
+      margin-bottom: vmp(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmp($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmp($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmp($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmp($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmp($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmp($(i) px);
+      margin-left: vmp($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmp($(i) px);
+      margin-bottom: vmp($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmp($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmp($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmp($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmp($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmp($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmp($(i) px);
+      padding-left: vmp($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmp($(i) px);
+      padding-bottom: vmp($(i) px);
+    }
+  }
+
+  @each $desktopkey in var(--desktop-fontsize) {
+    .Fz\($(desktopkey)\), .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,p\), .Fz\($(desktopkey)\,pt\) {
+      font-size: vmp($(desktopkey) px);
+    }
+  }
+}
+
+@mixin T {
+  @for $i from 2 to 12 {
+    .M\(-$(i)\) {
+      margin: vmt(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmt(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+      margin-left: vmt(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmt($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmt($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmt($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmt($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmt($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmt($(i) px);
+      margin-left: vmt($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmt($(i) px);
+      margin-bottom: vmt($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmt($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmt($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmt($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmt($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmt($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmt($(i) px);
+      padding-left: vmt($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmt($(i) px);
+      padding-bottom: vmt($(i) px);
+    }
+  }
+
+  @for $i from 14 to 16 by 2 {
+    .M\(-$(i)\) {
+      margin: vmt(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmt(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+      margin-left: vmt(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmt($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmt($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmt($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmt($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmt($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmt($(i) px);
+      margin-left: vmt($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmt($(i) px);
+      margin-bottom: vmt($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmt($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmt($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmt($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmt($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmt($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmt($(i) px);
+      padding-left: vmt($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmt($(i) px);
+      padding-bottom: vmt($(i) px);
+    }
+  }
+
+  @for $i from 20 to 40 by 4 {
+    .M\(-$(i)\) {
+      margin: vmt(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmt(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmt(-$(i) px);
+      margin-left: vmt(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmt(-$(i) px);
+      margin-bottom: vmt(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmt($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmt($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmt($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmt($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmt($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmt($(i) px);
+      margin-left: vmt($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmt($(i) px);
+      margin-bottom: vmt($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmt($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmt($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmt($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmt($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmt($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmt($(i) px);
+      padding-left: vmt($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmt($(i) px);
+      padding-bottom: vmt($(i) px);
+    }
+  }
+
+  @each $name, $nameidx in var(--position-name) {
+    @each $value, $valueidx in var(--position-value) {
+      @if $nameidx == $valueidx {
+        .Pos\($(name)\,pt\), .Pos\($(name)\,tm\), .Pos\($(name)\,t\) {
+          position: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--display-name) {
+    @each $value, $valueidx in var(--display-value) {
+      @if $nameidx == $valueidx {
+        .D\($(name)\,pt\), .D\($(name)\,tm\), .D\($(name)\,t\) {
+          display: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-direction-name) {
+    @each $value, $valueidx in var(--flex-direction-value) {
+      @if $nameidx == $valueidx {
+        .Fxd\($(name)\,pt\), .Fxd\($(name)\,tm\), .Fxd\($(name)\,t\) {
+          flex-direction: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-wrapname) {
+    @each $value, $valueidx in var(--flex-wrapvalue) {
+      @if $nameidx == $valueidx {
+        .Fxw\($(name)\,pt\), .Fxw\($(name)\,tm\), .Fxw\($(name)\,t\) {
+          flex-wrap: $(value);
+        }
+      }
+    }
+  }
+
+  .Fxg\(pt\), .Fxg\(tm\), .Fxg\(t\) {
+    flex-grow: 1;
+  }
+
+  .Fxsh\(pt\), .Fxsh\(tm\), .Fxsh\(t\) {
+    flex-shrink: 0;
+  }
+
+  @each $name, $nameidx in var(--justify-content-name) {
+    @each $value, $valueidx in var(--justify-content-value) {
+      @if $nameidx == $valueidx {
+        .Jc\($(name)\,pt\), .Jc\($(name)\,tm\), .Jc\($(name)\,t\) {
+          justify-content: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--align-items-name) {
+    @each $value, $valueidx in var(--align-items-value) {
+      @if $nameidx == $valueidx {
+        .Ai\($(name)\,pt\), .Ai\($(name)\,tm\), .Ai\($(name)\,t\) {
+          align-items: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--text-align-name) {
+    @each $value, $valueidx in var(--text-align-value) {
+      @if $nameidx == $valueidx {
+        .Ta\($(name)\,pt\), .Ta\($(name)\,tm\), .Ta\($(name)\,t\) {
+          text-align: $(value);
+        }
+      }
+    }
+  }
+
+  @for $i from 1 to 4 {
+    .Col\($(i)\/5\,pt\), .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,m\) {
+      width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 12 {
+    .Col\($(i)\/12\,pt\), .Col\($(i)\/12\,tm\), .Col\($(i)\/12\,t\) {
+      width: calc($(i) / 12 * 100%);
+    }
+  }
+
+  @each $desktopkey, $desktopidx in var(--desktop-fontsize) {
+    .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,pt\), .Fz\($(desktopkey)\,tm\), .Fz\($(desktopkey)\,t\) {
+      font-size: vmt($(desktopkey) px);
+    }
+
+    @each $tabletkey, $tabletidx in var(--tablet-fontsize) {
+      @if $desktopidx == $tabletidx {
+        .Fz\($(desktopkey)\) {
+          font-size: vmt($(tabletkey) px);
+        }
+      }
+    }
+  }
+}
+
+@mixin M {
+  @for $i from 2 to 12 {
+    .M\(-$(i)\) {
+      margin: vmm(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmm(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+      margin-left: vmm(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmm($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmm($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmm($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmm($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmm($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmm($(i) px);
+      margin-left: vmm($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmm($(i) px);
+      margin-bottom: vmm($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmm($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmm($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmm($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmm($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmm($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmm($(i) px);
+      padding-left: vmm($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmm($(i) px);
+      padding-bottom: vmm($(i) px);
+    }
+  }
+
+  @for $i from 14 to 16 by 2 {
+    .M\(-$(i)\) {
+      margin: vmm(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmm(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+      margin-left: vmm(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmm($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmm($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmm($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmm($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmm($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmm($(i) px);
+      margin-left: vmm($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmm($(i) px);
+      margin-bottom: vmm($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmm($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmm($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmm($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmm($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmm($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmm($(i) px);
+      padding-left: vmm($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmm($(i) px);
+      padding-bottom: vmm($(i) px);
+    }
+  }
+
+  @for $i from 20 to 40 by 4 {
+    .M\(-$(i)\) {
+      margin: vmm(-$(i) px);
+    }
+
+    .Mt\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+    }
+
+    .Mr\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+    }
+
+    .Mb\(-$(i)\) {
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .Ml\(-$(i)\) {
+      margin-left: vmm(-$(i) px);
+    }
+
+    .Mx\(-$(i)\) {
+      margin-right: vmm(-$(i) px);
+      margin-left: vmm(-$(i) px);
+    }
+
+    .My\(-$(i)\) {
+      margin-top: vmm(-$(i) px);
+      margin-bottom: vmm(-$(i) px);
+    }
+
+    .M\($(i)\) {
+      margin: vmm($(i) px);
+    }
+
+    .Mt\($(i)\) {
+      margin-top: vmm($(i) px);
+    }
+
+    .Mr\($(i)\) {
+      margin-right: vmm($(i) px);
+    }
+
+    .Mb\($(i)\) {
+      margin-bottom: vmm($(i) px);
+    }
+
+    .Ml\($(i)\) {
+      margin-left: vmm($(i) px);
+    }
+
+    .Mx\($(i)\) {
+      margin-right: vmm($(i) px);
+      margin-left: vmm($(i) px);
+    }
+
+    .My\($(i)\) {
+      margin-top: vmm($(i) px);
+      margin-bottom: vmm($(i) px);
+    }
+
+    .P\($(i)\) {
+      padding: vmm($(i) px);
+    }
+
+    .Pt\($(i)\) {
+      padding-top: vmm($(i) px);
+    }
+
+    .Pr\($(i)\) {
+      padding-right: vmm($(i) px);
+    }
+
+    .Pb\($(i)\) {
+      padding-bottom: vmm($(i) px);
+    }
+
+    .Pl\($(i)\) {
+      padding-left: vmm($(i) px);
+    }
+
+    .Px\($(i)\) {
+      padding-right: vmm($(i) px);
+      padding-left: vmm($(i) px);
+    }
+
+    .Py\($(i)\) {
+      padding-top: vmm($(i) px);
+      padding-bottom: vmm($(i) px);
+    }
+  }
+
+  @each $name, $nameidx in var(--position-name) {
+    @each $value, $valueidx in var(--position-value) {
+      @if $nameidx == $valueidx {
+        .Pos\($(name)\,tm\), .Pos\($(name)\,m\) {
+          position: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--display-name) {
+    @each $value, $valueidx in var(--display-value) {
+      @if $nameidx == $valueidx {
+        .D\($(name)\,tm\), .D\($(name)\,m\) {
+          display: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-direction-name) {
+    @each $value, $valueidx in var(--flex-direction-value) {
+      @if $nameidx == $valueidx {
+        .Fxd\($(name)\,tm\), .Fxd\($(name)\,m\) {
+          flex-direction: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--flex-wrapname) {
+    @each $value, $valueidx in var(--flex-wrapvalue) {
+      @if $nameidx == $valueidx {
+        .Fxw\($(name)\,tm\), .Fxw\($(name)\,m\) {
+          flex-wrap: $(value);
+        }
+      }
+    }
+  }
+
+  .Fxg\(tm\), .Fxg\(m\) {
+    flex-grow: 1;
+  }
+
+  .Fxsh\(tm\), .Fxsh\(m\) {
+    flex-shrink: 0;
+  }
+
+  @each $name, $nameidx in var(--justify-content-name) {
+    @each $value, $valueidx in var(--justify-content-value) {
+      @if $nameidx == $valueidx {
+        .Jc\($(name)\,tm\), .Jc\($(name)\,m\) {
+          justify-content: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--align-items-name) {
+    @each $value, $valueidx in var(--align-items-value) {
+      @if $nameidx == $valueidx {
+        .Ai\($(name)\,tm\), .Ai\($(name)\,m\) {
+          align-items: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--text-align-name) {
+    @each $value, $valueidx in var(--text-align-value) {
+      @if $nameidx == $valueidx {
+        .Ta\($(name)\,tm\), .Ta\($(name)\,m\) {
+          text-align: $(value);
+        }
+      }
+    }
+  }
+
+  @for $i from 1 to 4 {
+    .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,m\) {
+      width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 11 {
+    .Col\($(i)\/12\,tm\), .Col\($(i)\/12\,m\) {
+      width: calc($(i) / 12 * 100%);
+    }
+  }
+
+  @each $desktopkey, $desktopidx in var(--desktop-fontsize) {
+    .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,tm\), .Fz\($(desktopkey)\,m\) {
+      font-size: vmm($(desktopkey) px);
+    }
+
+    @each $mobilekey, $mobileidx in var(--mobile-fontsize) {
+      @if $desktopidx == $mobileidx {
+        .Fz\($(desktopkey)\) {
+          font-size: vmm($(mobilekey) px);
+        }
+      }
+    }
+  }
+}

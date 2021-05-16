@@ -1,0 +1,12 @@
+@font-face {
+  font-family: coluna;
+  src: local("coluna"), url("/static/fonts/coluna.ttf") format("truetype"), url("/static/fonts/coluna.eot");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.Ff\(coluna\) {
+  font-family: coluna;
+  font-stretch: condensed;
+}

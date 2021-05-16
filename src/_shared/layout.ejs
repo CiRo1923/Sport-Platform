@@ -1,0 +1,23 @@
+<%
+  const fileName = /(.*)(?=\.html$)/.exec(htmlWebpackPlugin.options.filename)[1];
+-%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+  <title>Document</title>
+</head>
+<body class="Bgc(xff) C(x2342) Fz(13)">
+  <div class="lWrap">
+    <%- require('../'+ fileName +'.ejs')() %>
+  </div>
+</body>
+</html>

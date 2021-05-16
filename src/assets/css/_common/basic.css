@@ -1,0 +1,67 @@
+@mixin maxPC {
+  @each $desktopkey in var(--desktop-imagesize) {
+    .W\($(desktopkey)\) {
+      width: $(desktopkey)px;
+    }
+
+    .H\($(desktopkey)\) {
+      height: $(desktopkey)px;
+    }
+
+    .WH\($(desktopkey)\) {
+      width: $(desktopkey)px;
+      height: $(desktopkey)px;
+    }
+  }
+}
+
+@mixin minPC {
+  @each $desktopkey in var(--desktop-imagesize) {
+    .W\($(desktopkey)\) {
+      width: vmp($(desktopkey) px);
+    }
+
+    .H\($(desktopkey)\) {
+      height: vmp($(desktopkey) px);
+    }
+
+    .WH\($(desktopkey)\) {
+      width: vmp($(desktopkey) px);
+      height: vmp($(desktopkey) px);
+    }
+  }
+}
+
+@mixin T {
+  @each $tabletkey in var(--tablet-imagesize) {
+    .W\($(tabletkey)\) {
+      width: vmt($(tabletkey) px);
+    }
+
+    .H\($(tabletkey)\) {
+      height: vmt($(tabletkey) px);
+    }
+
+    .WH\($(tabletkey)\) {
+      width: vmt($(tabletkey) px);
+      height: vmt($(tabletkey) px);
+    }
+  }
+}
+
+@mixin M {
+  @each $mobilekey in var(--mobile-imagesize) {
+    .W\($(mobilekey)\) {
+      width: vmm($(mobilekey) px);
+    }
+
+    .H\($(mobilekey)\) {
+      height: vmm($(mobilekey) px);
+    }
+
+    .WH\($(mobilekey)\) {
+      width: vmm($(mobilekey) px);
+      height: vmm($(mobilekey) px);
+    }
+  }
+}

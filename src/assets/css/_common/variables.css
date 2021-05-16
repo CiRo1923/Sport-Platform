@@ -1,0 +1,15 @@
+:root {
+  --font-family: "微軟正黑體", "Microsoft JhengHei", "Heiti TC", "黑體", arial, sans-serif, serif;
+  --line-height: 1.45;
+  --desktop-fontsize: (25, 17, 15, 13, 12);
+  --tablet-fontsize: (25, 17, 15, 13, 12);
+  --mobile-fontsize: (25, 17, 15, 13, 12);
+  --desktop-imagesize: (24, 20);
+  --tablet-imagesize: (24, 20);
+  --mobile-imagesize: (24, 20);
+  --color:
+    (
+      xff   : #fff,
+      x2342 : #2f3542
+    );
+}

@@ -1,0 +1,24 @@
+<p class="Ff(coluna) C(xc11) Fz(20)">font-family</p>
+<p class="Bgc(xc11) Fz(20)">background-color</p>
+<p class="Bgc(xc11:50) Fz(20)">background-color opacity</p>
+<p class="Fz(20,all)">font size</p>
+<p class="Bgc(xc11:70) M(-5)">Margin (-)</p>
+<p class="Bgc(xc11:70) M(10)">Margin (+)</p>
+<p class="Bgc(xc11:30) P(14)">Padding</p>
+<div class="D(fx)">
+  <p class="Fxg Bgc(xc11:70)">flex flex-grow:1</p>
+  <p class="Fxsh Bgc(xc11:50)">flex flex-shrink:0</p>
+</div>
+<p class="Col(4/12) Bgc(xc11:50)">Col(4/12)</p>
+<p class="Col(2/5) Bgc(xc11)">Col(2/5)</p>
+<figure>
+  <picture>
+    <source srcset="/assets/img/n-sup/safari.webp" media="(min-width: 800px)" type="image/webp">
+    <source srcset="/assets/img/n-sup/firefox.webp" media="(max-width: 800px)" type="image/webp">
+    <source srcset="<%= require('/assets/img/n-sup/firefox.png') %>" media="(max-width: 800px)">
+    <img src="<%= require('/assets/img/n-sup/safari.png') %>" alt="">
+  </picture>
+</figure>
+
+<svg><use xlink:href="#basketball"></use></svg>
+<svg><use xlink:href="#arrow-left"></use></svg>
