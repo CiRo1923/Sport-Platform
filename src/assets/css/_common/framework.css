@@ -1,6 +1,7 @@
 html,
 body {
   font-family: var(--font-family);
+  font-stretch: condensed;
   line-height: var(--line-height);
   text-size-adjust: none;
 }
@@ -36,8 +37,9 @@ button {
 }
 
 button {
+  line-height: var(--line-height);
   outline: 0;
-  border: none;
+  border: 0;
   border-spacing: 0;
   transform: translate(0, 0);
 
@@ -48,7 +50,9 @@ button {
   }
 
   &[type] {
-    overflow: visible;
+    &:not(.Ov\(hide\)) {
+      overflow: visible;
+    }
   }
 }
 
@@ -56,7 +60,6 @@ a {
   text-decoration: none;
 }
 
-svg {
-  width: 100%;
-  height: 100%;
+mark {
+  background-color: transparent;
 }

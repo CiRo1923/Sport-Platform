@@ -1,0 +1,109 @@
+.mAccCnt {
+  transition: max-height var(--anim-time);
+}
+
+.mAccCtrl {
+  &:not(.acc) {
+    & + .mAccCnt {
+      max-height: 0;
+    }
+  }
+
+  &::before {
+    content: "Q.";
+    flex-shrink: 0;
+    font-weight: bold;
+    display: block;
+    position: relative;
+  }
+
+  > * {
+    &::before,
+    &::after {
+      content: "";
+      top: 50%;
+      transform-origin: center center;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+
+    &::before {
+      width: 2px;
+      transition: height var(--anim-time);
+    }
+
+    &::after {
+      height: 2px;
+    }
+  }
+
+  &.act {
+    > * {
+      &::before {
+        height: 0;
+      }
+    }
+  }
+}
+
+.mAccData {
+  &::before {
+    content: "A.";
+    flex-shrink: 0;
+    font-weight: bold;
+    display: block;
+    position: relative;
+  }
+}
+
+@mixin T {
+  .mAccCtrl {
+    &::before {
+      margin-right: vmt(4px);
+    }
+
+    > * {
+      &::before {
+        right: vmt(12px);
+        height: vmt(20px);
+      }
+
+      &::after {
+        right: vmt(3px);
+        width: vmt(20px);
+      }
+    }
+  }
+
+  .mAccData {
+    &::before {
+      margin-right: vmt(4px);
+    }
+  }
+}
+
+@mixin M {
+  .mAccCtrl {
+    &::before {
+      margin-right: vmm(3px);
+    }
+
+    > * {
+      &::before {
+        right: vmm(8px);
+        height: vmm(14px);
+      }
+
+      &::after {
+        right: vmm(2px);
+        width: vmm(14px);
+      }
+    }
+  }
+
+  .mAccData {
+    &::before {
+      margin-right: vmm(3px);
+    }
+  }
+}

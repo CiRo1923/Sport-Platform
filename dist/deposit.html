@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+    <meta property="og:title" content="" />
+    <meta property="og:description" name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="/Content/img/common/FB1200x630.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="474" />
+    <meta property="og:image:height" content="246" />
+    <meta property="og:site_name" content="" />
+    <title></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/img/common/favicon.ico">
+    <link rel="canonical" href="" />
+    <link href="/assets/css/deposit.css?307a957b" rel="stylesheet">
+  </head>
+
+  <body class="Bgc(xfffa) C(x2342) Fz(26) Minh(scr)">
+    <div class="lWrap Bxz(bd)">
+      <div class="lHd Pos(f) W(full) Bgc(xf)">
+        <header class="mHd Ta(c) Px(52,t) Py(12) Px(40,m) Bxz(bd)"><button type="button" class="mHdIcon D(b) Pos(a)" onclick="window.history.back();"><svg class="WH(48) D(b) Mx(auto)">
+              <use xlink:href="#arrow-left"></use>
+            </svg></button>
+          <h1 class="Fz(34) Fxg Ta(c)"><b>储值</b></h1>
+        </header>
+      </div>
+      <div class="lM">
+        <div :ajax="deposit.html?method=post&formdata=true" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+          <ul class="in.Mt(36,t) in.Mt(24,m)">
+            <li>
+              <div class="mCard Bdrs(6) Bgc(xf) Bxsh(def)">
+                <h2 class="mCardHd Bdbw(1) Bdbc(xfff7) Bdst(sol) P(24,t) P(16,m)"><b class="Fz(30)">选择你的存款方法</b></h2>
+                <div class="mCardBd P(24,t) P(16,m)">
+                  <div class="mForm jForm"><label class="mFormElem D(ifx) Ai(c)"><input name="Transfer" type="radio" class="mFormType Pos(a)" checked="checked"> <span class="WH(32) Mr(12,t) Mr(8,m) Ov(hide) Bdrs(50%) Bgc(xbbd1) $bf.Bgc(xf) checked:Bgc(x26eb) Pos(r)"></span>
+                      <p class="Fz(26)">银行转帐</p>
+                    </label> <span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span></div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="mCard Bdrs(6) Bgc(xf) Bxsh(def)">
+                <h2 class="mCardHd Bdbw(1) Bdbc(xfff7) Bdst(sol) P(24,t) P(16,m)"><b class="Fz(30)">出款账号资讯</b></h2>
+                <div class="mCardBd P(24,t) P(16,m)">
+                  <div class="in.Mt(24,t) in.Mt(16,m)">
+                    <p class="Fz(24) C(x7799)">成功完成存款后，请联系我们的客服以获取您的银行信息</p>
+                    <ul class="in.Mt(36,t) in.Mt(24,m)">
+                      <li class="in.Mt(12,t) in.Mt(8,m)">
+                        <p class="Fz(26)"><b>银行 <i class="C(xf457)">*</i></b></p>
+                        <div class="mForm jForm">
+                          <div class="mFormElem --select"><select name="Bank" class="mFormType" :validate="{'req': '请选择银行'}">
+                              <option value="">请选择</option>
+                              <option value="1">银行1</option>
+                            </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                        </div>
+                      </li>
+                      <li class="in.Mt(12,t) in.Mt(8,m)">
+                        <p class="Fz(26)"><b>银行帐户名称 <i class="C(xf457)">*</i></b></p>
+                        <div class="mForm jForm">
+                          <div class="mFormElem"><input name="AccountName" class="mFormType" :validate="{'req': '此栏位不得为空'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                        </div>
+                      </li>
+                      <li class="in.Mt(12,t) in.Mt(8,m)">
+                        <p class="Fz(26)"><b>银行帐号 <i class="C(xf457)">*</i></b></p>
+                        <div class="mForm jForm">
+                          <div class="mFormElem"><input name="Account" type="tel" class="mFormType" :validate="{'req': '此栏位不得为空'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                        </div>
+                      </li>
+                      <li class="in.Mt(12,t) in.Mt(8,m)">
+                        <p class="Fz(26)"><b>金额 <i class="C(xf457)">*</i></b></p>
+                        <div class="mForm jForm">
+                          <div class="mFormElem"><input name="Amount" type="tel" class="mFormType" :validate="{'req': '此栏位不得为空', 'digital': '此栏位只能填入数字'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="mCard Bdrs(6) Bgc(xf) Bxsh(def)">
+                <h2 class="mCardHd Bdbw(1) Bdbc(xfff7) Bdst(sol) P(24,t) P(16,m)"><b class="Fz(30)">入款账号资讯</b></h2>
+                <div class="mCardBd P(24,t) P(16,m)">
+                  <ul class="in.Mt(36,t) in.Mt(24,m)">
+                    <li class="in.Mt(12,t) in.Mt(8,m)">
+                      <p class="Fz(26)"><b>公司银行 <i class="C(xf457)">*</i></b></p>
+                      <div class="mForm jForm">
+                        <div class="mFormElem --select"><select name="CorporateBank" class="mFormType" :validate="{'req': '请选择公司银行'}">
+                            <option value="">请选择</option>
+                            <option value="1">银行1</option>
+                          </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                      </div>
+                    </li>
+                    <li class="in.Mt(12,t) in.Mt(8,m)">
+                      <p class="Fz(26)"><b>银行帐号 <i class="C(xf457)">*</i></b></p>
+                      <div class="mForm jForm">
+                        <div class="mFormElem"><input name="CorporateBankAccount" type="tel" class="mFormType" :validate="{'req': '此栏位不得为空'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <div class="Mt(32,t) Mt(24,m)"><button type="button" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit"><b class="Fz(30) C(xf)">确认送出</b></button></div>
+        </div>
+        <div class="mPop $bf.Bgc(x0:60) jPop">
+          <div class="mPopBd Bgc(xf) Bdrs(8) Px(36,t) Pt(16,t) Pb(28,t) Px(24,m) Pt(12,m) Pb(20,m) Ta(c) Col(3/5) Pos(r)">
+            <div class="D(ifx) Fxd(col-r) Ta(c)">
+              <p class="Fz(30) Mt(24,t) Mt(16,m)"><b>提交成功</b></p><svg class="WH(128) D(b) Mx(auto)">
+                <use xlink:href="#check-o-c"></use>
+              </svg>
+            </div>
+            <div class="Ta(c,t) Ta(l,m) Mt(12,t) Mt(8,m)">
+              <p class="Fz(26)">成功完成存款后，请联系我们的客服以获取您的银行信息</p>
+            </div>
+            <footer class="Mt(24,t) Mt(16,m)"><a href="account.html" class="Bgc(x19ff) Bdrs(6) C(xf) P(12,t) P(8,m) Col(11/12) Bxz(bd) Mx(auto) D(b)"><em class="Fz(30)">返回前页</em></a></footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script defer="defer" src="/scripts/deposit.js?307a957b"></script>
+  </body>
+
+</html>

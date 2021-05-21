@@ -1,0 +1,38 @@
+<%
+  htmlWebpackPlugin.options.backURL = false;
+-%>
+<!-- 使用 form submit -->
+<form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(36,t) in.Mt(24,m)">
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>用户名称</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Account',
+        type: 'text',
+        value: '',
+        validate : `{'req': '此栏位不得为空'}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26) D(fx) Ai(c) Jc(betw)">
+        <b class="D(b) Fxg">密码</b>
+        <a href="password-forgot.html" class="D(b) Fxsh Fz(26) C(x19ff)">忘记密码？</a>
+      </p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Password',
+        type: 'password',
+        value: '',
+        validate : `{'req': '此栏位不得为空', 'password': {'length': 6, 'msg': '密码必须包含 $length 个或更多字符，并包含字母数字和符号'}}`
+      }) %>
+    </li>
+  </ul>
+  <div class="Mt(32,t) Mt(24,m)">
+    <button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit">
+      <b class="Fz(30) C(xf)">登录</b>
+    </button>
+  </div>
+  <div class="Mt(24,t) Mt(16,m) D(fx) Ai(c) Jc(c) Fz(30)">
+    <p class="Mx(6,t) Mx(4,m)">还没有帐号？</p>
+    <a href="register.html" class="C(x19ff) D(b) Mx(6,t) Mx(4,m)">立即加入</a>
+  </div>
+</div>

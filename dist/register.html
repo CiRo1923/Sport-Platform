@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+    <meta property="og:title" content="" />
+    <meta property="og:description" name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="/Content/img/common/FB1200x630.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="474" />
+    <meta property="og:image:height" content="246" />
+    <meta property="og:site_name" content="" />
+    <title></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/img/common/favicon.ico">
+    <link rel="canonical" href="" />
+    <link href="/assets/css/register.css?307a957b" rel="stylesheet">
+  </head>
+
+  <body class="Bgc(xfffa) C(x2342) Fz(26) Minh(scr)">
+    <div class="lWrap Bxz(bd)">
+      <div class="lHd Pos(f) W(full) Bgc(xf)">
+        <header class="mHd Ta(c) Px(52,t) Py(12) Px(40,m) Bxz(bd)">
+          <h1 class="Fz(34) Fxg Ta(c)"><b>注册新用户</b></h1>
+        </header>
+      </div>
+      <div class="lM">
+        <form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+          <ul class="in.Mt(36,t) in.Mt(24,m)">
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>用户名称 <i class="C(xf457)">*</i></b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="Account" class="mFormType" :validate="{'req': '此栏位不得为空'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>密码 <i class="C(xf457)">*</i></b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="Password" type="password" class="mFormType jFormPws" :validate="{'req': '此栏位不得为空', 'password': {'length': 6, 'msg': '密码必须包含 $length 个或更多字符，并包含字母数字和符号'}}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>确认密码 <i class="C(xf457)">*</i></b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="NewPassword" type="password" class="mFormType" :validate="{'req': '此栏位不得为空', 'password': {'same': '.jFormPsw', 'msg': '确认密码必须与新密码相同'}}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>币别 <i class="C(xf457)">*</i></b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem --select"><select name="Currency" class="mFormType" :validate="{'req': '此栏位不得为空'}">
+                    <option value="">Select Currency</option>
+                  </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>手机 <i class="C(xf457)">*</i></b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="Phone" type="tel" class="mFormType" :validate="{'req': '此栏位不得为空', 'phone': '手机格式错误'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>电子邮箱</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="Email" type="email" class="mFormType" :validate="{'email': '请输入正确的电子邮箱'}" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>推荐人</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem"><input name="Referrer" class="mFormType" value=""></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+          </ul>
+          <div class="Mt(32,t) Mt(24,m)"><button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit"><b class="Fz(30) C(xf)">注册</b></button></div>
+          <div class="Mt(24,t) Mt(16,m) D(fx) Ai(c) Jc(c) Fz(30)">
+            <p class="Mx(6,t) Mx(4,m)">已经有账户？</p><a href="login.html" class="C(x19ff) D(b) Mx(6,t) Mx(4,m)">返回登录</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script defer="defer" src="/scripts/register.js?307a957b"></script>
+  </body>
+
+</html>

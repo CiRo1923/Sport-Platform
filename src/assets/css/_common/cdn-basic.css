@@ -1,18 +1,30 @@
 :root {
   --position-name: (a, f, r, sta, sti);
   --position-value: (absolute, fixed, relative, static, sticky);
-  --display-name: (fx, ifx, b, ib, tb, tbcap, tbcell, tbcol, tbcolg, tbftg, tbhdg, tbrowg, tbrow, n);
+  --display-name: (fx, ifx, b, ib, tb, tb-cap, tb-cell, tb-col, tb-col-g, tb-ft-g, tb-hd-g, tb-row-g, tb-row, n);
   --display-value: (flex, inline-flex, block, inline-block, table, table-caption, table-cell, table-column, table-column-group, table-footer-group, table-header-group, table-row-group, table-row, none);
   --flex-direction-name: (row, row-r, col, col-r);
   --flex-direction-value: (row, row-reverse, column, column-reverse);
-  --flex-wrapname: (w, w-r, no);
-  --flex-wrapvalue: (wrap, wrapreverse, nowrap);
+  --flex-wrap-name: (w, w-r, now);
+  --flex-wrap-value: (wrap, wrap-reverse, nowrap);
+  --flex-name: (0, auto, n);
+  --flex-value: (1 1 0%, 1 1 auto, none);
   --justify-content-name: (s, e, c, betw, aro, eve);
   --justify-content-value: (flex-start, flex-end, center, space-between, space-around, space-evenly);
   --align-items-name: (s, e, c, base, str);
   --align-items-value: (flex-start, flex-end, center, baseline, stretch);
   --text-align-name: (l, c, r, js);
   --text-align-value: (left, center, right, justify);
+  --size-name: (0, full, scr);
+  --size-value: (0, 100%, 100vh);
+  --overflow-name: (auto, hide, visible, scroll);
+  --overflow-value: (auto, hidden, visible, scroll);
+  --font-style-name: (i, nor);
+  --font-style-value: (italic, normal);
+  --border-style-name: (sol, dash, dot, doub, n);
+  --border-style-value: (solid, dashed, dotted, double, none);
+  --white-space-name: (nor, now, pre, pre-l, pre-w);
+  --white-space-value: (normal, nowrap, pre, pre-line, pre-wrap);
 }
 
 @each $name, $nameidx in var(--position-name) {
@@ -45,8 +57,8 @@
   }
 }
 
-@each $name, $nameidx in var(--flex-wrapname) {
-  @each $value, $valueidx in var(--flex-wrapvalue) {
+@each $name, $nameidx in var(--flex-wrap-name) {
+  @each $value, $valueidx in var(--flex-wrap-value) {
     @if $nameidx == $valueidx {
       .Fxw\($(name)\) {
         flex-wrap: $(value);
@@ -61,6 +73,20 @@
 
 .Fxsh {
   flex-shrink: 0;
+}
+
+@each $name, $nameidx in var(--flex-name) {
+  @each $value, $valueidx in var(--flex-value) {
+    @if $nameidx == $valueidx {
+      .Fx\($(name)\) {
+        flex: $(value);
+
+        @if $(name) == 0 {
+          -ms-flex-negative: 1;
+        }
+      }
+    }
+  }
 }
 
 @each $name, $nameidx in var(--justify-content-name) {
@@ -93,9 +119,33 @@
   }
 }
 
+@each $name, $nameidx in var(--overflow-name) {
+  @each $value, $valueidx in var(--overflow-value) {
+    @if $nameidx == $valueidx {
+      .Ov\($(name)\) {
+        overflow: $(value);
+      }
+
+      .Ovx\($(name)\) {
+        overflow-x: $(value);
+      }
+
+      .Ovy\($(name)\) {
+        overflow-y: $(value);
+      }
+    }
+  }
+}
+
 @for $i from 1 to 4 {
   .Col\($(i)\/5\) {
     width: calc($(i) / 5 * 100%);
+  }
+}
+
+@for $i from 1 to 10 {
+  .Col\($(i)\/11\) {
+    width: calc($(i) / 11 * 100%);
   }
 }
 
@@ -105,19 +155,1412 @@
   }
 }
 
+@for $i from 1 to 10 {
+  .Bdrs\($(i)\) {
+    border-radius: $(i)px;
+  }
+
+  .Bdtrrs\($(i)\) {
+    border-top-right-radius: $(i)px;
+  }
+
+  .Bdtlrs\($(i)\) {
+    border-top-left-radius: $(i)px;
+  }
+
+  .Bdbrrs\($(i)\) {
+    border-bottom-right-radius: $(i)px;
+  }
+
+  .Bdblrs\($(i)\) {
+    border-bottom-left-radius: $(i)px;
+  }
+}
+
+.Bdrs\(50\%\) {
+  border-radius: 50%;
+}
+
+.Maw\(100\%\) {
+  max-width: 100%;
+}
+
+.Mah\(100\%\) {
+  max-height: 100%;
+}
+
+.W\(full\) {
+  width: 100%;
+}
+
+.W\(scr\) {
+  width: 100vw;
+}
+
+.H\(full\) {
+  height: 100%;
+}
+
+.H\(scr\) {
+  height: 100vh;
+}
+
+@each $name, $nameidx in var(--size-name) {
+  @each $value, $valueidx in var(--size-value) {
+    @if $nameidx == $valueidx {
+      .Maxw\($(name)\) {
+        max-width: $(value);
+      }
+
+      .Minw\($(name)\) {
+        min-width: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--size-name) {
+  @each $value, $valueidx in var(--size-value) {
+    @if $nameidx == $valueidx {
+      .Maxh\($(name)\) {
+        max-height: $(value);
+      }
+
+      .Minh\($(name)\) {
+        min-height: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--font-style-name) {
+  @each $value, $valueidx in var(--font-style-value) {
+    @if $nameidx == $valueidx {
+      .Fst\($(name)\) {
+        font-style: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--border-style-name) {
+  @each $value, $valueidx in var(--border-style-value) {
+    @if $nameidx == $valueidx {
+      .Bdst\($(name)\) {
+        border-style: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--white-space-name) {
+  @each $value, $valueidx in var(--white-space-value) {
+    @if $nameidx == $valueidx {
+      .Whs\($(name)\) {
+        white-space: $(value);
+      }
+    }
+  }
+}
+
 @each $name, $value in var(--color) {
   .C\($(name)\) {
     color: $(value);
+  }
+
+  .\$af\.C\($(name)\) {
+    &::after {
+      color: $(value);
+    }
+  }
+
+  .\$bf\.C\($(name)\) {
+    &::before {
+      color: $(value);
+    }
+  }
+
+  .Fi\($(name)\) {
+    fill: $(value);
   }
 
   .Bgc\($(name)\) {
     background-color: $(value);
   }
 
+  .\$af\.Bgc\($(name)\) {
+    &::after {
+      background-color: $(value);
+    }
+  }
+
+  .\$bf\.Bgc\($(name)\) {
+    &::before {
+      background-color: $(value);
+    }
+  }
+
+  .in\.Bdt\(1-$(name)\) {
+    > * {
+      &:not(:first-child) {
+        border-top: 1px solid $(value);
+      }
+    }
+  }
+
+  .in\.Bdb\(1-$(name)\) {
+    > * {
+      &:not(:last-child) {
+        border-top: 1px solid $(value);
+      }
+    }
+  }
+
+  .Bdc\($(name)\) {
+    border-color: $(value);
+  }
+
+  .Bdtc\($(name)\) {
+    border-top-color: $(value);
+  }
+
+  .Bdrc\($(name)\) {
+    border-right-color: $(value);
+  }
+
+  .Bdbc\($(name)\) {
+    border-bottom-color: $(value);
+  }
+
+  .Bdlc\($(name)\) {
+    border-left-color: $(value);
+  }
+
+  .Bdxc\($(name)\) {
+    border-right-color: $(value);
+    border-left-color: $(value);
+  }
+
+  .Bdyc\($(name)\) {
+    border-top-color: $(value);
+    border-bottom-color: $(value);
+  }
+
+  .\$bf\.Bdc\($(name)\) {
+    &::before {
+      border-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdtc\($(name)\) {
+    &::before {
+      border-top-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdrc\($(name)\) {
+    &::before {
+      border-right-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdbc\($(name)\) {
+    &::before {
+      border-bottom-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdlc\($(name)\) {
+    &::before {
+      border-left-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdxc\($(name)\) {
+    &::before {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+  }
+
+  .\$bf\.Bdyc\($(name)\) {
+    &::before {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+  }
+
+  .\$af\.Bdc\($(name)\) {
+    &::after {
+      border-color: $(value);
+    }
+  }
+
+  .\$af\.Bdtc\($(name)\) {
+    &::after {
+      border-top-color: $(value);
+    }
+  }
+
+  .\$af\.Bdrc\($(name)\) {
+    &::after {
+      border-right-color: $(value);
+    }
+  }
+
+  .\$af\.Bdbc\($(name)\) {
+    &::after {
+      border-bottom-color: $(value);
+    }
+  }
+
+  .\$af\.Bdlc\($(name)\) {
+    &::after {
+      border-left-color: $(value);
+    }
+  }
+
+  .\$af\.Bdxc\($(name)\) {
+    &::after {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+  }
+
+  .\$af\.Bdyc\($(name)\) {
+    &::after {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+  }
+
   @for $i from 0 to 90 by 10 {
+    .C\($(name)\:$(i)\) {
+      color: rgba($(value), calc($(i) / 100));
+    }
+
+    .\$af\.C\($(name)\:$(i)\) {
+      &::after {
+        color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.C\($(name)\:$(i)\) {
+      &::before {
+        color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .Fi\($(name)\:$(i)\) {
+      fill: rgba($(value), calc($(i) / 100));
+    }
+
     .Bgc\($(name)\:$(i)\) {
       background-color: rgba($(value), calc($(i) / 100));
     }
+
+    .\$af\.Bgc\($(name)\:$(i)\) {
+      &::after {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bgc\($(name)\:$(i)\) {
+      &::before {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .in\.Bdt\(1-$(name)\:$(i)\) {
+      > * {
+        &:not(:first-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .in\.Bdb\(1-$(name)\:$(i)\) {
+      > * {
+        &:not(:last-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .Bdc\($(name)\:$(i)\) {
+      border-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdtc\($(name)\:$(i)\) {
+      border-top-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdrc\($(name)\:$(i)\) {
+      border-right-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdbc\($(name)\:$(i)\) {
+      border-bottom-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdlc\($(name)\:$(i)\) {
+      border-left-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdxc\($(name)\:$(i)\) {
+      border-right-color: rgba($(value), calc($(i) / 100));
+      border-left-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .Bdyc\($(name)\:$(i)\) {
+      border-top-color: rgba($(value), calc($(i) / 100));
+      border-bottom-color: rgba($(value), calc($(i) / 100));
+    }
+
+    .\$bf\.Bdc\($(name)\:$(i)\) {
+      &::before {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdtc\($(name)\:$(i)\) {
+      &::before {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdrc\($(name)\:$(i)\) {
+      &::before {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdbc\($(name)\:$(i)\) {
+      &::before {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdlc\($(name)\:$(i)\) {
+      &::before {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdxc\($(name)\:$(i)\) {
+      &::before {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$bf\.Bdyc\($(name)\:$(i)\) {
+      &::before {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdc\($(name)\:$(i)\) {
+      &::after {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdtc\($(name)\:$(i)\) {
+      &::after {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdrc\($(name)\:$(i)\) {
+      &::after {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdbc\($(name)\:$(i)\) {
+      &::after {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdlc\($(name)\:$(i)\) {
+      &::after {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdxc\($(name)\:$(i)\) {
+      &::after {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+
+    .\$af\.Bdyc\($(name)\:$(i)\) {
+      &::after {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+    }
+  }
+
+  .act {
+    &.act\:C\($(name)\), & > .act\:C\($(name)\) {
+      color: $(value);
+    }
+
+    &.\$af\.act\:C\($(name)\), & .\$af\.act\:C\($(name)\) {
+      &::after {
+        color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:C\($(name)\), & .\$bf\.act\:C\($(name)\) {
+      &::before {
+        color: $(value);
+      }
+    }
+
+    &.act\:Fi\($(name)\), & > .act\:Fi\($(name)\) {
+      fill: $(value);
+    }
+
+    &.act\:Bgc\($(name)\), & > .act\:Bgc\($(name)\) {
+      background-color: $(value);
+    }
+
+    &.\$af\.act\:Bgc\($(name)\), & .\$af\.act\:Bgc\($(name)\) {
+      &::after {
+        background-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bgc\($(name)\), & .\$bf\.act\:Bgc\($(name)\) {
+      &::before {
+        background-color: $(value);
+      }
+    }
+
+    &.act\:Bdc\($(name)\), & > .act\:Bdc\($(name)\) {
+      border-color: $(value);
+    }
+
+    &.act\:Bdtc\($(name)\), & > .act\:Bdtc\($(name)\) {
+      border-top-color: $(value);
+    }
+
+    &.act\:Bdrc\($(name)\), & > .act\:Bdrc\($(name)\) {
+      border-right-color: $(value);
+    }
+
+    &.act\:Bdbc\($(name)\), & > .act\:Bdbc\($(name)\) {
+      border-bottom-color: $(value);
+    }
+
+    &.act\:Bdlc\($(name)\), & > .act\:Bdlc\($(name)\) {
+      border-left-color: $(value);
+    }
+
+    &.act\:Bdxc\($(name)\), & > .act\:Bdxc\($(name)\) {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+
+    &.act\:Bdyc\($(name)\), & > .act\:Bdyc\($(name)\) {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+
+    &.\$bf\.act\:Bdc\($(name)\), & .\$bf\.act\:Bdc\($(name)\) {
+      &::before {
+        border-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdtc\($(name)\), & .\$bf\.act\:Bdtc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdrc\($(name)\), & .\$bf\.act\:Bdrc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdbc\($(name)\), & .\$bf\.act\:Bdbc\($(name)\) {
+      &::before {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdlc\($(name)\), & .\$bf\.act\:Bdlc\($(name)\) {
+      &::before {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdxc\($(name)\), & .\$bf\.act\:Bdxc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.act\:Bdyc\($(name)\), & .\$bf\.act\:Bdyc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdc\($(name)\), & .\$af\.act\:Bdc\($(name)\) {
+      &::after {
+        border-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdtc\($(name)\), & .\$af\.act\:Bdtc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdrc\($(name)\), & .\$af\.act\:Bdrc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdbc\($(name)\), & .\$af\.act\:Bdbc\($(name)\) {
+      &::after {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdlc\($(name)\), & .\$af\.act\:Bdlc\($(name)\) {
+      &::after {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdxc\($(name)\), & .\$af\.act\:Bdxc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.act\:Bdyc\($(name)\), & .\$af\.act\:Bdyc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      &.act\:C\($(name)\:$(i)\), & > .act\:C\($(name)\:$(i)\) {
+        color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.act\:C\($(name)\:$(i)\), & .\$af\.act\:C\($(name)\:$(i)\) {
+        &::after {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:C\($(name)\:$(i)\), & .\$bf\.act\:C\($(name)\:$(i)\) {
+        &::before {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.act\:Fi\($(name)\:$(i)\), & > .act\:Fi\($(name)\:$(i)\) {
+        fill: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bgc\($(name)\:$(i)\), & > .act\:Bgc\($(name)\:$(i)\) {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.act\:Bgc\($(name)\:$(i)\), & .\$af\.act\:Bgc\($(name)\:$(i)\) {
+        &::after {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bgc\($(name)\:$(i)\), & .\$bf\.act\:Bgc\($(name)\:$(i)\) {
+        &::before {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.act\:Bdc\($(name)\:$(i)\), & > .act\:Bdc\($(name)\:$(i)\) {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdtc\($(name)\:$(i)\), & > .act\:Bdtc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdrc\($(name)\:$(i)\), & > .act\:Bdrc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdbc\($(name)\:$(i)\), & > .act\:Bdbc\($(name)\:$(i)\) {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdlc\($(name)\:$(i)\), & > .act\:Bdlc\($(name)\:$(i)\) {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdxc\($(name)\:$(i)\), & > .act\:Bdxc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.act\:Bdyc\($(name)\:$(i)\), & > .act\:Bdyc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$bf\.act\:Bdc\($(name)\:$(i)\), & .\$bf\.act\:Bdc\($(name)\:$(i)\) {
+        &::before {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdtc\($(name)\:$(i)\), & .\$bf\.act\:Bdtc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdrc\($(name)\:$(i)\), & .\$bf\.act\:Bdrc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdbc\($(name)\:$(i)\), & .\$bf\.act\:Bdbc\($(name)\:$(i)\) {
+        &::before {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdlc\($(name)\:$(i)\), & .\$bf\.act\:Bdlc\($(name)\:$(i)\) {
+        &::before {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdxc\($(name)\:$(i)\), & .\$bf\.act\:Bdxc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.act\:Bdyc\($(name)\:$(i)\), & .\$bf\.act\:Bdyc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdc\($(name)\:$(i)\), & .\$af\.act\:Bdc\($(name)\:$(i)\) {
+        &::after {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdtc\($(name)\:$(i)\), & .\$af\.act\:Bdtc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdrc\($(name)\:$(i)\), & .\$af\.act\:Bdrc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdbc\($(name)\:$(i)\), & .\$af\.act\:Bdbc\($(name)\:$(i)\) {
+        &::after {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdlc\($(name)\:$(i)\), & .\$af\.act\:Bdlc\($(name)\:$(i)\) {
+        &::after {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdxc\($(name)\:$(i)\), & .\$af\.act\:Bdxc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.act\:Bdyc\($(name)\:$(i)\), & .\$af\.act\:Bdyc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+    }
+  }
+
+  :disabled {
+    &.disabled\:C\($(name)\), & > .disabled\:C\($(name)\) {
+      color: $(value);
+    }
+
+    &.\$af\.disabled\:C\($(name)\), & .\$af\.disabled\:C\($(name)\) {
+      &::after {
+        color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:C\($(name)\), & .\$bf\.disabled\:C\($(name)\) {
+      &::before {
+        color: $(value);
+      }
+    }
+
+    &.disabled\:Fi\($(name)\), & > .disabled\:Fi\($(name)\) {
+      fill: $(value);
+    }
+
+    &.disabled\:Bgc\($(name)\), & > .disabled\:Bgc\($(name)\) {
+      background-color: $(value);
+    }
+
+    &.\$af\.disabled\:Bgc\($(name)\), & .\$af\.disabled\:Bgc\($(name)\) {
+      &::after {
+        background-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bgc\($(name)\), & .\$bf\.disabled\:Bgc\($(name)\) {
+      &::before {
+        background-color: $(value);
+      }
+    }
+
+    &.disabled\:Bdc\($(name)\), & > .disabled\:Bdc\($(name)\) {
+      border-color: $(value);
+    }
+
+    &.disabled\:Bdtc\($(name)\), & > .disabled\:Bdtc\($(name)\) {
+      border-top-color: $(value);
+    }
+
+    &.disabled\:Bdrc\($(name)\), & > .disabled\:Bdrc\($(name)\) {
+      border-right-color: $(value);
+    }
+
+    &.disabled\:Bdbc\($(name)\), & > .disabled\:Bdbc\($(name)\) {
+      border-bottom-color: $(value);
+    }
+
+    &.disabled\:Bdlc\($(name)\), & > .disabled\:Bdlc\($(name)\) {
+      border-left-color: $(value);
+    }
+
+    &.disabled\:Bdxc\($(name)\), & > .disabled\:Bdxc\($(name)\) {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+
+    &.disabled\:Bdyc\($(name)\), & > .disabled\:Bdyc\($(name)\) {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+
+    &.\$bf\.disabled\:Bdc\($(name)\), & .\$bf\.disabled\:Bdc\($(name)\) {
+      &::before {
+        border-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdtc\($(name)\), & .\$bf\.disabled\:Bdtc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdrc\($(name)\), & .\$bf\.disabled\:Bdrc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdbc\($(name)\), & .\$bf\.disabled\:Bdbc\($(name)\) {
+      &::before {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdlc\($(name)\), & .\$bf\.disabled\:Bdlc\($(name)\) {
+      &::before {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdxc\($(name)\), & .\$bf\.disabled\:Bdxc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.disabled\:Bdyc\($(name)\), & .\$bf\.disabled\:Bdyc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdc\($(name)\), & .\$af\.disabled\:Bdc\($(name)\) {
+      &::after {
+        border-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdtc\($(name)\), & .\$af\.disabled\:Bdtc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdrc\($(name)\), & .\$af\.disabled\:Bdrc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdbc\($(name)\), & .\$af\.disabled\:Bdbc\($(name)\) {
+      &::after {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdlc\($(name)\), & .\$af\.disabled\:Bdlc\($(name)\) {
+      &::after {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdxc\($(name)\), & .\$af\.disabled\:Bdxc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.disabled\:Bdyc\($(name)\), & .\$af\.disabled\:Bdyc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      &.disabled\:C\($(name)\:$(i)\), & > .disabled\:C\($(name)\:$(i)\) {
+        color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.disabled\:C\($(name)\:$(i)\), & .\$af\.disabled\:C\($(name)\:$(i)\) {
+        &::after {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:C\($(name)\:$(i)\), & .\$bf\.disabled\:C\($(name)\:$(i)\) {
+        &::before {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.disabled\:Fi\($(name)\:$(i)\), & > .disabled\:Fi\($(name)\:$(i)\) {
+        fill: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bgc\($(name)\:$(i)\), & > .disabled\:Bgc\($(name)\:$(i)\) {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.disabled\:Bgc\($(name)\:$(i)\), & .\$af\.disabled\:Bgc\($(name)\:$(i)\) {
+        &::after {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bgc\($(name)\:$(i)\), & .\$bf\.disabled\:Bgc\($(name)\:$(i)\) {
+        &::before {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.disabled\:Bdc\($(name)\:$(i)\), & > .disabled\:Bdc\($(name)\:$(i)\) {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdtc\($(name)\:$(i)\), & > .disabled\:Bdtc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdrc\($(name)\:$(i)\), & > .disabled\:Bdrc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdbc\($(name)\:$(i)\), & > .disabled\:Bdbc\($(name)\:$(i)\) {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdlc\($(name)\:$(i)\), & > .disabled\:Bdlc\($(name)\:$(i)\) {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdxc\($(name)\:$(i)\), & > .disabled\:Bdxc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.disabled\:Bdyc\($(name)\:$(i)\), & > .disabled\:Bdyc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$bf\.disabled\:Bdc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdc\($(name)\:$(i)\) {
+        &::before {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdtc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdtc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdrc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdrc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdbc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdbc\($(name)\:$(i)\) {
+        &::before {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdlc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdlc\($(name)\:$(i)\) {
+        &::before {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdxc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdxc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.disabled\:Bdyc\($(name)\:$(i)\), & .\$bf\.disabled\:Bdyc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdc\($(name)\:$(i)\), & .\$af\.disabled\:Bdc\($(name)\:$(i)\) {
+        &::after {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdtc\($(name)\:$(i)\), & .\$af\.disabled\:Bdtc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdrc\($(name)\:$(i)\), & .\$af\.disabled\:Bdrc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdbc\($(name)\:$(i)\), & .\$af\.disabled\:Bdbc\($(name)\:$(i)\) {
+        &::after {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdlc\($(name)\:$(i)\), & .\$af\.disabled\:Bdlc\($(name)\:$(i)\) {
+        &::after {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdxc\($(name)\:$(i)\), & .\$af\.disabled\:Bdxc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.disabled\:Bdyc\($(name)\:$(i)\), & .\$af\.disabled\:Bdyc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+    }
+  }
+
+  :checked {
+    & + .checked\:C\($(name)\) {
+      color: $(value);
+    }
+
+    & + .\$af\.checked\:C\($(name)\) {
+      &::after {
+        color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:C\($(name)\) {
+      &::before {
+        color: $(value);
+      }
+    }
+
+    & + .checked\:Fi\($(name)\) {
+      fill: $(value);
+    }
+
+    & + .checked\:Bgc\($(name)\) {
+      background-color: $(value);
+    }
+
+    & + .\$af\.checked\:Bgc\($(name)\) {
+      &::after {
+        background-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bgc\($(name)\) {
+      &::before {
+        background-color: $(value);
+      }
+    }
+
+    & + .checked\:Bdc\($(name)\) {
+      border-color: $(value);
+    }
+
+    & + .checked\:Bdtc\($(name)\) {
+      border-top-color: $(value);
+    }
+
+    & + .checked\:Bdrc\($(name)\) {
+      border-right-color: $(value);
+    }
+
+    & + .checked\:Bdbc\($(name)\) {
+      border-bottom-color: $(value);
+    }
+
+    & + .checked\:Bdlc\($(name)\) {
+      border-left-color: $(value);
+    }
+
+    & + .checked\:Bdxc\($(name)\) {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+
+    & + .checked\:Bdyc\($(name)\) {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+
+    & + .\$bf\.checked\:Bdc\($(name)\) {
+      &::before {
+        border-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdtc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdrc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdbc\($(name)\) {
+      &::before {
+        border-bottom-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdlc\($(name)\) {
+      &::before {
+        border-left-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdxc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    & + .\$bf\.checked\:Bdyc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdc\($(name)\) {
+      &::after {
+        border-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdtc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdrc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdbc\($(name)\) {
+      &::after {
+        border-bottom-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdlc\($(name)\) {
+      &::after {
+        border-left-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdxc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    & + .\$af\.checked\:Bdyc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      & + .checked\:C\($(name)\:$(i)\) {
+        color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .\$af\.checked\:C\($(name)\:$(i)\) {
+        &::after {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:C\($(name)\:$(i)\) {
+        &::before {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .checked\:Fi\($(name)\:$(i)\) {
+        fill: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bgc\($(name)\:$(i)\) {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .\$af\.checked\:Bgc\($(name)\:$(i)\) {
+        &::after {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bgc\($(name)\:$(i)\) {
+        &::before {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .checked\:Bdc\($(name)\:$(i)\) {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdtc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdrc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdbc\($(name)\:$(i)\) {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdlc\($(name)\:$(i)\) {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdxc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .checked\:Bdyc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      & + .\$bf\.checked\:Bdc\($(name)\:$(i)\) {
+        &::before {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdtc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdrc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdbc\($(name)\:$(i)\) {
+        &::before {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdlc\($(name)\:$(i)\) {
+        &::before {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdxc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$bf\.checked\:Bdyc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdc\($(name)\:$(i)\) {
+        &::after {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdtc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdrc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdbc\($(name)\:$(i)\) {
+        &::after {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdlc\($(name)\:$(i)\) {
+        &::after {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdxc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      & + .\$af\.checked\:Bdyc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+    }
+  }
+
+  .odd\:Bgc\($(name)\) {
+    &:nth-child(odd) {
+      background-color: $(value);
+    }
+  }
+
+  .even\:Bgc\($(name)\) {
+    &:nth-child(even) {
+      background-color: $(value);
+    }
+  }
+}
+
+.Is\(n\) {
+  letter-spacing: -0.34em;
+  text-rendering: optimizeSpeed;
+
+  > * {
+    letter-spacing: normal;
   }
 }
 
@@ -186,6 +1629,18 @@
   margin-bottom: 1px;
 }
 
+.in\.Mt\(1\) {
+  & > *:not(:first-child) {
+    margin-top: 1px;
+  }
+}
+
+.in\.Mb\(1\) {
+  & > *:not(:last-child) {
+    margin-bottom: 1px;
+  }
+}
+
 .P\(1\) {
   padding: 1px;
 }
@@ -216,278 +1671,372 @@
   padding-bottom: 1px;
 }
 
+.Bxz\(bd\) {
+  box-sizing: border-box;
+}
+
+.Bxz\(cnt\) {
+  box-sizing: content-box;
+}
+
+@for $i from 0 to 95 by 5 {
+  .Op\($(i)\) {
+    opacity: calc($(i) / 100 * 1%);
+  }
+}
+
+.Ti\(-n\) {
+  text-indent: -999999px;
+}
+
+.Ti\(n\) {
+  text-indent: 999999px;
+}
+
+.Bdw\(1\) {
+  border-width: 1px;
+}
+
+.Bdtw\(1\) {
+  border-top-width: 1px;
+}
+
+.Bdrw\(1\) {
+  border-right-width: 1px;
+}
+
+.Bdbw\(1\) {
+  border-bottom-width: 1px;
+}
+
+.Bdlw\(1\) {
+  border-left-width: 1px;
+}
+
+.Bdxw\(1\) {
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+
+.Bdyw\(1\) {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.Tov\(\.\.\.\) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin maxPC {
   @for $i from 2 to 12 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,p\), .M\(-$(i)\,pt\) {
       margin: -$(i)px;
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,p\), .Mt\(-$(i)\,pt\) {
       margin-top: -$(i)px;
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,p\), .Mr\(-$(i)\,pt\) {
       margin-right: -$(i)px;
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,p\), .Mb\(-$(i)\,pt\) {
       margin-bottom: -$(i)px;
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,p\), .Ml\(-$(i)\,pt\) {
       margin-left: -$(i)px;
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,p\), .Mx\(-$(i)\,pt\) {
       margin-right: -$(i)px;
       margin-left: -$(i)px;
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,p\), .My\(-$(i)\,pt\) {
       margin-top: -$(i)px;
       margin-bottom: -$(i)px;
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,p\), .M\($(i)\,pt\) {
       margin: $(i)px;
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,p\), .Mt\($(i)\,pt\) {
       margin-top: $(i)px;
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,p\), .Mr\($(i)\,pt\) {
       margin-right: $(i)px;
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,p\), .Mb\($(i)\,pt\) {
       margin-bottom: $(i)px;
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,p\), .Ml\($(i)\,pt\) {
       margin-left: $(i)px;
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,p\), .Mx\($(i)\,pt\) {
       margin-right: $(i)px;
       margin-left: $(i)px;
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,p\), .My\($(i)\,pt\) {
       margin-top: $(i)px;
       margin-bottom: $(i)px;
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: $(i)px;
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: $(i)px;
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,p\), .P\($(i)\,pt\) {
       padding: $(i)px;
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,p\), .Pt\($(i)\,pt\) {
       padding-top: $(i)px;
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,p\), .Pr\($(i)\,pt\) {
       padding-right: $(i)px;
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,p\), .Pb\($(i)\,pt\) {
       padding-bottom: $(i)px;
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,p\), .Pl\($(i)\,pt\) {
       padding-left: $(i)px;
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,p\), .Px\($(i)\,pt\) {
       padding-right: $(i)px;
       padding-left: $(i)px;
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\) , .Py\($(i)\,p\), .Py\($(i)\,pt\) {
       padding-top: $(i)px;
       padding-bottom: $(i)px;
     }
   }
 
   @for $i from 14 to 16 by 2 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,p\), .M\(-$(i)\,pt\) {
       margin: -$(i)px;
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,p\), .Mt\(-$(i)\,pt\) {
       margin-top: -$(i)px;
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,p\), .Mr\(-$(i)\,pt\) {
       margin-right: -$(i)px;
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,p\), .Mb\(-$(i)\,pt\) {
       margin-bottom: -$(i)px;
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,p\), .Ml\(-$(i)\,pt\) {
       margin-left: -$(i)px;
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,p\), .Mx\(-$(i)\,pt\) {
       margin-right: -$(i)px;
       margin-left: -$(i)px;
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,p\), .My\(-$(i)\,pt\) {
       margin-top: -$(i)px;
       margin-bottom: -$(i)px;
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,p\), .M\($(i)\,pt\) {
       margin: $(i)px;
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,p\), .Mt\($(i)\,pt\) {
       margin-top: $(i)px;
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,p\), .Mr\($(i)\,pt\) {
       margin-right: $(i)px;
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,p\), .Mb\($(i)\,pt\) {
       margin-bottom: $(i)px;
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,p\), .Ml\($(i)\,pt\) {
       margin-left: $(i)px;
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,p\), .Mx\($(i)\,pt\) {
       margin-right: $(i)px;
       margin-left: $(i)px;
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,p\), .My\($(i)\,pt\) {
       margin-top: $(i)px;
       margin-bottom: $(i)px;
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: $(i)px;
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: $(i)px;
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,p\), .P\($(i)\,pt\) {
       padding: $(i)px;
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,p\), .Pt\($(i)\,pt\) {
       padding-top: $(i)px;
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,p\), .Pr\($(i)\,pt\) {
       padding-right: $(i)px;
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,p\), .Pb\($(i)\,pt\) {
       padding-bottom: $(i)px;
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,p\), .Pl\($(i)\,pt\) {
       padding-left: $(i)px;
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,p\), .Px\($(i)\,pt\) {
       padding-right: $(i)px;
       padding-left: $(i)px;
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\) , .Py\($(i)\,p\), .Py\($(i)\,pt\) {
       padding-top: $(i)px;
       padding-bottom: $(i)px;
     }
   }
 
-  @for $i from 20 to 40 by 4 {
-    .M\(-$(i)\) {
+  @for $i from 20 to 100 by 4 {
+    .M\(-$(i)\), .M\(-$(i)\,p\), .M\(-$(i)\,pt\) {
       margin: -$(i)px;
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,p\), .Mt\(-$(i)\,pt\) {
       margin-top: -$(i)px;
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,p\), .Mr\(-$(i)\,pt\) {
       margin-right: -$(i)px;
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,p\), .Mb\(-$(i)\,pt\) {
       margin-bottom: -$(i)px;
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,p\), .Ml\(-$(i)\,pt\) {
       margin-left: -$(i)px;
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,p\), .Mx\(-$(i)\,pt\) {
       margin-right: -$(i)px;
       margin-left: -$(i)px;
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,p\), .My\(-$(i)\,pt\) {
       margin-top: -$(i)px;
       margin-bottom: -$(i)px;
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,p\), .M\($(i)\,pt\) {
       margin: $(i)px;
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,p\), .Mt\($(i)\,pt\) {
       margin-top: $(i)px;
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,p\), .Mr\($(i)\,pt\) {
       margin-right: $(i)px;
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,p\), .Mb\($(i)\,pt\) {
       margin-bottom: $(i)px;
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,p\), .Ml\($(i)\,pt\) {
       margin-left: $(i)px;
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,p\), .Mx\($(i)\,pt\) {
       margin-right: $(i)px;
       margin-left: $(i)px;
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,p\), .My\($(i)\,pt\) {
       margin-top: $(i)px;
       margin-bottom: $(i)px;
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: $(i)px;
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: $(i)px;
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,p\), .P\($(i)\,pt\) {
       padding: $(i)px;
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,p\), .Pt\($(i)\,pt\) {
       padding-top: $(i)px;
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,p\), .Pr\($(i)\,pt\) {
       padding-right: $(i)px;
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,p\), .Pb\($(i)\,pt\) {
       padding-bottom: $(i)px;
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,p\), .Pl\($(i)\,pt\) {
       padding-left: $(i)px;
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,p\), .Px\($(i)\,pt\) {
       padding-right: $(i)px;
       padding-left: $(i)px;
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\) , .Py\($(i)\,p\), .Py\($(i)\,pt\) {
       padding-top: $(i)px;
       padding-bottom: $(i)px;
     }
@@ -496,6 +2045,38 @@
   @each $desktopkey in var(--desktop-fontsize) {
     .Fz\($(desktopkey)\), .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,p\), .Fz\($(desktopkey)\,pt\) {
       font-size: $(desktopkey)px;
+    }
+  }
+
+  @for $i from 2 to 5 {
+    .Bdw\($(i)\), .Bdw\($(i)\,p\), .Bdw\($(i)\,pt\) {
+      border-width: $(i)px;
+    }
+
+    .Bdtw\($(i)\), .Bdtw\($(i)\,p\), .Bdtw\($(i)\,pt\) {
+      border-top-width: $(i)px;
+    }
+
+    .Bdrw\($(i)\), .Bdrw\($(i)\,p\), .Bdrw\($(i)\,pt\) {
+      border-right-width: $(i)px;
+    }
+
+    .Bdbw\($(i)\), .Bdbw\($(i)\,p\), .Bdbw\($(i)\,pt\) {
+      border-bottom-width: $(i)px;
+    }
+
+    .Bdlw\($(i)\), .Bdlw\($(i)\,p\), .Bdlw\($(i)\,pt\) {
+      border-left-width: $(i)px;
+    }
+
+    .Bdxw\($(i)\), .Bdxw\($(i)\,p\), .Bdxw\($(i)\,pt\) {
+      border-right-width: $(i)px;
+      border-left-width: $(i)px;
+    }
+
+    .Bdyw\($(i)\), .Bdyw\($(i)\,p\), .Bdyw\($(i)\,pt\) {
+      border-top-width: $(i)px;
+      border-bottom-width: $(i)px;
     }
   }
 }
@@ -531,8 +2112,8 @@
     }
   }
 
-  @each $name, $nameidx in var(--flex-wrapname) {
-    @each $value, $valueidx in var(--flex-wrapvalue) {
+  @each $name, $nameidx in var(--flex-wrap-name) {
+    @each $value, $valueidx in var(--flex-wrap-value) {
       @if $nameidx == $valueidx {
         .Fxw\($(name)\,p\), .Fxw\($(name)\,pt\) {
           flex-wrap: $(value);
@@ -579,9 +2160,33 @@
     }
   }
 
+  @each $name, $nameidx in var(--overflow-name) {
+    @each $value, $valueidx in var(--overflow-value) {
+      @if $nameidx == $valueidx {
+        .Ov\($(name)\,p\), .Ov\($(name)\,pt\) {
+          overflow: $(value);
+        }
+
+        .Ovx\($(name)\,p\), .Ovx\($(name)\,pt\) {
+          overflow-x: $(value);
+        }
+
+        .Ovy\($(name)\,p\), .Ovy\($(name)\,pt\) {
+          overflow-y: $(value);
+        }
+      }
+    }
+  }
+
   @for $i from 1 to 4 {
     .Col\($(i)\/5\,p\), .Col\($(i)\/5\,pt\) {
       width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 10 {
+    .Col\($(i)\/11\,p\), .Col\($(i)\/11\,pt\) {
+      width: calc($(i) / 11 * 100%);
     }
   }
 
@@ -590,280 +2195,322 @@
       width: calc($(i) / 12 * 100%);
     }
   }
+
+  @for $i from 0 to 95 by 5 {
+    .Op\($(i)\,p\), .Op\($(i)\,pt\) {
+      opacity: calc($(i) / 100 * 1%);
+    }
+  }
 }
 
 @mixin minPC {
   @for $i from 2 to 12 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,p\) {
       margin: vmp(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,p\) {
       margin-bottom: vmp(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,p\) {
       margin-left: vmp(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
       margin-left: vmp(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
       margin-bottom: vmp(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,p\) {
       margin: vmp($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,p\) {
       margin-top: vmp($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,p\) {
       margin-right: vmp($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,p\) {
       margin-bottom: vmp($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,p\) {
       margin-left: vmp($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,p\) {
       margin-right: vmp($(i) px);
       margin-left: vmp($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,p\) {
       margin-top: vmp($(i) px);
       margin-bottom: vmp($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: vmp($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmp($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,p\) {
       padding: vmp($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,p\) {
       padding-top: vmp($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,p\) {
       padding-right: vmp($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,p\) {
       padding-bottom: vmp($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,p\) {
       padding-left: vmp($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,p\) {
       padding-right: vmp($(i) px);
       padding-left: vmp($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,p\) {
       padding-top: vmp($(i) px);
       padding-bottom: vmp($(i) px);
     }
   }
 
   @for $i from 14 to 16 by 2 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,p\) {
       margin: vmp(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,p\) {
       margin-bottom: vmp(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,p\) {
       margin-left: vmp(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
       margin-left: vmp(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
       margin-bottom: vmp(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,p\) {
       margin: vmp($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,p\) {
       margin-top: vmp($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,p\) {
       margin-right: vmp($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,p\) {
       margin-bottom: vmp($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,p\) {
       margin-left: vmp($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,p\) {
       margin-right: vmp($(i) px);
       margin-left: vmp($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,p\) {
       margin-top: vmp($(i) px);
       margin-bottom: vmp($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: vmp($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmp($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,p\) {
       padding: vmp($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,p\) {
       padding-top: vmp($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,p\) {
       padding-right: vmp($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,p\) {
       padding-bottom: vmp($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,p\) {
       padding-left: vmp($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,p\) {
       padding-right: vmp($(i) px);
       padding-left: vmp($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,p\) {
       padding-top: vmp($(i) px);
       padding-bottom: vmp($(i) px);
     }
   }
 
-  @for $i from 20 to 40 by 4 {
-    .M\(-$(i)\) {
+  @for $i from 20 to 100 by 4 {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,p\) {
       margin: vmp(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,p\) {
       margin-bottom: vmp(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,p\) {
       margin-left: vmp(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,p\) {
       margin-right: vmp(-$(i) px);
       margin-left: vmp(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,p\) {
       margin-top: vmp(-$(i) px);
       margin-bottom: vmp(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,p\) {
       margin: vmp($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,p\) {
       margin-top: vmp($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,p\) {
       margin-right: vmp($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,p\) {
       margin-bottom: vmp($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,p\) {
       margin-left: vmp($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,p\) {
       margin-right: vmp($(i) px);
       margin-left: vmp($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,p\) {
       margin-top: vmp($(i) px);
       margin-bottom: vmp($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,p\), .in\.Mt\($(i)\,pt\) {
+      & > *:not(:first-child) {
+        margin-top: vmp($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,p\), .in\.Mb\($(i)\,pt\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmp($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,p\) {
       padding: vmp($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,p\) {
       padding-top: vmp($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,p\) {
       padding-right: vmp($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,p\) {
       padding-bottom: vmp($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,p\) {
       padding-left: vmp($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,p\) {
       padding-right: vmp($(i) px);
       padding-left: vmp($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,p\) {
       padding-top: vmp($(i) px);
       padding-bottom: vmp($(i) px);
     }
@@ -874,280 +2521,348 @@
       font-size: vmp($(desktopkey) px);
     }
   }
+
+  @for $i from 2 to 5 {
+    .Bdw\($(i)\), .Bdw\($(i)\,p\), .Bdw\($(i)\,pt\) {
+      border-width: vmp($(i) px);
+    }
+
+    .Bdtw\($(i)\), .Bdtw\($(i)\,p\), .Bdtw\($(i)\,pt\) {
+      border-top-width: vmp($(i) px);
+    }
+
+    .Bdrw\($(i)\), .Bdrw\($(i)\,p\), .Bdrw\($(i)\,pt\) {
+      border-right-width: vmp($(i) px);
+    }
+
+    .Bdbw\($(i)\), .Bdbw\($(i)\,p\), .Bdbw\($(i)\,pt\) {
+      border-bottom-width: vmp($(i) px);
+    }
+
+    .Bdlw\($(i)\), .Bdlw\($(i)\,p\), .Bdlw\($(i)\,pt\) {
+      border-left-width: vmp($(i) px);
+    }
+
+    .Bdxw\($(i)\), .Bdxw\($(i)\,p\), .Bdxw\($(i)\,pt\) {
+      border-right-width: vmp($(i) px);
+      border-left-width: vmp($(i) px);
+    }
+
+    .Bdyw\($(i)\), .Bdyw\($(i)\,p\), .Bdyw\($(i)\,pt\) {
+      border-top-width: vmp($(i) px);
+      border-bottom-width: vmp($(i) px);
+    }
+  }
 }
 
 @mixin T {
   @for $i from 2 to 12 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,tm\), .M\(-$(i)\,t\) {
       margin: vmt(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,t\) {
       margin-bottom: vmt(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,t\) {
       margin-left: vmt(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
       margin-left: vmt(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,tm\), .My\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
       margin-bottom: vmt(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,tm\), .M\($(i)\,t\) {
       margin: vmt($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,tm\), .Mt\($(i)\,t\) {
       margin-top: vmt($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,tm\), .Mr\($(i)\,t\) {
       margin-right: vmt($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,tm\), .Mb\($(i)\,t\) {
       margin-bottom: vmt($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,tm\), .Ml\($(i)\,t\) {
       margin-left: vmt($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,tm\), .Mx\($(i)\,t\) {
       margin-right: vmt($(i) px);
       margin-left: vmt($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,tm\), .My\($(i)\,t\) {
       margin-top: vmt($(i) px);
       margin-bottom: vmt($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,pt\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,t\) {
+      & > *:not(:first-child) {
+        margin-top: vmt($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,pt\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,t\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmt($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,tm\), .P\($(i)\,t\) {
       padding: vmt($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,tm\), .Pt\($(i)\,t\) {
       padding-top: vmt($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,tm\), .Pr\($(i)\,t\) {
       padding-right: vmt($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,tm\), .Pb\($(i)\,t\) {
       padding-bottom: vmt($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,tm\), .Pl\($(i)\,t\) {
       padding-left: vmt($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,tm\), .Px\($(i)\,t\) {
       padding-right: vmt($(i) px);
       padding-left: vmt($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,tm\), .Py\($(i)\,t\) {
       padding-top: vmt($(i) px);
       padding-bottom: vmt($(i) px);
     }
   }
 
   @for $i from 14 to 16 by 2 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,tm\), .M\(-$(i)\,t\) {
       margin: vmt(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,t\) {
       margin-bottom: vmt(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,t\) {
       margin-left: vmt(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
       margin-left: vmt(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,tm\), .My\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
       margin-bottom: vmt(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,tm\), .M\($(i)\,t\) {
       margin: vmt($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,tm\), .Mt\($(i)\,t\) {
       margin-top: vmt($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,tm\), .Mr\($(i)\,t\) {
       margin-right: vmt($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,tm\), .Mb\($(i)\,t\) {
       margin-bottom: vmt($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,tm\), .Ml\($(i)\,t\) {
       margin-left: vmt($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,tm\), .Mx\($(i)\,t\) {
       margin-right: vmt($(i) px);
       margin-left: vmt($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,tm\), .My\($(i)\,t\) {
       margin-top: vmt($(i) px);
       margin-bottom: vmt($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,pt\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,t\) {
+      & > *:not(:first-child) {
+        margin-top: vmt($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,pt\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,t\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmt($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,tm\), .P\($(i)\,t\) {
       padding: vmt($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,tm\), .Pt\($(i)\,t\) {
       padding-top: vmt($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,tm\), .Pr\($(i)\,t\) {
       padding-right: vmt($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,tm\), .Pb\($(i)\,t\) {
       padding-bottom: vmt($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,tm\), .Pl\($(i)\,t\) {
       padding-left: vmt($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,tm\), .Px\($(i)\,t\) {
       padding-right: vmt($(i) px);
       padding-left: vmt($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,tm\), .Py\($(i)\,t\) {
       padding-top: vmt($(i) px);
       padding-bottom: vmt($(i) px);
     }
   }
 
-  @for $i from 20 to 40 by 4 {
-    .M\(-$(i)\) {
+  @for $i from 20 to 100 by 4 {
+    .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,tm\), .M\(-$(i)\,t\) {
       margin: vmt(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,pt\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,pt\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,pt\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,t\) {
       margin-bottom: vmt(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,pt\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,t\) {
       margin-left: vmt(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,pt\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,t\) {
       margin-right: vmt(-$(i) px);
       margin-left: vmt(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,pt\), .My\(-$(i)\,tm\), .My\(-$(i)\,t\) {
       margin-top: vmt(-$(i) px);
       margin-bottom: vmt(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,pt\), .M\($(i)\,tm\), .M\($(i)\,t\) {
       margin: vmt($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,pt\), .Mt\($(i)\,tm\), .Mt\($(i)\,t\) {
       margin-top: vmt($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,pt\), .Mr\($(i)\,tm\), .Mr\($(i)\,t\) {
       margin-right: vmt($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,pt\), .Mb\($(i)\,tm\), .Mb\($(i)\,t\) {
       margin-bottom: vmt($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,pt\), .Ml\($(i)\,tm\), .Ml\($(i)\,t\) {
       margin-left: vmt($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,pt\), .Mx\($(i)\,tm\), .Mx\($(i)\,t\) {
       margin-right: vmt($(i) px);
       margin-left: vmt($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,pt\), .My\($(i)\,tm\), .My\($(i)\,t\) {
       margin-top: vmt($(i) px);
       margin-bottom: vmt($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,pt\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,t\) {
+      & > *:not(:first-child) {
+        margin-top: vmt($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,pt\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,t\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmt($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,pt\), .P\($(i)\,tm\), .P\($(i)\,t\) {
       padding: vmt($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,pt\), .Pt\($(i)\,tm\), .Pt\($(i)\,t\) {
       padding-top: vmt($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,pt\), .Pr\($(i)\,tm\), .Pr\($(i)\,t\) {
       padding-right: vmt($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,pt\), .Pb\($(i)\,tm\), .Pb\($(i)\,t\) {
       padding-bottom: vmt($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,pt\), .Pl\($(i)\,tm\), .Pl\($(i)\,t\) {
       padding-left: vmt($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,pt\), .Px\($(i)\,tm\), .Px\($(i)\,t\) {
       padding-right: vmt($(i) px);
       padding-left: vmt($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,pt\), .Py\($(i)\,tm\), .Py\($(i)\,t\) {
       padding-top: vmt($(i) px);
       padding-bottom: vmt($(i) px);
     }
@@ -1183,8 +2898,8 @@
     }
   }
 
-  @each $name, $nameidx in var(--flex-wrapname) {
-    @each $value, $valueidx in var(--flex-wrapvalue) {
+  @each $name, $nameidx in var(--flex-wrap-name) {
+    @each $value, $valueidx in var(--flex-wrap-value) {
       @if $nameidx == $valueidx {
         .Fxw\($(name)\,pt\), .Fxw\($(name)\,tm\), .Fxw\($(name)\,t\) {
           flex-wrap: $(value);
@@ -1231,9 +2946,33 @@
     }
   }
 
+  @each $name, $nameidx in var(--overflow-name) {
+    @each $value, $valueidx in var(--overflow-value) {
+      @if $nameidx == $valueidx {
+        .Ov\($(name)\,pt\), .Ov\($(name)\,tm\), .Ov\($(name)\,t\) {
+          overflow: $(value);
+        }
+
+        .Ovx\($(name)\,pt\), .Ovx\($(name)\,tm\), .Ovx\($(name)\,t\) {
+          overflow-x: $(value);
+        }
+
+        .Ovy\($(name)\,pt\), .Ovy\($(name)\,tm\), .Ovy\($(name)\,t\) {
+          overflow-y: $(value);
+        }
+      }
+    }
+  }
+
   @for $i from 1 to 4 {
     .Col\($(i)\/5\,pt\), .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,m\) {
       width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 10 {
+    .Col\($(i)\/11\,pt\), .Col\($(i)\/11\,tm\), .Col\($(i)\/11\,t\) {
+      width: calc($(i) / 11 * 100%);
     }
   }
 
@@ -1256,280 +2995,354 @@
       }
     }
   }
+
+  @for $i from 0 to 95 by 5 {
+    .Op\($(i)\,pt\), .Op\($(i)\,tm\), .Op\($(i)\,t\) {
+      opacity: calc($(i) / 100 * 1%);
+    }
+  }
+
+  @for $i from 2 to 5 {
+    .Bdw\($(i)\), .Bdw\($(i)\,pt\), .Bdw\($(i)\,tm\), .Bdw\($(i)\,t\) {
+      border-width: vmt($(i) px);
+    }
+
+    .Bdtw\($(i)\), .Bdtw\($(i)\,pt\), .Bdtw\($(i)\,tm\), .Bdtw\($(i)\,t\) {
+      border-top-width: vmt($(i) px);
+    }
+
+    .Bdrw\($(i)\), .Bdrw\($(i)\,pt\), .Bdrw\($(i)\,tm\), .Bdrw\($(i)\,t\) {
+      border-right-width: vmt($(i) px);
+    }
+
+    .Bdbw\($(i)\), .Bdbw\($(i)\,pt\), .Bdbw\($(i)\,tm\), .Bdbw\($(i)\,t\) {
+      border-bottom-width: vmt($(i) px);
+    }
+
+    .Bdlw\($(i)\), .Bdlw\($(i)\,pt\), .Bdlw\($(i)\,tm\), .Bdlw\($(i)\,t\) {
+      border-left-width: vmt($(i) px);
+    }
+
+    .Bdxw\($(i)\), .Bdxw\($(i)\,pt\), .Bdxw\($(i)\,tm\), .Bdxw\($(i)\,t\) {
+      border-right-width: vmt($(i) px);
+      border-left-width: vmt($(i) px);
+    }
+
+    .Bdyw\($(i)\), .Bdyw\($(i)\,pt\), .Bdyw\($(i)\,tm\), .Bdyw\($(i)\,t\) {
+      border-top-width: vmt($(i) px);
+      border-bottom-width: vmt($(i) px);
+    }
+  }
 }
 
 @mixin M {
   @for $i from 2 to 12 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,tm\), .M\(-$(i)\,m\) {
       margin: vmm(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,m\) {
       margin-bottom: vmm(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,m\) {
       margin-left: vmm(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
       margin-left: vmm(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,tm\), .My\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
       margin-bottom: vmm(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,tm\), .M\($(i)\,m\) {
       margin: vmm($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,tm\), .Mt\($(i)\,m\) {
       margin-top: vmm($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,tm\), .Mr\($(i)\,m\) {
       margin-right: vmm($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,tm\), .Mb\($(i)\,m\) {
       margin-bottom: vmm($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,tm\), .Ml\($(i)\,m\) {
       margin-left: vmm($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,tm\), .Mx\($(i)\,m\) {
       margin-right: vmm($(i) px);
       margin-left: vmm($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,tm\), .My\($(i)\,m\) {
       margin-top: vmm($(i) px);
       margin-bottom: vmm($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,m\) {
+      & > *:not(:first-child) {
+        margin-top: vmm($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,m\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmm($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,tm\), .P\($(i)\,m\) {
       padding: vmm($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,tm\), .Pt\($(i)\,m\) {
       padding-top: vmm($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,tm\), .Pr\($(i)\,m\) {
       padding-right: vmm($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,tm\), .Pb\($(i)\,m\) {
       padding-bottom: vmm($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,tm\), .Pl\($(i)\,m\) {
       padding-left: vmm($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,tm\), .Px\($(i)\,m\) {
       padding-right: vmm($(i) px);
       padding-left: vmm($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,tm\), .Py\($(i)\,m\) {
       padding-top: vmm($(i) px);
       padding-bottom: vmm($(i) px);
     }
   }
 
   @for $i from 14 to 16 by 2 {
-    .M\(-$(i)\) {
+    .M\(-$(i)\), .M\(-$(i)\,tm\), .M\(-$(i)\,m\) {
       margin: vmm(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,m\) {
       margin-bottom: vmm(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,m\) {
       margin-left: vmm(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
       margin-left: vmm(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,tm\), .My\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
       margin-bottom: vmm(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,tm\), .M\($(i)\,m\) {
       margin: vmm($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,tm\), .Mt\($(i)\,m\) {
       margin-top: vmm($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,tm\), .Mr\($(i)\,m\) {
       margin-right: vmm($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,tm\), .Mb\($(i)\,m\) {
       margin-bottom: vmm($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,tm\), .Ml\($(i)\,m\) {
       margin-left: vmm($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,tm\), .Mx\($(i)\,m\) {
       margin-right: vmm($(i) px);
       margin-left: vmm($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,tm\), .My\($(i)\,m\) {
       margin-top: vmm($(i) px);
       margin-bottom: vmm($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,m\) {
+      & > *:not(:first-child) {
+        margin-top: vmm($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,m\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmm($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,tm\), .P\($(i)\,m\) {
       padding: vmm($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,tm\), .Pt\($(i)\,m\) {
       padding-top: vmm($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,tm\), .Pr\($(i)\,m\) {
       padding-right: vmm($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,tm\), .Pb\($(i)\,m\) {
       padding-bottom: vmm($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,tm\), .Pl\($(i)\,m\) {
       padding-left: vmm($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,tm\), .Px\($(i)\,m\) {
       padding-right: vmm($(i) px);
       padding-left: vmm($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,tm\), .Py\($(i)\,m\) {
       padding-top: vmm($(i) px);
       padding-bottom: vmm($(i) px);
     }
   }
 
-  @for $i from 20 to 40 by 4 {
-    .M\(-$(i)\) {
+  @for $i from 20 to 100 by 4 {
+    .M\(-$(i)\), .M\(-$(i)\,tm\), .M\(-$(i)\,m\) {
       margin: vmm(-$(i) px);
     }
 
-    .Mt\(-$(i)\) {
+    .Mt\(-$(i)\), .Mt\(-$(i)\,tm\), .Mt\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
     }
 
-    .Mr\(-$(i)\) {
+    .Mr\(-$(i)\), .Mr\(-$(i)\,tm\), .Mr\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
     }
 
-    .Mb\(-$(i)\) {
+    .Mb\(-$(i)\), .Mb\(-$(i)\,tm\), .Mb\(-$(i)\,m\) {
       margin-bottom: vmm(-$(i) px);
     }
 
-    .Ml\(-$(i)\) {
+    .Ml\(-$(i)\), .Ml\(-$(i)\,tm\), .Ml\(-$(i)\,m\) {
       margin-left: vmm(-$(i) px);
     }
 
-    .Mx\(-$(i)\) {
+    .Mx\(-$(i)\), .Mx\(-$(i)\,tm\), .Mx\(-$(i)\,m\) {
       margin-right: vmm(-$(i) px);
       margin-left: vmm(-$(i) px);
     }
 
-    .My\(-$(i)\) {
+    .My\(-$(i)\), .My\(-$(i)\,tm\), .My\(-$(i)\,m\) {
       margin-top: vmm(-$(i) px);
       margin-bottom: vmm(-$(i) px);
     }
 
-    .M\($(i)\) {
+    .M\($(i)\), .M\($(i)\,tm\), .M\($(i)\,m\) {
       margin: vmm($(i) px);
     }
 
-    .Mt\($(i)\) {
+    .Mt\($(i)\), .Mt\($(i)\,tm\), .Mt\($(i)\,m\) {
       margin-top: vmm($(i) px);
     }
 
-    .Mr\($(i)\) {
+    .Mr\($(i)\), .Mr\($(i)\,tm\), .Mr\($(i)\,m\) {
       margin-right: vmm($(i) px);
     }
 
-    .Mb\($(i)\) {
+    .Mb\($(i)\), .Mb\($(i)\,tm\), .Mb\($(i)\,m\) {
       margin-bottom: vmm($(i) px);
     }
 
-    .Ml\($(i)\) {
+    .Ml\($(i)\), .Ml\($(i)\,tm\), .Ml\($(i)\,m\) {
       margin-left: vmm($(i) px);
     }
 
-    .Mx\($(i)\) {
+    .Mx\($(i)\), .Mx\($(i)\,tm\), .Mx\($(i)\,m\) {
       margin-right: vmm($(i) px);
       margin-left: vmm($(i) px);
     }
 
-    .My\($(i)\) {
+    .My\($(i)\), .My\($(i)\,tm\), .My\($(i)\,m\) {
       margin-top: vmm($(i) px);
       margin-bottom: vmm($(i) px);
     }
 
-    .P\($(i)\) {
+    .in\.Mt\($(i)\), .in\.Mt\($(i)\,tm\), .in\.Mt\($(i)\,m\) {
+      & > *:not(:first-child) {
+        margin-top: vmm($(i) px);
+      }
+    }
+
+    .in\.Mb\($(i)\), .in\.Mb\($(i)\,tm\), .in\.Mb\($(i)\,m\) {
+      & > *:not(:last-child) {
+        margin-bottom: vmm($(i) px);
+      }
+    }
+
+    .P\($(i)\), .P\($(i)\,tm\), .P\($(i)\,m\) {
       padding: vmm($(i) px);
     }
 
-    .Pt\($(i)\) {
+    .Pt\($(i)\), .Pt\($(i)\,tm\), .Pt\($(i)\,m\) {
       padding-top: vmm($(i) px);
     }
 
-    .Pr\($(i)\) {
+    .Pr\($(i)\), .Pr\($(i)\,tm\), .Pr\($(i)\,m\) {
       padding-right: vmm($(i) px);
     }
 
-    .Pb\($(i)\) {
+    .Pb\($(i)\), .Pb\($(i)\,tm\), .Pb\($(i)\,m\) {
       padding-bottom: vmm($(i) px);
     }
 
-    .Pl\($(i)\) {
+    .Pl\($(i)\), .Pl\($(i)\,tm\), .Pl\($(i)\,m\) {
       padding-left: vmm($(i) px);
     }
 
-    .Px\($(i)\) {
+    .Px\($(i)\), .Px\($(i)\,tm\), .Px\($(i)\,m\) {
       padding-right: vmm($(i) px);
       padding-left: vmm($(i) px);
     }
 
-    .Py\($(i)\) {
+    .Py\($(i)\), .Py\($(i)\,tm\), .Py\($(i)\,m\) {
       padding-top: vmm($(i) px);
       padding-bottom: vmm($(i) px);
     }
@@ -1565,8 +3378,8 @@
     }
   }
 
-  @each $name, $nameidx in var(--flex-wrapname) {
-    @each $value, $valueidx in var(--flex-wrapvalue) {
+  @each $name, $nameidx in var(--flex-wrap-name) {
+    @each $value, $valueidx in var(--flex-wrap-value) {
       @if $nameidx == $valueidx {
         .Fxw\($(name)\,tm\), .Fxw\($(name)\,m\) {
           flex-wrap: $(value);
@@ -1613,9 +3426,33 @@
     }
   }
 
+  @each $name, $nameidx in var(--overflow-name) {
+    @each $value, $valueidx in var(--overflow-value) {
+      @if $nameidx == $valueidx {
+        .Ov\($(name)\,tm\), .Ov\($(name)\,m\) {
+          overflow: $(value);
+        }
+
+        .Ovx\($(name)\,tm\), .Ovx\($(name)\,m\) {
+          overflow-x: $(value);
+        }
+
+        .Ovy\($(name)\,tm\), .Ovy\($(name)\,m\) {
+          overflow-y: $(value);
+        }
+      }
+    }
+  }
+
   @for $i from 1 to 4 {
     .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,m\) {
       width: calc($(i) / 5 * 100%);
+    }
+  }
+
+  @for $i from 1 to 10 {
+    .Col\($(i)\/11\,tm\), .Col\($(i)\/11\,m\) {
+      width: calc($(i) / 11 * 100%);
     }
   }
 
@@ -1636,6 +3473,44 @@
           font-size: vmm($(mobilekey) px);
         }
       }
+    }
+  }
+
+  @for $i from 0 to 95 by 5 {
+    .Op\($(i)\,tm\), .Op\($(i)\,m\) {
+      opacity: calc($(i) / 100 * 1%);
+    }
+  }
+
+  @for $i from 2 to 5 {
+    .Bdw\($(i)\), .Bdw\($(i)\,tm\), .Bdw\($(i)\,m\) {
+      border-width: vmm($(i) px);
+    }
+
+    .Bdtw\($(i)\), .Bdtw\($(i)\,tm\), .Bdtw\($(i)\,m\) {
+      border-top-width: vmm($(i) px);
+    }
+
+    .Bdrw\($(i)\), .Bdrw\($(i)\,tm\), .Bdrw\($(i)\,m\) {
+      border-right-width: vmm($(i) px);
+    }
+
+    .Bdbw\($(i)\), .Bdbw\($(i)\,tm\), .Bdbw\($(i)\,m\) {
+      border-bottom-width: vmm($(i) px);
+    }
+
+    .Bdlw\($(i)\), .Bdlw\($(i)\,tm\), .Bdlw\($(i)\,m\) {
+      border-left-width: vmm($(i) px);
+    }
+
+    .Bdxw\($(i)\), .Bdxw\($(i)\,tm\), .Bdxw\($(i)\,m\) {
+      border-right-width: vmm($(i) px);
+      border-left-width: vmm($(i) px);
+    }
+
+    .Bdyw\($(i)\), .Bdyw\($(i)\,tm\), .Bdyw\($(i)\,m\) {
+      border-top-width: vmm($(i) px);
+      border-bottom-width: vmm($(i) px);
     }
   }
 }

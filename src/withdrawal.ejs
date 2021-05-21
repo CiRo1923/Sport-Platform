@@ -1,0 +1,48 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+-%>
+<!-- 如果用 api 可以使用 :ajax 帶入 url 和 method={post|get} formdata={true|false} -->
+<div :ajax="withdrawal.html?method=post&formdata=true" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(36,t) in.Mt(24,m)">
+    <li>
+      <%- require('_components/mCard.ejs')({
+        title: '选择你的存款方法',
+        component: {
+          path: 'withdrawal/select'
+        }
+      }) %>
+    </li>
+    <li>
+      <%- require('_components/mCard.ejs')({
+        title: '出款账号资讯',
+        component: {
+          path: 'withdrawal/withdrawal'
+        }
+      }) %>
+    </li>
+  </ul>
+  <div class="Mt(32,t) Mt(24,m)">
+    <button type="button" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit">
+      <b class="Fz(30) C(xf)">确认送出</b>
+    </button>
+  </div>
+</div>
+<div class="mPop $bf.Bgc(x0:60) jPop">
+  <div class="mPopBd Bgc(xf) Bdrs(8) Px(36,t) Pt(16,t) Pb(28,t) Px(24,m) Pt(12,m) Pb(20,m) Ta(c) Col(3/5) Pos(r)">
+    <div class="D(ifx) Fxd(col-r) Ta(c)">
+      <p class="Fz(30) Mt(24,t) Mt(16,m)"><b>提交成功</b></p>
+      <%- require('_components/svg.ejs')({
+        className: 'WH(128)',
+        svgName: 'check-o-c'
+      }) %>
+    </div>
+    <div class="Ta(c,t) Ta(l,m) Mt(12,t) Mt(8,m)">
+      <p class="Fz(26)">成功完成存款后，请联系我们的客服以获取您的银行信息</p>
+    </div>
+    <footer class="Mt(24,t) Mt(16,m)">
+      <a href="account.html" class="Bgc(x19ff) Bdrs(6) C(xf) P(12,t) P(8,m) Col(11/12) Bxz(bd) Mx(auto) D(b)">
+        <em class="Fz(30)">返回前页</em>
+      </a>
+    </footer>
+  </div>
+</div>

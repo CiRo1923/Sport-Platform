@@ -1,3 +1,49 @@
+:root {
+  --desktop-header-height: 0;
+  --tablet-header-height: 66px;
+  --mobile-header-height: 48px;
+  --desktop-tabbar-height: 0;
+  --tablet-tabbar-height: 88px;
+  --mobile-tabbar-height: 60px;
+  --desktop-imagesize: (128, 96, 80, 48, 40, 32, 28, 24);
+  --tablet-imagesize: (96, 72, 60, 36, 30, 24, 20, 18);
+  --mobile-imagesize: (64, 48, 40, 24, 20, 16, 14, 12);
+
+  /* --border-radius: (0); */
+}
+
+.Bxsh\(def\) {
+  box-shadow: 0 1px 8px 0 rgba(#000, 0.1);
+}
+
+@each $name1, $value1 in var(--color) {
+  @each $name2, $value2 in var(--color) {
+    .act {
+      @if $(name1) != $(name2) {
+        &.act\:C\(0\%\:$(name1)-100\%\:$(name2)\), & > .act\:C\(0\%\:$(name1)-100\%\:$(name2)\) {
+          background-image: linear-gradient(to bottom, $(value1) 0%, $(value2) 100%);
+          background-clip: text;
+          color: transparent;
+        }
+      }
+    }
+
+    .Grax\(0\%\:$(name1)-100\%\:$(name2)\) {
+      background-image: linear-gradient(to bottom, $(value1) 0%, $(value2) 100%);
+    }
+
+    .Gray\(0\%\:$(name1)-100\%\:$(name2)\) {
+      background-image: linear-gradient(to right, $(value1) 0%, $(value2) 100%);
+    }
+  }
+}
+
+/* @each $key in var(--border-radius) {
+  .Bdrs\($(key)\) {
+    border-radius: $(key)px;
+  }
+} */
+
 @mixin maxPC {
   @each $desktopkey in var(--desktop-imagesize) {
     .W\($(desktopkey)\) {
@@ -33,35 +79,43 @@
 }
 
 @mixin T {
-  @each $tabletkey in var(--tablet-imagesize) {
-    .W\($(tabletkey)\) {
-      width: vmt($(tabletkey) px);
-    }
+  @each $desktopkey, $desktopidx in var(--desktop-imagesize) {
+    @each $tabletkey, $tabletidx in var(--tablet-imagesize) {
+      @if $desktopidx == $tabletidx {
+        .W\($(desktopkey)\) {
+          width: vmt($(tabletkey) px);
+        }
 
-    .H\($(tabletkey)\) {
-      height: vmt($(tabletkey) px);
-    }
+        .H\($(desktopkey)\) {
+          height: vmt($(tabletkey) px);
+        }
 
-    .WH\($(tabletkey)\) {
-      width: vmt($(tabletkey) px);
-      height: vmt($(tabletkey) px);
+        .WH\($(desktopkey)\) {
+          width: vmt($(tabletkey) px);
+          height: vmt($(tabletkey) px);
+        }
+      }
     }
   }
 }
 
 @mixin M {
-  @each $mobilekey in var(--mobile-imagesize) {
-    .W\($(mobilekey)\) {
-      width: vmm($(mobilekey) px);
-    }
+  @each $desktopkey, $desktopidx in var(--desktop-imagesize) {
+    @each $mobilekey, $mobileidx in var(--mobile-imagesize) {
+      @if $desktopidx == $mobileidx {
+        .W\($(desktopkey)\) {
+          width: vmm($(mobilekey) px);
+        }
 
-    .H\($(mobilekey)\) {
-      height: vmm($(mobilekey) px);
-    }
+        .H\($(desktopkey)\) {
+          height: vmm($(mobilekey) px);
+        }
 
-    .WH\($(mobilekey)\) {
-      width: vmm($(mobilekey) px);
-      height: vmm($(mobilekey) px);
+        .WH\($(desktopkey)\) {
+          width: vmm($(mobilekey) px);
+          height: vmm($(mobilekey) px);
+        }
+      }
     }
   }
 }

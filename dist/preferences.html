@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+    <meta property="og:title" content="" />
+    <meta property="og:description" name="description" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="/Content/img/common/FB1200x630.png" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="474" />
+    <meta property="og:image:height" content="246" />
+    <meta property="og:site_name" content="" />
+    <title></title>
+    <link rel="shortcut icon" type="image/x-icon" href="/Content/img/common/favicon.ico">
+    <link rel="canonical" href="" />
+    <link href="/assets/css/preferences.css?307a957b" rel="stylesheet">
+  </head>
+
+  <body class="Bgc(xfffa) C(x2342) Fz(26) Minh(scr)">
+    <div class="lWrap Bxz(bd)">
+      <div class="lHd Pos(f) W(full) Bgc(xf)">
+        <header class="mHd Ta(c) Px(52,t) Py(12) Px(40,m) Bxz(bd)"><button type="button" class="mHdIcon D(b) Pos(a)" onclick="window.history.back();"><svg class="WH(48) D(b) Mx(auto)">
+              <use xlink:href="#arrow-left"></use>
+            </svg></button>
+          <h1 class="Fz(34) Fxg Ta(c)"><b>偏好设定</b></h1>
+        </header>
+      </div>
+      <div class="lM">
+        <form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+          <ul class="in.Mt(36,t) in.Mt(24,m)">
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>语言</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem --select"><select name="Lang" class="mFormType">
+                    <option value="0">English</option>
+                  </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>赔率设定</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem --select"><select name="Set" class="mFormType">
+                    <option value="0">欧洲赔率</option>
+                  </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>预设投注金额</b></p>
+              <div class="Ov(hide)">
+                <ul class="Mx(-12,t) Mx(-8,m) D(fx) Ai(c)">
+                  <li class="Col(6/12) Bxz(bd) Px(12,t) Px(8,m)">
+                    <div class="mForm jForm">
+                      <div class="mFormElem --select"><select name="Default" class="mFormType">
+                          <option value="0">停用</option>
+                          <option value="1" selected="selected">启用</option>
+                        </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                    </div>
+                  </li>
+                  <li class="Col(6/12) Bxz(bd) Px(12,t) Px(8,m)">
+                    <div class="mForm jForm">
+                      <div class="mFormElem"><input name="Amount" type="tel" class="mFormType" :validate="{'digital': '此栏位需填入数字'}" value="" placeholder="投注金额"></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>自动刷新赔率</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem --select"><select name="Auto" class="mFormType">
+                    <option value="0">停用</option>
+                    <option value="1" selected="selected">启用</option>
+                  </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+            <li class="in.Mt(12,t) in.Mt(8,m)">
+              <p class="Fz(26)"><b>比分改变提示声</b></p>
+              <div class="mForm jForm">
+                <div class="mFormElem --select"><select name="Change" class="mFormType">
+                    <option value="1">Flag Rising</option>
+                  </select></div><span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+              </div>
+            </li>
+          </ul>
+          <div class="Mt(32,t) Mt(24,m)"><button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit"><b class="Fz(30) C(xf)">更新</b></button></div>
+        </form>
+      </div>
+    </div>
+    <script defer="defer" src="/scripts/preferences.js?307a957b"></script>
+  </body>
+
+</html>

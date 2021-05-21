@@ -5,3 +5,6 @@
 @import '_common/layout';
 @import '_common/cdn-basic';
 @import '_common/basic';
+
+/* modules */
+@import "_modules/mHd";

@@ -1,0 +1,53 @@
+.mTabHd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #2f66eb;
+}
+
+.mTabItem {
+  &.act {
+    font-weight: bold;
+  }
+
+  > * {
+    &::after {
+      content: "";
+      left: 50%;
+      bottom: 0;
+      width: 50%;
+      pointer-events: none;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@mixin T {
+  .mTabHd {
+    font-size: vmt(22px);
+  }
+
+  .mTabItem {
+    > * {
+      &::after {
+        height: vmt(3px);
+      }
+    }
+  }
+}
+
+@mixin M {
+  .mTabHd {
+    font-size: vmm(15px);
+  }
+
+  .mTabItem {
+    > * {
+      &::after {
+        height: vmm(2px);
+      }
+    }
+  }
+}

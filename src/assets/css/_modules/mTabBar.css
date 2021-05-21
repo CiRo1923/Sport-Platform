@@ -1,0 +1,47 @@
+.mTabBar {
+  box-shadow: 0 -1px 12px 0 rgba(#2f3542, 0.1);
+}
+
+.mTabBarBtn {
+  position: relative;
+
+  &[notice]:not([notice="0"]) {
+    &::before {
+      content: attr(notice);
+      left: 50%;
+      border-radius: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@mixin T {
+  .mTabBarBtn {
+    &[notice]:not([notice="0"]) {
+      &::before {
+        margin-top: vmt(-5px);
+        margin-left: vmt(25px);
+        font-size: vmt(18px);
+        width: vmt(20px);
+        height: vmt(20px);
+        line-height: vmt(20px);
+      }
+    }
+  }
+}
+
+@mixin M {
+  .mTabBarBtn {
+    &[notice]:not([notice="0"]) {
+      &::before {
+        margin-top: vmm(-3px);
+        margin-left: vmm(18px);
+        font-size: vmm(12px);
+        width: vmm(14px);
+        height: vmm(14px);
+        line-height: vmm(14px);
+      }
+    }
+  }
+}

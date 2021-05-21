@@ -39,7 +39,7 @@ j$ = arg => {
   if (arg instanceof HTMLElement) {
     htmlEls = [arg];
   } else {
-    matches = arg.match(/^<(\w+)>$/);
+    matches = arg ? arg.match(/^<(\w+)>$/) : null;
 
     if (matches) {
       htmlEls = [document.createElement(matches[1])];
@@ -175,26 +175,32 @@ j$.Fn.prototype = {
     return new j$.Fn(siblings);
   },
   on: function (eventName, elementSelector, handle) {
-    this[0].forEach(function (el) {
+    this[0].forEach(el => {
       if (elementSelector && typeof elementSelector === 'string') {
-        el.addEventListener(eventName, function (e) {
+        el.addEventListener(eventName, e => {
           for (let target = e.target; target && target !== this; target = target.parentNode) {
             if (target.matches) {
               if (target.matches(elementSelector)) {
+                e.$this = target;
                 handle.call(target, e);
                 break;
               }
             } else if (target.msMatchesSelector) {
               if (target.msMatchesSelector(elementSelector)) {
+                e.$this = target;
                 handle.call(target, e);
                 break;
               }
             }
           }
-        }, { passive: true });
+        }, { passive: false });
       } else {
         const func = elementSelector;
-        el.addEventListener(eventName, func, { passive: true });
+
+        el.addEventListener(eventName, e => {
+          e.$this = el;
+          func.call(e.target, e);
+        }, { passive: false });
       }
     });
 
@@ -207,20 +213,25 @@ j$.Fn.prototype = {
           for (let target = e.target; target && target !== this; target = target.parentNode) {
             if (target.matches) {
               if (target.matches(elementSelector)) {
+                e.$this = target;
                 handle.call(target, e);
                 break;
               }
             } else if (target.msMatchesSelector) {
               if (target.msMatchesSelector(elementSelector)) {
+                e.$this = target;
                 handle.call(target, e);
                 break;
               }
             }
           }
-        }, false);
+        }, { passive: false });
       } else {
         const func = elementSelector || null;
-        el.removeEventListener(eventName, func, false);
+        el.removeEventListener(eventName, e => {
+          e.$this = el;
+          func.call(e.target, e);
+        }, { passive: false });
       }
     });
 
@@ -251,11 +262,12 @@ j$.Fn.prototype = {
     let hasClass = null;
 
     this[0].forEach(el => {
-      if (el.className.indexOf(className) > -1) {
-        hasClass = true;
-      } else {
-        hasClass = false;
-      }
+      hasClass = new RegExp('(\\s|^)' + className + '(\\s|$)').test(el.className);
+      // if (el.className.replace(/[\n\t]/g, ' ').indexOf(className) > -1) {
+      //   hasClass = true;
+      // } else {
+      //   hasClass = false;
+      // }
     });
 
     return hasClass;
@@ -399,6 +411,23 @@ j$.Fn.prototype = {
     });
 
     return prop;
+  },
+  eq: function (index) {
+    return new j$.Fn([this[0][index]]);
+  },
+  index: function () {
+    const children = this[0][0].parentNode.children;
+
+    let num = 0;
+    for (let i = 0; i < children.length; i += 1) {
+      if (children[i] === this[0][0]) {
+        return num;
+      }
+      if (children[i].nodeType === 1) {
+        num += 1;
+      }
+    }
+    return -1;
   }
 };
 
@@ -407,4 +436,44 @@ export const prjs = {
   $d: j$(document),
   $hb: j$('html, body'),
   $b: j$('body')
+};
+
+export const validate = (elem, callback) => {
+  const value = elem.val();
+  const vali = JSON.parse(elem.attr(':validate').replace(/'/g, '"'));
+  let errorMsg = null;
+
+  elem.parent().removeClass('error');
+
+  if (vali?.req && !value) {
+    errorMsg = vali.req;
+  } else if (value) {
+    if (vali?.min && value < vali.min.val) {
+      errorMsg = vali.min.msg.replace(/\$min/g, vali.min.val);
+    } else if (vali?.max && value > vali.max.val) {
+      errorMsg = vali.max.msg.replace(/\$max/g, vali.max.val);
+    } else if (vali?.email && !/^([a-zA-Z0-9_.\-+])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value)) {
+      errorMsg = vali.email;
+    } else if (vali?.digital && !/^[0-9]+$/.test(value)) {
+      errorMsg = vali.digital;
+    } else if (vali?.password) {
+      if (vali.password.length && !new RegExp(`^((?=.{${vali.password.length},}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*|(?=.{${vali.password.length},}$)(?=.*\\d)(?=.*[a-zA-Z]))((?=.*[!\\u0022#$%&'()*+,./:;<=>?@[\\]^_\`{|}~-]).*)`).test(value)) {
+        errorMsg = vali.password.msg.replace(/\$length/g, vali.password.length);
+      }
+
+      if (vali.password.same && value !== j$(vali.password.same).val()) {
+        errorMsg = vali.password.msg;
+      }
+    } else if (vali?.phone && !/^09\d{8}$/.test(value)) {
+      errorMsg = vali.phone;
+    }
+  }
+  if (errorMsg) {
+    elem.parent().addClass('error');
+  }
+  elem.parents('.jForm').find('.jFormError').empty().text(errorMsg);
+
+  if (callback) {
+    callback(!!errorMsg);
+  }
 };

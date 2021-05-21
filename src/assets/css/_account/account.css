@@ -1,0 +1,53 @@
+.account {
+  background: url(~account/header-bg.png) no-repeat center top;
+  background-size: 100% auto;
+}
+
+.accountFig {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.accountAmount {
+  background: url(~account/credit-card-bg.png) no-repeat center top;
+  background-size: 100% auto;
+}
+
+.accountLink {
+  &[notice] {
+    &::after {
+      content: attr(notice);
+      top: 50%;
+      right: 0;
+      text-align: center;
+      border-radius: 50%;
+      position: absolute;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+@mixin T {
+  .accountLink {
+    &[notice] {
+      &::after {
+        width: vmt(28px);
+        height: vmt(28px);
+        line-height: vmt(28px);
+      }
+    }
+  }
+}
+
+@mixin M {
+  .accountLink {
+    &[notice] {
+      &::after {
+        width: vmm(18px);
+        height: vmm(18px);
+        line-height: vmm(18px);
+      }
+    }
+  }
+}

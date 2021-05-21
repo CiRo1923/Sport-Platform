@@ -1,0 +1,23 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+-%>
+<div class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(24,t) in.Mt(16,m)">
+    <li>
+      <%- require('_components/mCard.ejs')({
+        title: '帐户信息',
+        component: {
+          path: 'balance/account'
+        }
+      }) %>
+    </li>
+    <li>
+      <%- require('_components/mCard.ejs')({
+        title: '账户信用信息',
+        component: {
+          path: 'balance/credit'
+        }
+      }) %>
+    </li>
+  </ul>
+</div>

@@ -1,3 +1,40 @@
 .mHd {
   box-shadow: rgba(#000, 0.1) 0 1px 8px 0;
 }
+
+.mHdIcon {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin T {
+  .mHd {
+    height: vmt(var(--tablet-header-height));
+  }
+
+  .mHdIcon {
+    &:first-child {
+      left: vmt(12px);
+    }
+
+    &:last-child {
+      right: vmt(12px);
+    }
+  }
+}
+
+@mixin M {
+  .mHd {
+    height: vmm(var(--mobile-header-height));
+  }
+
+  .mHdIcon {
+    &:first-child {
+      left: vmm(12px);
+    }
+
+    &:last-child {
+      right: vmm(12px);
+    }
+  }
+}

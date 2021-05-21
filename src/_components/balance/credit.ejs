@@ -1,0 +1,21 @@
+<%
+  const data = [{
+    name: '投注余额',
+    value: '256.89'
+  }, {
+    name: '未结算的投注额',
+    value: '30.00'
+  }, {
+    name: '实际投注余额',
+    value: '226.89'
+  }]
+-%>
+<ul class="in.Mt(24,t) in.Mt(16,m)">
+  <% for(let i = 0; i < data.length; i += 1) { -%>
+    <% const {name, value} = data[i]; -%>
+    <li class="D(fx) Ai(c) Jc(betw)">
+      <b class="D(b) C(x9abf)"><%- name %></b>
+      <p><%- value %></p>
+    </li>
+  <% } -%>
+</ul>

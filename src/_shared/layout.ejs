@@ -1,5 +1,12 @@
 <%
+  const titleName = '';
+  const title = htmlWebpackPlugin.options.title !== 'Webpack App' ? htmlWebpackPlugin.options.title : titleName;
+  const cRight = '';
+  const ieVersion = 11;
   const fileName = /(.*)(?=\.html$)/.exec(htmlWebpackPlugin.options.filename)[1];
+  const reqFile = require('../'+ fileName +'.ejs')({
+                    'htmlWebpackPlugin' : htmlWebpackPlugin
+                  });
 -%>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,11 +20,103 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
-  <title>Document</title>
+  <meta property="og:title" content="<%- title %>" />
+  <meta property="og:description" name="description" content="<%- htmlWebpackPlugin.options.description ? htmlWebpackPlugin.options.description : '' %>" />
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="" />
+  <meta property="og:image" content="/Content/img/common/FB1200x630.png"/>
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="474" />
+  <meta property="og:image:height" content="246" />
+  <meta property="og:site_name" content="<%- title %>" />
+  <title><%- title %></title>
+  <link rel="shortcut icon" type="image/x-icon" href="/Content/img/common/favicon.ico">
+  <link rel="canonical" href="" />
 </head>
-<body class="Bgc(xff) C(x2342) Fz(13)">
-  <div class="lWrap">
-    <%- require('../'+ fileName +'.ejs')() %>
+<body class="Bgc(xfffa) C(x2342) Fz(26) Minh(scr)">
+  <div class="lWrap Bxz(bd)">
+    <% if ( htmlWebpackPlugin.options.action !== null ) { -%>
+      <div class="lHd Pos(f) W(full) Bgc(xf)">
+        <header class="mHd Ta(c) Px(52,t) Py(12) Px(40,m) Bxz(bd)">
+          <% if ( typeof htmlWebpackPlugin.options.backURL !== 'undefined' && htmlWebpackPlugin.options.backURL ) { -%>
+            <% if ( typeof htmlWebpackPlugin.options.backURL === 'string') { -%>
+              <a href="<%- htmlWebpackPlugin.options.backURL %>" class="mHdIcon D(b)">
+                <%- require('../_components/svg.ejs')({
+                  className: 'WH(48)',
+                  svgName: 'arrow-left'
+                }) %>
+              </a>
+            <% } else { -%>
+              <button type="button" class="mHdIcon D(b) Pos(a)" onClick="window.history.back();">
+                <%- require('../_components/svg.ejs')({
+                  className: 'WH(48)',
+                  svgName: 'arrow-left'
+                }) %>
+              </button>
+            <% } -%>
+          <% } -%>
+          <h1 class="Fz(34) Fxg Ta(c)"><b><%- htmlWebpackPlugin.options.action %></b></h1>
+          <% if ( typeof htmlWebpackPlugin.options.refresh !== 'undefined' && htmlWebpackPlugin.options.refresh === true) { -%>
+            <button type="button" class="mHdIcon D(b) Pos(a) jRefresh">
+              <%- require('../_components/svg.ejs')({
+                className: 'WH(48)',
+                svgName: 'refresh'
+              }) %>
+            </button>
+          <% } -%>
+        </header>
+      </div>
+    <% } -%>
+    <div class="lM">
+      <%- reqFile %>
+    </div>
+    <% if( htmlWebpackPlugin.options.tools ) { -%>
+      <div class="lToolBar Pos(f) W(full) Bgc(xf)">
+        <%
+          const tabBar = [{
+            icon      : '--home',
+            name      : '首页',
+            className : null,
+            href      : null
+          }, {
+            icon      : '--bets',
+            name      : '投注纪录',
+            className : null,
+            href      : null
+          }, {
+            icon      : '--ticket',
+            name      : '注单',
+            className : null,
+            href      : null
+          }, {
+            icon      : '--personal',
+            name      : '我的',
+            className : 'act',
+            href      : 'account.html'
+          }]
+        -%>
+        <ul class="mTabBar D(fx) Py(10)">
+          <% for(let i = 0; i < tabBar.length; i += 1) { -%>
+            <%
+              const { icon, name, className, href } = tabBar[i];
+            -%>
+            <li class="Ta(c) Fx(0)">
+              <% if (href !== null) { -%>
+                <a href="<%- href %>" class="mTabBarBtn<%- htmlWebpackPlugin.options.action === name ? ' act' : '' %> D(b) C(xbbd1) $bf.C(xf) $bf.Bgc(xf457)<%- className ? ` ${className}` : '' %>">
+                  <i class="mIcon <%- icon %> Fz(48) act:C(0%:x3bfc-100%:x26f7) Mb(3) D(ib)"></i>
+                  <b class="D(b) Fz(24) act:C(x26eb)"><%- name %></b>
+                </a>
+              <% } else { -%>
+                <span class="mTabBarBtn D(b) C(xbbd1) $bf.C(xf) $bf.Bgc(xf457)<%- className ? ` ${className}` : '' %>">
+                  <i class="mIcon <%- icon %> Fz(48) act:C(0%:x3bfc-100%:x26f7) Mb(3) D(ib)"></i>
+                  <b class="D(b) Fz(24) act:C(x26eb)"><%- name %></b>
+                </span>
+              <% } -%>
+            </li>
+          <% } -%>
+        </ul>
+      </div>
+    <% } -%>
   </div>
 </body>
 </html>

@@ -39,7 +39,10 @@ const extendPlugins = () => {
     }) : () => {};
 
   for (let i = 0; i < CONFIG.plugins().length; i += 1) {
-    const obj = CONFIG.plugins()[i];
+    let obj = CONFIG.plugins()[i];
+
+    obj.inject = 'body';
+    obj.cache = true;
 
     htmlWebpackPlugin.push(
       new HTMLWEBPACKPLUGIN(obj),

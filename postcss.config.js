@@ -13,21 +13,25 @@ module.exports = {
     require('postcss-css-variables'),
     require('postcss-map-get'),
     require('postcss-hexrgba'),
+    require('postcss-calc'),
     require('postcss-functions')({
       functions: FUNCTION.functions
     }),
-    require('postcss-calc'),
     require('postcss-conditionals'),
     require('postcss-nested'),
     purgecss({
       content: [
-        'src/**/*.html',
         'src/**/*.ejs',
         'src/**/*.js'
       ],
       fontFace: true,
-      defaultExtractor: content => content.match(/[\w.?:?(/,)]+(?<!\()/g) || [],
-      skippedContentGlobs: ['node_modules/**']
+      keyframes: true,
+      variables: true,
+      defaultExtractor: content => content.match(/[$%\w.:\-/(,)]+(?<!\()/g) || [],
+      skippedContentGlobs: ['node_modules/**'],
+      safelist: {
+        deep: [/:not/, /:nth-child/, /:first-child/, /:last-child/, /:checked/, /:disabled/, /:read-only/]
+      }
     }),
     require('cssnano')({
       preset: ['default', {

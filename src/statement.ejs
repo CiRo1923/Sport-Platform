@@ -1,0 +1,56 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+    htmlWebpackPlugin.options.refresh = true;
+-%>
+<div class="P(24,t) P(16,m) Bgc(x2342) Ta(c)">
+    <small class="D(b) C(xf) Fz(24)">当前余额</small>
+    <p class="D(ifx) Ai(c)">
+        <%- require('_components/svg.ejs')({
+            className: 'WH(48)',
+            svgName: 'money'
+        }) %>
+        <b class="D(b) Fz(72) C(xf) Ml(12,t) Ml(8,m)">256.89</b>
+    </p>
+</div>
+<%
+  const data = [{
+    title: 'Betting',
+    amount: '12.30 (0.00)',
+    amountColor: null,
+    time: '01/28/2021 星期二',
+    total: '256.89'
+  }, {
+    title: 'Betting',
+    amount: '-15.15 (0.00)',
+    amountColor: 'C(xf457)',
+    time: '01/27/2021 星期三',
+    total: '244.59'
+  }, {
+    title: 'Betting',
+    amount: '-34.48 (0.00)',
+    amountColor: 'C(xf457)',
+    time: '01/24/2021 星期六',
+    total: '259.74'
+  }, {
+    title: 'Transaction',
+    amount: '-199.28 (0.00)',
+    amountColor: 'C(xf457)',
+    time: '01/27/2021 星期三',
+    total: '294.22'
+  }]
+-%>
+<ul class="in.Mt(1)">
+  <% for(let i = 0; i < data.length; i += 1 ) { -%>
+    <% const {title, amount, amountColor, time, total} = data[i]; -%>
+    <li class="Bgc(xf) Px(24,t) Py(36,t) Px(16,m) Py(20,m) in.Mt(8,t) in.Mt(5,m)">
+      <div class="D(fx) Ai(c) Jc(betw) Fz(30)">
+        <b><%- title %></b>
+        <b<%- amountColor ? ` class="${amountColor}"` : '' %>>$ <%- amount %></b>
+      </div>
+      <div class="D(fx) Ai(c) Jc(betw) C(x9abf)">
+        <time><%- time %></time>
+        <small>总计 $ <%- total %></small>
+      </div>
+    </li>
+  <% } -%>
+</ul>

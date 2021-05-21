@@ -1,0 +1,49 @@
+<ul class="in.Mt(36,t) in.Mt(24,m)">
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>名称</b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'Name',
+      type: 'text',
+      value: 'grace20188',
+      readonly: true
+    }) %>
+  </li>
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>帐号名称</b><br><span class="C(x7799)">您的帐号名称只能更改一次</span></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'Account',
+      type: 'text',
+      value: 'grace20188'
+    }) %>
+  </li>
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>手机</b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'Phone',
+      type: 'text',
+      value: '132457688',
+      readonly: true
+    }) %>
+  </li>
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>电子邮箱</b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'Email',
+      type: 'email',
+      value: '',
+      validate : `{'email': '请输入正确的电子邮箱'}`,
+    }) %>
+  </li>
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>国家</b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'County',
+      type: 'select',
+      options:[{
+        name: 'TW',
+        value: 'tw'
+      }],
+      readonly: true
+    }) %>
+  </li>
+</ul>

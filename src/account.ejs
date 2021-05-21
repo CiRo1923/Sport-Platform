@@ -1,0 +1,123 @@
+<%
+  htmlWebpackPlugin.options.tools = true
+-%>
+<div class="account Pt(36,t) Px(24,t) Pt(24,m) Px(16,m)">
+  <div class="D(fx) Ai(c) Mb(16,t) Mb(12,m) Px(16,t) Px(12,m)">
+    <div class="Fxsh D(b) WH(96) Bxz(bd) Bdw(1) Bdst(sol) Bdc(xf) Bdrs(50%) Pos(r) Ov(hide) Mr(24,t) Mr(16,m)">
+      <figure class="accountFig W(full) Pos(a)">
+        <img src="https://girlsmood.com/web/wp-content/uploads/2020/01/7698ac86a70233c0c114c175a28a98d9.jpg" width="100%" height="100%" alt="">
+      </figure>
+    </div>
+    <div class="C(xf) Fxg">
+      <p class="Fz(30)"><b>gracemoody</b></p>
+      <p class="Mt(6,t) Mt(4,m)">grace20188</p>
+    </div>
+    <a href="profile.html" class="Fxsh D(b)">
+      <%- require('_components/svg.ejs')({
+        className: 'WH(48) Fi(xf)',
+        svgName: 'chevron-right'
+      }) %>
+    </a>
+  </div>
+  <div class="accountAmount Mx(16,t) P(16,t) Mx(12,m) P(12,m) D(fx) Ai(c) Jc(betw)">
+    <div class="D(fx) Fxd(row-r) Ai(c)">
+      <div class="D(fx) Ai(c) Fxg Ml(6,t) Ml(4,m)">
+        <b class="Fz(30) C(xf) D(b) Mr(12,t) Mr(8,m) Fxg">我的钱包</b>
+        <%- require('_components/svg.ejs')({
+          className: 'WH(32) Fi(xf) Fxsh',
+          svgName: 'refresh'
+        }) %>
+      </div>
+      <%- require('_components/svg.ejs')({
+        className: 'WH(48) Fxsh',
+        svgName: 'wallet'
+      }) %>
+    </div>
+    <a href="balance.html" class="D(fx) Ai(c)">
+      <b class="Fz(30) C(xf) Fxg">$ 890.00</b>
+      <%- require('_components/svg.ejs')({
+        className: 'WH(32) Fi(xf) Fxsh',
+        svgName: 'chevron-right'
+      }) %>
+    </a>
+  </div>
+  <div class="Bgc(xf) Bdrs(8) Bxsh(def) Py(16,t) Px(9,t) Py(12,m) Px(6,m)">
+    <%
+      const account = [{
+        icon: 'coin',
+        name: '储值',
+        href: 'deposit.html'
+      }, {
+        icon: 'withdrawal',
+        name: '提款',
+        href: 'withdrawal.html'
+      }, {
+        icon: 'transaction',
+        name: '帐戶纪录',
+        href: 'history.html'
+      }, {
+        icon: 'statement',
+        name: '交易纪录',
+        href: 'statement.html'
+      }]
+    -%>
+    <ul class="D(fx) Ai(c)">
+      <% for(let i = 0; i < account.length; i += 1 ) { -%>
+        <% const {icon, name, href} = account[i]; -%>
+        <li class="Col(3/12) Bxz(bd) Px(9,t) Px(6,m)">
+          <a href="<%- href %>" class="D(fx) Fxd(col-r) Jc(c) Ai(c)">
+            <em class="D(b) Mt(6,t) Mt(4,m)"><%- name %></em>
+            <%- require('_components/svg.ejs')({
+              className: 'WH(48)',
+              svgName: icon
+            }) %>
+          </a>
+        </li>
+      <% } -%>
+    </ul>
+  </div>
+  <div class="Bgc(xf) Bdrs(8) Bxsh(def) Mt(24,t) Mt(16,m) P(16,t) P(12,m)">
+    <%
+      const links = [{
+        icon: 'promotion',
+        name: '我的晋升',
+        href: 'promotion.html',
+        notice: null
+      }, {
+        icon: 'message',
+        name: '信息中心',
+        href: 'notice.html',
+        notice: 4
+      }, {
+        icon: 'fqa',
+        name: '帮助',
+        href: 'faq.html',
+        notice: null
+      }, {
+        icon: 'lock',
+        name: '更改密码',
+        href: 'password-change.html',
+        notice: null
+      }, {
+        icon: 'setting',
+        name: '偏好设定',
+        href: 'preferences.html',
+        notice: null
+      }]
+    -%>
+    <ul>
+      <% for(let i = 0; i < links.length; i += 1 ) { -%>
+        <% const {icon, name, href, notice} = links[i]; -%>
+        <li>
+          <a href="<%- href %>" class="accountLink D(fx) Fxd(row-r) Ai(c) Pos(r) $af.C(xf) $af.Bgc(xf457) Py(14,t) Py(10,m)"<%- notice ? ` notice="${notice}"` : '' %>>
+            <em class="Fz(30) Fxg Ml(16,t) Ml(12,m) D(b)"><%- name %></em>
+            <%- require('_components/svg.ejs')({
+              className: 'WH(48) Fxsh',
+              svgName: icon
+            }) %>
+          </a>
+        </li>
+      <% } -%>
+    </ul>
+  </div>
+</div>

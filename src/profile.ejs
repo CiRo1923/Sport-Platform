@@ -1,0 +1,17 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+-%>
+<!-- 使用 form submit -->
+<form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <%- require('_components/mCard.ejs')({
+    title: '帐号信息',
+    component: {
+      path: 'profile/form'
+    }
+  }) %>
+  <div class="Mt(32,t) Mt(24,m)">
+    <button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit">
+      <b class="Fz(30) C(xf)">更新</b>
+    </button>
+  </div>
+</form>

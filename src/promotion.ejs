@@ -1,0 +1,93 @@
+<%
+  htmlWebpackPlugin.options.backURL = true;
+-%>
+<%
+  const data = [{
+    title: 'Feb Deposit Bonus % (Feb Depbon %)',
+    amount1: '100.00',
+    amount2: '22,000.00',
+    time: '2021-02-07 11:16:02 PM',
+    status: 'Approved',
+    statusColor: 'C(x0d9a)',
+    cancel: true,
+    cardPrec: true,
+    percentage: '60%',
+    range: '2021/02/10 - 2021/12/31'
+  }, {
+    title: '5% bet bonus for valid daily betting during 2021 Chinese New Year',
+    amount1: '0.00',
+    amount2: '0.00',
+    time: '2021-02-07 11:16:02 PM',
+    status: 'Reject',
+    statusColor: 'C(xf457)',
+    cancel: false,
+    cardPrec: false,
+    percentage: '60%',
+    range: '2021/02/10 - 2021/12/31'
+  }, {
+    title: 'New users get 15% bet for their first deposit',
+    amount1: '150.00',
+    amount2: '1,250.00',
+    time: '2021-02-07 11:16:02 PM',
+    status: 'Approved',
+    statusColor: 'C(x0d9a)',
+    cancel: false,
+    cardPrec: true,
+    percentage: '100%',
+    range: '2021/02/10 - 2021/12/31'
+  }]
+-%>
+<div class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(24,t) in.Mt(16,m)">
+    <% for(let i = 0; i < data.length; i += 1 ) { -%>
+      <% const {title, amount1, amount2, time, status, statusColor, cancel, cardPrec, percentage, range} = data[i]; -%>
+      <li class="Bgc(xf) Bdrs(4) Bxsh(def)">
+        <div class="P(24,t) P(16,m)">
+          <p class="Fz(30) Mb(16,t) Mb(12,m)"><b><%- title %></b></p>
+          <ul class="in.Mt(9,t) in.Mt(6,m)">
+            <li class="D(fx) Ai(c) Jc(betw)">
+              <span class="D(b) C(x9abf)">同意金额</span>
+              <span class="D(b)">$ <%- amount1 %></span>
+            </li>
+            <li class="D(fx) Ai(c) Jc(betw)">
+              <span class="D(b) C(x9abf)">流水</span>
+              <span class="D(b)">$ <%- amount2 %></span>
+            </li>
+            <li class="D(fx) Ai(c) Jc(betw)">
+              <span class="D(b) C(x9abf)">申请时间</span>
+              <span class="D(b)"><%- time %></span>
+            </li>
+            <li class="D(fx) Ai(c) Jc(betw)">
+              <span class="D(b) C(x9abf)">状态</span>
+              <b class="D(b) <%-statusColor  %>"><%- status %></b>
+            </li>
+            <% if ( cancel ) { -%>
+              <li class="Ta(r)">
+                <button type="button" class="Bdrs(6) Bdw(1) Bdc(xeef2) Bdst(sol) Bgc(xfffa) Px(16,t) Py(6,t) Px(12,m) Py(4,m)">
+                  <em>Cancel</em>
+                </button>
+              </li>
+            <% } -%>
+          </ul>
+        </div>
+        <% if ( cardPrec ) { -%>
+          <div class="cardPrec P(24,t) P(16,m) Pos(r)">
+            <div class="in.Mt(9,t) in.Mt(6,m)">
+              <p class="D(fx) Ai(c) Jc(betw)">
+                <em>累积投注额进度</em>
+                <small><%- percentage %></small>
+              </p>
+              <span class="Bdrs(6) D(b) W(full) H(24) Bxz(bd) Bgc(xfff7)">
+                <i class="D(b) H(full) Gray(0%:x7af6-100%:x26eb) Bdrs(6)" style="width: <%- percentage %>;"></i>
+              </span>
+            </div>
+            <div class="D(fx) Ai(c) Jc(betw) C(x9abf) Mt(24,t) Mt(16,m)">
+              <p>开始/结束时间</p>
+              <p><%- range %></p>
+            </div>
+          </div>
+        <% } -%>
+      </li>
+    <% } -%>
+  </ul>
+</div>

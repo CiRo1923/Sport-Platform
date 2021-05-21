@@ -1,0 +1,38 @@
+<div class="mForm<%- typeof className !== 'undefined' && typeof className.frame !== 'undefined' ? ` ${className.frame}` : '' %> jForm">
+  <% if ( type === 'select' ) { -%>
+    <div class="mFormElem --select">
+      <select name="<%- name %>" class="mFormType<%- typeof id !== 'undefined' ? ` jForm${id}` : '' %><%- typeof readonly !== 'undefined' && readonly ? ' readonly' : '' %>"<%- typeof validate !== 'undefined' ? ` :validate="${validate}"` : '' %>>
+        <% for(let i = 0; i < options.length; i += 1) { -%>
+          <% const {name, value, selected} = options[i]; -%>
+          <option value="<%-value  %>"<%- selected ? ' selected': '' %>><%- name %></option>
+        <% } -%>
+      </select>
+    </div>
+  <% } else if ( type !== 'radio' && type !== 'checkbox' ) { -%>
+    <div class="mFormElem">
+      <input name="<%- name %>" type="<%- type %>" class="mFormType<%- typeof id !== 'undefined' ? ` jForm${id}` : '' %>"<%- typeof validate !== 'undefined' ? ` :validate="${validate}"` : '' %><%- typeof value !== 'undefined' ? ` value="${value}"` : '' %><%- typeof placeholder !== 'undefined' ? ` placeholder="${placeholder}"` : '' %><%- typeof disabled !== 'undefined' ? ' disabled' : '' %><%- typeof readonly !== 'undefined' && readonly ? ' readonly' : '' %>>
+    </div>
+  <% } else if ( type === 'checkbox' ) { -%>
+    <label class="mFormElem D(ifx) Ai(c)">
+      <input name="<%- name %>" type="checkbox" class="mFormType Pos(a)<%- typeof id !== 'undefined' ? ` jForm${id}` : '' %>"<%- typeof value !== 'undefined' ? ` value="${value}"` : '' %><%- typeof checked !== 'undefined' ? ' checked' : '' %><%- typeof disabled !== 'undefined' ? ' disabled' : '' %>>
+      <div class="WH(32) Mr(12,t) Mr(8,m) Ov(hide) Bdrs(2) Bgc(xbbd1) checked:Bgc(x26eb)">
+        <%- require('../_components/svg.ejs')({
+          className: 'WH(32) Fi(xf)',
+          svgName: 'check'
+        }) %>
+      </div>
+      <% if ( typeof text !== 'ubdefined' ) { -%>
+        <p class="Fz(26)"><%- text %></p>
+      <% } -%>
+    </label>
+  <% } else if ( type === 'radio' ) { -%>
+    <label class="mFormElem D(ifx) Ai(c)">
+      <input name="<%- name %>" type="radio" class="mFormType Pos(a)<%- typeof id !== 'undefined' ? ` jForm${id}` : '' %>"<%- typeof value !== 'undefined' ? ` value="${value}"` : '' %><%- typeof checked !== 'undefined' ? ' checked' : '' %><%- typeof disabled !== 'undefined' ? ' disabled' : '' %>>
+      <span class="WH(32) Mr(12,t) Mr(8,m) Ov(hide) Bdrs(50%) Bgc(xbbd1) $bf.Bgc(xf) checked:Bgc(x26eb) Pos(r)"></span>
+      <% if ( typeof text !== 'ubdefined' ) { -%>
+        <p class="Fz(26)"><%- text %></p>
+      <% } -%>
+    </label>
+  <% } -%>
+  <span class="mFormError D(b) Mt(6,t) Mt(4,m) Fz(26) C(xf457) jFormError"></span>
+</div>

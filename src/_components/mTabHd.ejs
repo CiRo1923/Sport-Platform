@@ -1,0 +1,8 @@
+<ul class="mTabHd">
+  <% for(let i = 0; i < tabs.length; i += 1 ) { -%>
+    <% const {text, href} = tabs[i]; %>
+    <li class="mTabItem Col(3/12)<%- act === i ? ' act' : '' %>">
+      <a href="<%- href %>" class="C(xf:50) act:C(xf) D(b) P(8) Pos(r) $af.act:Bgc(xf)"><%- text %></a>
+    </li>
+  <% } -%>
+</ul>

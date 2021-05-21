@@ -1,0 +1,52 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+-%>
+<div class="mTab">
+  <%- require('_components/mTabHd.ejs')({
+    act: 0,
+    tabs: [{
+      text: '公告',
+      href: 'notice.html'
+    }, {
+      text: '个人信息',
+      href: 'notice.html'
+    }]
+  }) %>
+  <div class="mTabBd">
+    <div class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m) in.Mt(24,t) in.Mt(16,m)">
+      <div class="form">
+        <select class="formType Bgc(xf) Bdrs(6) W(full) Pl(16,t) Pl(12,m) Pr(52,t) Pr(36,m) Py(12,t) Py(8,m) Fz(30)">
+          <option value="0" selected>今天</option>
+          <option value="3">前三天</option>
+          <option value="7">前七天</option>
+        </select>
+      </div>
+      <%
+        const data = [{
+          isNew: true,
+          title: '35905 - Football',
+          description: 'Be advised of the following summaries of postponed matches under "Israel Liga Leumit" - 8 matches. All bets taken are REFUNDED invoking General Sports Rules no.',
+          time: '02/01/2021 09:43:43 PM'
+        }, {
+          isNew: false,
+          title: 'Creating Remarkable Poster Prints Through 4 Color Poster Printing',
+          description: 'While it was just a TV show, that little speech at the beginning of the original Star Trek show really did do a good job of capturing our feelings about space.',
+          time: '02/01/2021 09:43:43 PM'
+        }]
+      -%>
+      <% for(let i = 0; i < data.length; i += 1 ) { -%>
+        <% const {isNew, title, description, time} = data[i]; -%>
+        <div class="P(24,t) P(16,m) Bgc(xf) Bxsh(def) Bdrs(4) Ov(hide) Pos(r)">
+          <div class="in.Mt(12,t) in.Mt(8,m)">
+            <h3 class="Fz(30)"><b><%- title %></b></h3>
+            <p><%- description %></p>
+          </div>
+          <time class="D(b) Fz(24) C(x9abf) Mt(16,t) Mt(12,m)"><%- time %></time>
+          <%  if ( isNew ) { -%>
+            <mark class="tag Pos(a) $bf.Bgc(xf457) Pl(24,t) Pl(16,m) D(b) Ov(hide)"><i class="D(b) C(xf) Pr(8,m) Py(4,m)">New</i></mark>
+          <% } -%>
+        </div>
+      <% } -%>
+    </div>
+  </div>
+</div>

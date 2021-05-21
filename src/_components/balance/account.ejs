@@ -1,0 +1,24 @@
+<%
+  const data = [{
+    name: '币别',
+    value: 'TMP'
+  }, {
+    name: '上次登录',
+    value: '2021-02-05 4:21:45 AM'
+  }, {
+    name: '最后交易',
+    value: '2021-02-05 4:25:25 AM'
+  }, {
+    name: '密码到期时间',
+    value: '2021-04-11 3:22:12 AM'
+  }]
+-%>
+<ul class="in.Mt(24,t) in.Mt(16,m)">
+  <% for(let i = 0; i < data.length; i += 1) { -%>
+    <% const {name, value} = data[i]; -%>
+    <li class="D(fx) Ai(c) Jc(betw)">
+      <b class="D(b) C(x9abf)"><%- name %></b>
+      <p><%- value %></p>
+    </li>
+  <% } -%>
+</ul>

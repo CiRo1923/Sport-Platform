@@ -1,0 +1,91 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+-%>
+<!-- 使用 form submit -->
+<form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(36,t) in.Mt(24,m)">
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>语言</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Lang',
+        type: 'select',
+        options: [{
+          name: 'English',
+          value: '0'
+        }]
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>赔率设定</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Set',
+        type: 'select',
+        options: [{
+          name: '欧洲赔率',
+          value: '0'
+        }]
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>预设投注金额</b></p>
+      <div class="Ov(hide)">
+        <ul class="Mx(-12,t) Mx(-8,m) D(fx) Ai(c)">
+          <li class="Col(6/12) Bxz(bd) Px(12,t) Px(8,m)">
+            <%- require('_components/mForm.ejs')({
+              name: 'Default',
+              type: 'select',
+              options: [{
+                name: '停用',
+                value: '0'
+              }, {
+                name: '启用',
+                value: '1',
+                selected: true
+              }]
+            }) %>
+          </li>
+          <li class="Col(6/12) Bxz(bd) Px(12,t) Px(8,m)">
+            <%- require('_components/mForm.ejs')({
+              name: 'Amount',
+              type: 'tel',
+              value: '',
+              placeholder: '投注金额',
+              validate : `{'digital': '此栏位需填入数字'}`
+            }) %>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>自动刷新赔率</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Auto',
+        type: 'select',
+        options: [{
+          name: '停用',
+          value: '0'
+        }, {
+          name: '启用',
+          value: '1',
+          selected: true
+        }]
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>比分改变提示声</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Change',
+        type: 'select',
+        options: [{
+          name: 'Flag Rising',
+          value: '1'
+        }]
+      }) %>
+    </li>
+  </ul>
+  <div class="Mt(32,t) Mt(24,m)">
+    <button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit">
+      <b class="Fz(30) C(xf)">更新</b>
+    </button>
+  </div>
+</form>

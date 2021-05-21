@@ -1,0 +1,34 @@
+.lHd,
+.lToolBar {
+  z-index: 5;
+}
+
+.lHd {
+  top: 0;
+  left: 0;
+}
+
+.lToolBar {
+  bottom: 0;
+  left: 0;
+}
+
+@mixin T {
+  .lM {
+    padding-bottom: vmt(48px);
+
+    &:not(:first-child) {
+      padding-top: vmt(var(--tablet-header-height));
+    }
+  }
+}
+
+@mixin M {
+  .lM {
+    padding-bottom: vmm(32px);
+
+    &:not(:first-child) {
+      padding-top: vmm(var(--mobile-header-height));
+    }
+  }
+}

@@ -8,5 +8,6 @@
     "javascript": "javascript",
     "html": "html",
     "ejs": "html"
-  }
+  },
+  "liveServer.settings.port": 5501
 }

@@ -1,0 +1,26 @@
+<ul class="in.Mt(36,t) in.Mt(24,m)">
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>公司银行 <i class="C(xf457)">*</i></b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'CorporateBank',
+      type: 'select',
+      options:[{
+        name: '请选择',
+        value: ''
+      }, {
+        name: '银行1',
+        value: '1'
+      }],
+      validate : `{'req': '请选择公司银行'}`
+    }) %>
+  </li>
+  <li class="in.Mt(12,t) in.Mt(8,m)">
+    <p class="Fz(26)"><b>银行帐号 <i class="C(xf457)">*</i></b></p>
+    <%- require('../../_components/mForm.ejs')({
+      name: 'CorporateBankAccount',
+      type: 'tel',
+      value: '',
+      validate : `{'req': '此栏位不得为空'}`
+    }) %>
+  </li>
+</ul>

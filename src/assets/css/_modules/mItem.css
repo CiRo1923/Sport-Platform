@@ -1,0 +1,141 @@
+.mItem {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.mItemBd {
+  box-sizing: border-box;
+
+  li {
+    display: flex;
+    word-break: break-all;
+    box-sizing: border-box;
+    position: relative;
+
+    &::before {
+      flex-shrink: 0;
+    }
+
+    > * {
+      flex-grow: 1;
+    }
+  }
+
+  ol {
+    counter-reset: section;
+
+    > li {
+      &:not([label]) {
+        &::before {
+          counter-increment: section;
+          content: counter(section) '.';
+        }
+      }
+
+      &:not([label='null']) {
+        &[label] {
+          &::before {
+            content: attr(label);
+          }
+        }
+      }
+    }
+  }
+
+  ul {
+    > li {
+      &:not([label]) {
+        &::before {
+          content: ".";
+        }
+      }
+
+      &:not([label='null']) {
+        &[label] {
+          &::before {
+            content: attr(label);
+          }
+        }
+      }
+    }
+  }
+}
+
+ol.mItemBd {
+  counter-reset: section;
+
+  > li {
+    &:not([label]) {
+      &::before {
+        counter-increment: section;
+        content: counter(section) '.';
+      }
+    }
+
+    &:not([label='null']) {
+      &[label] {
+        &::before {
+          content: attr(label);
+        }
+      }
+    }
+  }
+}
+
+ul.mItemBd {
+  > li {
+    &:not([label]) {
+      &::before {
+        content: ".";
+      }
+    }
+
+    &:not([label='null']) {
+      &[label] {
+        &::before {
+          content: attr(label);
+        }
+      }
+    }
+  }
+}
+
+@mixin maxPC {
+  .mItemBd {
+    li {
+      &::before {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+@mixin minPC {
+  .mItemBd {
+    li {
+      &::before {
+        margin-right: vmp(5px);
+      }
+    }
+  }
+}
+
+@mixin T {
+  .mItemBd {
+    li {
+      &::before {
+        margin-right: vmt(4px);
+      }
+    }
+  }
+}
+
+@mixin M {
+  .mItemBd {
+    li {
+      &::before {
+        margin-right: vmm(3px);
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<%
+    htmlWebpackPlugin.options.backURL = true;
+    htmlWebpackPlugin.options.refresh = true;
+-%>
+<div class="mTab">
+  <%- require('_components/mTabHd.ejs')({
+    act: 0,
+    tabs: [{
+      text: '存款',
+      href: 'history.html'
+    }, {
+      text: '提款',
+      href: 'history.html'
+    }]
+  }) %>
+  <div class="mTabBd">
+    <%
+      const data = [{
+        type: '等待中',
+        typeBgc: 'Bgc(x9abf)',
+        time: '2021-01-24 3:26:13 AM',
+        title: 'BankTransfer_ 1982',
+        amount: '500.00'
+      }, {
+        type: '同意',
+        typeBgc: 'Bgc(x0d9a)',
+        time: '2021-01-24 3:26:13 AM',
+        title: 'BankTransfer_ 1956',
+        amount: '1000.00'
+      }, {
+        type: '转帐取消',
+        typeBgc: 'Bgc(xf457)',
+        time: '2021-01-24 3:26:13 AM',
+        title: 'BankTransfer_ 1928',
+        amount: '300.00'
+      }, {
+        type: '拒绝',
+        typeBgc: 'Bgc(xf457)',
+        time: '2021-01-24 3:26:13 AM',
+        title: 'BankTransfer_ 1928',
+        amount: '300.00'
+      }]
+    -%>
+    <ul class="in.Bdt(1-xfff7) Bgc(xf)">
+      <% for(let i = 0; i < data.length; i += 1 ) { -%>
+        <% const {type, typeBgc, time, title, amount} = data[i]; -%>
+        <li class="P(24,t) P(16,m) in.Mt(9,t) in.Mt(6,m)">
+          <div class="D(fx) Ai(c) Jc(betw)">
+            <mark class="Fz(12) C(xf) Px(14,t) Px(10,m) Bdrs(10) <%- typeBgc %>"><%- type %></mark>
+            <% if ( type === '等待中' ) { -%>
+              <button type="button" class="D(fx) Fxd(row-r) Ai(c)">
+                <em class="Fz(24)">取消转帐</em>
+                <%- require('_components/svg.ejs')({
+                  className: 'WH(32) Fi(xf457)',
+                  svgName: 'close-less'
+                }) %>
+              </button>
+            <% } -%>
+          </div>
+          <p><%- time %></p>
+          <div class="D(fx) Ai(c) Jc(betw)">
+            <p class="Fz(30)"><b><%- title %></b></p>
+            <b class="Fz(30)">$ <%- amount %></b>
+          </div>
+        </li>
+      <% } -%>
+    </ul>
+  </div>
+</div>

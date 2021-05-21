@@ -1,0 +1,83 @@
+<%
+  htmlWebpackPlugin.options.backURL = false;
+-%>
+<!-- 使用 form submit -->
+<form method="POST" action="account.html" class="Mt(36,t) Mt(24,m) Px(16,t) Px(12,m)">
+  <ul class="in.Mt(36,t) in.Mt(24,m)">
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>用户名称 <i class="C(xf457)">*</i></b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Account',
+        type: 'text',
+        value: '',
+        validate : `{'req': '此栏位不得为空'}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>密码 <i class="C(xf457)">*</i></b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Password',
+        type: 'password',
+        value: '',
+        id: 'Pws',
+        validate : `{'req': '此栏位不得为空', 'password': {'length': 6, 'msg': '密码必须包含 $length 个或更多字符，并包含字母数字和符号'}}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>确认密码 <i class="C(xf457)">*</i></b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'NewPassword',
+        type: 'password',
+        value: '',
+        validate : `{'req': '此栏位不得为空', 'password': {'same': '.jFormPsw', 'msg': '确认密码必须与新密码相同'}}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>币别 <i class="C(xf457)">*</i></b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Currency',
+        type: 'select',
+        options: [{
+          name: 'Select Currency',
+          value: ''
+        }],
+        validate : `{'req': '此栏位不得为空'}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>手机 <i class="C(xf457)">*</i></b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Phone',
+        type: 'tel',
+        value: '',
+        validate : `{'req': '此栏位不得为空', 'phone': '手机格式错误'}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>电子邮箱</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Email',
+        type: 'email',
+        value: '',
+        validate : `{'email': '请输入正确的电子邮箱'}`
+      }) %>
+    </li>
+    <li class="in.Mt(12,t) in.Mt(8,m)">
+      <p class="Fz(26)"><b>推荐人</b></p>
+      <%- require('_components/mForm.ejs')({
+        name: 'Referrer',
+        type: 'text',
+        value: ''
+      }) %>
+    </li>
+  </ul>
+  <div class="Mt(32,t) Mt(24,m)">
+    <button type="submit" class="Bgc(x19ff) D(b) Bxz(bd) W(full) Bdrs(6) Px(16,t) Py(14,t) Px(12,m) Py(10,m) jSubmit">
+      <b class="Fz(30) C(xf)">注册</b>
+    </button>
+  </div>
+  <div class="Mt(24,t) Mt(16,m) D(fx) Ai(c) Jc(c) Fz(30)">
+    <p class="Mx(6,t) Mx(4,m)">已经有账户？</p>
+    <a href="login.html" class="C(x19ff) D(b) Mx(6,t) Mx(4,m)">返回登录</a>
+  </div>
+</form>

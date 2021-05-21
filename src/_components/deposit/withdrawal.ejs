@@ -1,0 +1,47 @@
+<div class="in.Mt(24,t) in.Mt(16,m)">
+    <p class="Fz(24) C(x7799)">成功完成存款后，请联系我们的客服以获取您的银行信息</p>
+    <ul class="in.Mt(36,t) in.Mt(24,m)">
+      <li class="in.Mt(12,t) in.Mt(8,m)">
+        <p class="Fz(26)"><b>银行 <i class="C(xf457)">*</i></b></p>
+        <%- require('../../_components/mForm.ejs')({
+          name: 'Bank',
+          type: 'select',
+          options:[{
+            name: '请选择',
+            value: ''
+          }, {
+            name: '银行1',
+            value: '1'
+          }],
+          validate : `{'req': '请选择银行'}`
+        }) %>
+      </li>
+      <li class="in.Mt(12,t) in.Mt(8,m)">
+        <p class="Fz(26)"><b>银行帐户名称 <i class="C(xf457)">*</i></b></p>
+        <%- require('../../_components/mForm.ejs')({
+          name: 'AccountName',
+          type: 'text',
+          value: '',
+          validate : `{'req': '此栏位不得为空'}`
+        }) %>
+      </li>
+      <li class="in.Mt(12,t) in.Mt(8,m)">
+        <p class="Fz(26)"><b>银行帐号 <i class="C(xf457)">*</i></b></p>
+        <%- require('../../_components/mForm.ejs')({
+          name: 'Account',
+          type: 'tel',
+          value: '',
+          validate : `{'req': '此栏位不得为空'}`
+        }) %>
+      </li>
+      <li class="in.Mt(12,t) in.Mt(8,m)">
+        <p class="Fz(26)"><b>金额 <i class="C(xf457)">*</i></b></p>
+        <%- require('../../_components/mForm.ejs')({
+          name: 'Amount',
+          type: 'tel',
+          value: '',
+          validate : `{'req': '此栏位不得为空', 'digital': '此栏位只能填入数字'}`
+        }) %>
+      </li>
+    </ul>
+</div>

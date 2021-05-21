@@ -1,0 +1,27 @@
+.formType {
+  box-sizing: border-box;
+  outline: 0;
+  border: 0;
+  display: block;
+  appearance: none;
+  background-image: url(~common/form-arrow.png);
+  background-repeat: no-repeat;
+  background-position-y: center;
+  box-shadow: 0 1px 8px 0 rgba(#000, 0.1);
+}
+
+@mixin T {
+  .formType {
+    height: vmt(60px);
+    background-position-x: calc(100% - vmt(12px));
+    background-size: vmt(36px) vmt(36px);
+  }
+}
+
+@mixin M {
+  .formType {
+    height: vmm(40px);
+    background-position-x: calc(100% - vmm(8px));
+    background-size: vmm(24px) vmm(24px);
+  }
+}

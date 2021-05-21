@@ -1,0 +1,12 @@
+.cardPrec {
+  &::before {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(90deg, #b6bed1, #b6bed1 60%, transparent 60%, transparent 100%);
+    background-size: 10px 1px;
+    position: absolute;
+  }
+}

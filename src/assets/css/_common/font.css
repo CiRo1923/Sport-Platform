@@ -1,4 +1,4 @@
-@font-face {
+/* @font-face {
   font-family: coluna;
   src: local("coluna"), url("/static/fonts/coluna.ttf") format("truetype"), url("/static/fonts/coluna.eot");
   font-weight: bold;
@@ -9,4 +9,21 @@
 .Ff\(coluna\) {
   font-family: coluna;
   font-stretch: condensed;
-}
+} */
+
+/* @font-face {
+  font-family: 'roboto';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src:
+    local('roboto'),
+    url('/static/fonts/roboto-regular.woff2') format('woff2'),
+    url('/static/fonts/roboto-regular.woff') format('woff'),
+    url('/static/fonts/roboto-regular.ttf') format('truetype');
+} */
+
+/* .Ff\(roboto\) {
+  font-family: roboto;
+  font-stretch: condensed;
+} */
