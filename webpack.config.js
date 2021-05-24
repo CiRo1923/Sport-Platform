@@ -197,7 +197,7 @@ module.exports = {
       use: ['svg-sprite-loader', 'svgo-loader']
     }, {
       test: /\.(woff|woff2|ttf|eot)$/,
-      use: 'file-loader?name=fonts/[name].[ext]!static'
+      use: 'file-loader?name=[path][name].[ext]?[hash]'
     }]
   },
   optimization: {
