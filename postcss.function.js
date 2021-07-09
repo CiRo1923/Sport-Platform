@@ -1,50 +1,60 @@
 const CONFIG = require('./config.js');
 // const FS = require('fs');
 
+const calc = str => {
+  const valArr = str.replace(/\(|\)|px/g, '').split(/\s[+-/*]\s/);
+  const opArr = str.replace(/\(|\)|px/g, '').match(/\s[+-/*]\s/g);
+
+  for (let i = 0, len = valArr.length; i < len; i += 1) {
+    valArr[i] = +valArr[i];
+  }
+  for (let i = 0, len = opArr.length; i < len; i += 1) {
+    opArr[i] = opArr[i].trim();
+  }
+
+  let currentTotal = valArr[0];
+  for (let i = 0, len = opArr.length; i < len; i += 1) {
+    switch (opArr[i]) {
+      case '+':
+        currentTotal += valArr[i + 1];
+        break;
+      case '-':
+        currentTotal -= valArr[i + 1];
+        break;
+      case '*':
+        currentTotal *= valArr[i + 1];
+        break;
+      case '/':
+        currentTotal /= valArr[i + 1];
+        break;
+          // no default
+    }
+  }
+  return currentTotal;
+};
+
 const vm = (value, basicWidth) => {
   let NumValue = parseInt(value, 10);
-  const calc = (str) => {
-    const valArr = str.split(/\s[+-/*]\s/);
-    const opArr = str.match(/\s[+-/*]\s/g);
-
-    for (let i = 0, len = valArr.length; i < len; i += 1) {
-      valArr[i] = +valArr[i];
-    }
-    for (let i = 0, len = opArr.length; i < len; i += 1) {
-      opArr[i] = opArr[i].trim();
-    }
-
-    let currentTotal = valArr[0];
-    for (let i = 0, len = opArr.length; i < len; i += 1) {
-      switch (opArr[i]) {
-        case '+':
-          currentTotal += valArr[i + 1];
-          break;
-        case '-':
-          currentTotal -= valArr[i + 1];
-          break;
-        case '*':
-          currentTotal *= valArr[i + 1];
-          break;
-        case '/':
-          currentTotal /= valArr[i + 1];
-          break;
-            // no default
-      }
-    }
-    return currentTotal;
-  };
 
   if (/\w(\W)?[+\-*/]/.test(value)) {
-    NumValue = calc(value.replace(/\(|\)|px/g, ''));
+    NumValue = calc(value);
   }
 
   const toPositive = NumValue < 0 ? (NumValue * -1) : NumValue;
-  return (toPositive > 1) ? `${((NumValue / basicWidth) * 100).toFixed(5)}vw` : value;
+  return (toPositive > 1) ? `${((NumValue / basicWidth) * 100).toFixed(8)}vw` : value;
 };
 
 module.exports = {
   functions: {
+    return(value) {
+      let NumValue = parseInt(value, 10);
+
+      if (/\w(\W)?[+\-*/]/.test(value)) {
+        NumValue = calc(value);
+      }
+
+      return `${NumValue.toFixed(8)}px`;
+    },
     vmp(value) {
       return vm(value, CONFIG.desktopMinWidth);
     },
@@ -72,6 +82,13 @@ module.exports = {
       }
 
       return returnValue;
+    },
+    fz(desktopFz, reqFz, fzKey) {
+      const basicFz = desktopFz.replace(/\(|\)|\s/g, '').split(',');
+      const rwdfz = reqFz.replace(/\(|\)|\s/g, '').split(',');
+      const index = basicFz.indexOf(fzKey);
+
+      return `${rwdfz[index]}px`;
     }
     // color(color, type) {
     //   const VARIABLES = FS.readFileSync('./src/assets/css/_common/variables.css', 'utf8');

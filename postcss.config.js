@@ -19,8 +19,10 @@ module.exports = {
     }),
     require('postcss-conditionals'),
     require('postcss-nested'),
+    require('postcss-apply-class'),
     purgecss({
       content: [
+        'src/**/*.vue',
         'src/**/*.ejs',
         'src/**/*.js'
       ],
@@ -41,7 +43,7 @@ module.exports = {
       }]
     }),
     require('postcss-assets')({
-      loadPaths: ['src/assets/img']
+      loadPaths: ['src/assets/img', 'src/assets/svg']
     }),
     tailwindcss,
     require('postcss-sort-media-queries')({

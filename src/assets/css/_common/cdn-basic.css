@@ -15,12 +15,18 @@
   --align-items-value: (flex-start, flex-end, center, baseline, stretch);
   --text-align-name: (l, c, r, js);
   --text-align-value: (left, center, right, justify);
-  --size-name: (0, full, scr);
-  --size-value: (0, 100%, 100vh);
+  --vertical-align-name: (t, b, m, base);
+  --vertical-align-value: (top, bottom, middle, baseline);
+  --width-size-name: (0, full, scr);
+  --width-size-value: (0, 100%, 100vw);
+  --height-size-name: (0, full, scr);
+  --height-size-value: (0, 100%, 100vh);
   --overflow-name: (auto, hide, visible, scroll);
   --overflow-value: (auto, hidden, visible, scroll);
   --font-style-name: (i, nor);
   --font-style-value: (italic, normal);
+  --font-weight-name: (b, nor);
+  --font-weight-value: (bold, normal);
   --border-style-name: (sol, dash, dot, doub, n);
   --border-style-value: (solid, dashed, dotted, double, none);
   --white-space-name: (nor, now, pre, pre-l, pre-w);
@@ -75,6 +81,42 @@
   flex-shrink: 0;
 }
 
+.T\(0\) {
+  top: 0;
+}
+
+.R\(0\) {
+  right: 0;
+}
+
+.B\(0\) {
+  bottom: 0;
+}
+
+.L\(0\) {
+  left: 0;
+}
+
+.T\(50\%\) {
+  top: 50%;
+}
+
+.R\(50\%\) {
+  right: 50%;
+}
+
+.B\(50\%\) {
+  bottom: 50%;
+}
+
+.L\(50\%\) {
+  left: 50%;
+}
+
+.L\(-99999\) {
+  left: -99999px;
+}
+
 @each $name, $nameidx in var(--flex-name) {
   @each $value, $valueidx in var(--flex-value) {
     @if $nameidx == $valueidx {
@@ -119,6 +161,16 @@
   }
 }
 
+@each $name, $nameidx in var(--vertical-align-name) {
+  @each $value, $valueidx in var(--vertical-align-value) {
+    @if $nameidx == $valueidx {
+      .Va\($(name)\) {
+        vertical-align: $(value);
+      }
+    }
+  }
+}
+
 @each $name, $nameidx in var(--overflow-name) {
   @each $value, $valueidx in var(--overflow-value) {
     @if $nameidx == $valueidx {
@@ -155,7 +207,13 @@
   }
 }
 
-@for $i from 1 to 10 {
+@for $i from 1 to 23 {
+  .Col\($(i)\/24\) {
+    width: calc($(i) / 24 * 100%);
+  }
+}
+
+@for $i from 1 to 30 {
   .Bdrs\($(i)\) {
     border-radius: $(i)px;
   }
@@ -181,52 +239,41 @@
   border-radius: 50%;
 }
 
-.Maw\(100\%\) {
-  max-width: 100%;
-}
-
-.Mah\(100\%\) {
-  max-height: 100%;
-}
-
-.W\(full\) {
+.WH\(full\) {
   width: 100%;
-}
-
-.W\(scr\) {
-  width: 100vw;
-}
-
-.H\(full\) {
   height: 100%;
 }
 
-.H\(scr\) {
-  height: 100vh;
-}
-
-@each $name, $nameidx in var(--size-name) {
-  @each $value, $valueidx in var(--size-value) {
+@each $name, $nameidx in var(--width-size-name) {
+  @each $value, $valueidx in var(--width-size-value) {
     @if $nameidx == $valueidx {
-      .Maxw\($(name)\) {
+      .W\($(name)\) {
+        width: $(value);
+      }
+
+      .Maw\($(name)\) {
         max-width: $(value);
       }
 
-      .Minw\($(name)\) {
+      .Miw\($(name)\) {
         min-width: $(value);
       }
     }
   }
 }
 
-@each $name, $nameidx in var(--size-name) {
-  @each $value, $valueidx in var(--size-value) {
+@each $name, $nameidx in var(--height-size-name) {
+  @each $value, $valueidx in var(--height-size-value) {
     @if $nameidx == $valueidx {
-      .Maxh\($(name)\) {
+      .H\($(name)\) {
+        height: $(value);
+      }
+
+      .Mah\($(name)\) {
         max-height: $(value);
       }
 
-      .Minh\($(name)\) {
+      .Mih\($(name)\) {
         min-height: $(value);
       }
     }
@@ -238,6 +285,16 @@
     @if $nameidx == $valueidx {
       .Fst\($(name)\) {
         font-style: $(value);
+      }
+    }
+  }
+}
+
+@each $name, $nameidx in var(--font-weight-name) {
+  @each $value, $valueidx in var(--font-weight-value) {
+    @if $nameidx == $valueidx {
+      .Fw\($(name)\) {
+        font-weight: $(value);
       }
     }
   }
@@ -918,6 +975,318 @@
     }
   }
 
+  :hover {
+    &.hover\:C\($(name)\) {
+      color: $(value);
+    }
+
+    &.\$af\.hover\:C\($(name)\) {
+      &::after {
+        color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:C\($(name)\) {
+      &::before {
+        color: $(value);
+      }
+    }
+
+    &.hover\:Fi\($(name)\) {
+      fill: $(value);
+    }
+
+    &.hover\:Bgc\($(name)\) {
+      background-color: $(value);
+    }
+
+    &.\$af\.hover\:Bgc\($(name)\) {
+      &::after {
+        background-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bgc\($(name)\) {
+      &::before {
+        background-color: $(value);
+      }
+    }
+
+    &.hover\:Bdc\($(name)\) {
+      border-color: $(value);
+    }
+
+    &.hover\:Bdtc\($(name)\) {
+      border-top-color: $(value);
+    }
+
+    &.hover\:Bdrc\($(name)\) {
+      border-right-color: $(value);
+    }
+
+    &.hover\:Bdbc\($(name)\) {
+      border-bottom-color: $(value);
+    }
+
+    &.hover\:Bdlc\($(name)\) {
+      border-left-color: $(value);
+    }
+
+    &.hover\:Bdxc\($(name)\) {
+      border-right-color: $(value);
+      border-left-color: $(value);
+    }
+
+    &.hover\:Bdyc\($(name)\) {
+      border-top-color: $(value);
+      border-bottom-color: $(value);
+    }
+
+    &.\$bf\.hover\:Bdc\($(name)\) {
+      &::before {
+        border-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdtc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdrc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdbc\($(name)\) {
+      &::before {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdlc\($(name)\) {
+      &::before {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdxc\($(name)\) {
+      &::before {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$bf\.hover\:Bdyc\($(name)\) {
+      &::before {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdc\($(name)\) {
+      &::after {
+        border-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdtc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdrc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdbc\($(name)\) {
+      &::after {
+        border-bottom-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdlc\($(name)\) {
+      &::after {
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdxc\($(name)\) {
+      &::after {
+        border-right-color: $(value);
+        border-left-color: $(value);
+      }
+    }
+
+    &.\$af\.hover\:Bdyc\($(name)\) {
+      &::after {
+        border-top-color: $(value);
+        border-bottom-color: $(value);
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      &.hover\:C\($(name)\:$(i)\) {
+        color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.hover\:C\($(name)\:$(i)\) {
+        &::after {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:C\($(name)\:$(i)\) {
+        &::before {
+          color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.hover\:Fi\($(name)\:$(i)\) {
+        fill: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bgc\($(name)\:$(i)\) {
+        background-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$af\.hover\:Bgc\($(name)\:$(i)\) {
+        &::after {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bgc\($(name)\:$(i)\) {
+        &::before {
+          background-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.hover\:Bdc\($(name)\:$(i)\) {
+        border-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdtc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdrc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdbc\($(name)\:$(i)\) {
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdlc\($(name)\:$(i)\) {
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdxc\($(name)\:$(i)\) {
+        border-right-color: rgba($(value), calc($(i) / 100));
+        border-left-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.hover\:Bdyc\($(name)\:$(i)\) {
+        border-top-color: rgba($(value), calc($(i) / 100));
+        border-bottom-color: rgba($(value), calc($(i) / 100));
+      }
+
+      &.\$bf\.hover\:Bdc\($(name)\:$(i)\) {
+        &::before {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdtc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdrc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdbc\($(name)\:$(i)\) {
+        &::before {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdlc\($(name)\:$(i)\) {
+        &::before {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdxc\($(name)\:$(i)\) {
+        &::before {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$bf\.hover\:Bdyc\($(name)\:$(i)\) {
+        &::before {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdc\($(name)\:$(i)\) {
+        &::after {
+          border-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdtc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdrc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdbc\($(name)\:$(i)\) {
+        &::after {
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdlc\($(name)\:$(i)\) {
+        &::after {
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdxc\($(name)\:$(i)\) {
+        &::after {
+          border-right-color: rgba($(value), calc($(i) / 100));
+          border-left-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+
+      &.\$af\.hover\:Bdyc\($(name)\:$(i)\) {
+        &::after {
+          border-top-color: rgba($(value), calc($(i) / 100));
+          border-bottom-color: rgba($(value), calc($(i) / 100));
+        }
+      }
+    }
+  }
+
   :disabled {
     &.disabled\:C\($(name)\), & > .disabled\:C\($(name)\) {
       color: $(value);
@@ -1231,154 +1600,154 @@
   }
 
   :checked {
-    & + .checked\:C\($(name)\) {
+    & ~ .checked\:C\($(name)\) {
       color: $(value);
     }
 
-    & + .\$af\.checked\:C\($(name)\) {
+    & ~ .\$af\.checked\:C\($(name)\) {
       &::after {
         color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:C\($(name)\) {
+    & ~ .\$bf\.checked\:C\($(name)\) {
       &::before {
         color: $(value);
       }
     }
 
-    & + .checked\:Fi\($(name)\) {
+    & ~ .checked\:Fi\($(name)\) {
       fill: $(value);
     }
 
-    & + .checked\:Bgc\($(name)\) {
+    & ~ .checked\:Bgc\($(name)\) {
       background-color: $(value);
     }
 
-    & + .\$af\.checked\:Bgc\($(name)\) {
+    & ~ .\$af\.checked\:Bgc\($(name)\) {
       &::after {
         background-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bgc\($(name)\) {
+    & ~ .\$bf\.checked\:Bgc\($(name)\) {
       &::before {
         background-color: $(value);
       }
     }
 
-    & + .checked\:Bdc\($(name)\) {
+    & ~ .checked\:Bdc\($(name)\) {
       border-color: $(value);
     }
 
-    & + .checked\:Bdtc\($(name)\) {
+    & ~ .checked\:Bdtc\($(name)\) {
       border-top-color: $(value);
     }
 
-    & + .checked\:Bdrc\($(name)\) {
+    & ~ .checked\:Bdrc\($(name)\) {
       border-right-color: $(value);
     }
 
-    & + .checked\:Bdbc\($(name)\) {
+    & ~ .checked\:Bdbc\($(name)\) {
       border-bottom-color: $(value);
     }
 
-    & + .checked\:Bdlc\($(name)\) {
+    & ~ .checked\:Bdlc\($(name)\) {
       border-left-color: $(value);
     }
 
-    & + .checked\:Bdxc\($(name)\) {
+    & ~ .checked\:Bdxc\($(name)\) {
       border-right-color: $(value);
       border-left-color: $(value);
     }
 
-    & + .checked\:Bdyc\($(name)\) {
+    & ~ .checked\:Bdyc\($(name)\) {
       border-top-color: $(value);
       border-bottom-color: $(value);
     }
 
-    & + .\$bf\.checked\:Bdc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdc\($(name)\) {
       &::before {
         border-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdtc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdtc\($(name)\) {
       &::before {
         border-top-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdrc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdrc\($(name)\) {
       &::before {
         border-right-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdbc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdbc\($(name)\) {
       &::before {
         border-bottom-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdlc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdlc\($(name)\) {
       &::before {
         border-left-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdxc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdxc\($(name)\) {
       &::before {
         border-right-color: $(value);
         border-left-color: $(value);
       }
     }
 
-    & + .\$bf\.checked\:Bdyc\($(name)\) {
+    & ~ .\$bf\.checked\:Bdyc\($(name)\) {
       &::before {
         border-top-color: $(value);
         border-bottom-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdc\($(name)\) {
+    & ~ .\$af\.checked\:Bdc\($(name)\) {
       &::after {
         border-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdtc\($(name)\) {
+    & ~ .\$af\.checked\:Bdtc\($(name)\) {
       &::after {
         border-top-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdrc\($(name)\) {
+    & ~ .\$af\.checked\:Bdrc\($(name)\) {
       &::after {
         border-right-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdbc\($(name)\) {
+    & ~ .\$af\.checked\:Bdbc\($(name)\) {
       &::after {
         border-bottom-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdlc\($(name)\) {
+    & ~ .\$af\.checked\:Bdlc\($(name)\) {
       &::after {
         border-left-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdxc\($(name)\) {
+    & ~ .\$af\.checked\:Bdxc\($(name)\) {
       &::after {
         border-right-color: $(value);
         border-left-color: $(value);
       }
     }
 
-    & + .\$af\.checked\:Bdyc\($(name)\) {
+    & ~ .\$af\.checked\:Bdyc\($(name)\) {
       &::after {
         border-top-color: $(value);
         border-bottom-color: $(value);
@@ -1386,154 +1755,154 @@
     }
 
     @for $i from 0 to 90 by 10 {
-      & + .checked\:C\($(name)\:$(i)\) {
+      & ~ .checked\:C\($(name)\:$(i)\) {
         color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .\$af\.checked\:C\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:C\($(name)\:$(i)\) {
         &::after {
           color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:C\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:C\($(name)\:$(i)\) {
         &::before {
           color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .checked\:Fi\($(name)\:$(i)\) {
+      & ~ .checked\:Fi\($(name)\:$(i)\) {
         fill: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bgc\($(name)\:$(i)\) {
+      & ~ .checked\:Bgc\($(name)\:$(i)\) {
         background-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .\$af\.checked\:Bgc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bgc\($(name)\:$(i)\) {
         &::after {
           background-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bgc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bgc\($(name)\:$(i)\) {
         &::before {
           background-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .checked\:Bdc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdc\($(name)\:$(i)\) {
         border-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdtc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdtc\($(name)\:$(i)\) {
         border-top-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdrc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdrc\($(name)\:$(i)\) {
         border-right-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdbc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdbc\($(name)\:$(i)\) {
         border-bottom-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdlc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdlc\($(name)\:$(i)\) {
         border-left-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdxc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdxc\($(name)\:$(i)\) {
         border-right-color: rgba($(value), calc($(i) / 100));
         border-left-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .checked\:Bdyc\($(name)\:$(i)\) {
+      & ~ .checked\:Bdyc\($(name)\:$(i)\) {
         border-top-color: rgba($(value), calc($(i) / 100));
         border-bottom-color: rgba($(value), calc($(i) / 100));
       }
 
-      & + .\$bf\.checked\:Bdc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdc\($(name)\:$(i)\) {
         &::before {
           border-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdtc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdtc\($(name)\:$(i)\) {
         &::before {
           border-top-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdrc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdrc\($(name)\:$(i)\) {
         &::before {
           border-right-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdbc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdbc\($(name)\:$(i)\) {
         &::before {
           border-bottom-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdlc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdlc\($(name)\:$(i)\) {
         &::before {
           border-left-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdxc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdxc\($(name)\:$(i)\) {
         &::before {
           border-right-color: rgba($(value), calc($(i) / 100));
           border-left-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$bf\.checked\:Bdyc\($(name)\:$(i)\) {
+      & ~ .\$bf\.checked\:Bdyc\($(name)\:$(i)\) {
         &::before {
           border-top-color: rgba($(value), calc($(i) / 100));
           border-bottom-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdc\($(name)\:$(i)\) {
         &::after {
           border-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdtc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdtc\($(name)\:$(i)\) {
         &::after {
           border-top-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdrc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdrc\($(name)\:$(i)\) {
         &::after {
           border-right-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdbc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdbc\($(name)\:$(i)\) {
         &::after {
           border-bottom-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdlc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdlc\($(name)\:$(i)\) {
         &::after {
           border-left-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdxc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdxc\($(name)\:$(i)\) {
         &::after {
           border-right-color: rgba($(value), calc($(i) / 100));
           border-left-color: rgba($(value), calc($(i) / 100));
         }
       }
 
-      & + .\$af\.checked\:Bdyc\($(name)\:$(i)\) {
+      & ~ .\$af\.checked\:Bdyc\($(name)\:$(i)\) {
         &::after {
           border-top-color: rgba($(value), calc($(i) / 100));
           border-bottom-color: rgba($(value), calc($(i) / 100));
@@ -1562,6 +1931,10 @@
   > * {
     letter-spacing: normal;
   }
+}
+
+.Td\(u\) {
+  text-decoration: underline;
 }
 
 .Mx\(auto\) {
@@ -1681,7 +2054,7 @@
 
 @for $i from 0 to 95 by 5 {
   .Op\($(i)\) {
-    opacity: calc($(i) / 100 * 1%);
+    opacity: calc($(i) / 100);
   }
 }
 
@@ -2048,7 +2421,7 @@
     }
   }
 
-  @for $i from 2 to 5 {
+  @for $i from 2 to 10 {
     .Bdw\($(i)\), .Bdw\($(i)\,p\), .Bdw\($(i)\,pt\) {
       border-width: $(i)px;
     }
@@ -2079,9 +2452,193 @@
       border-bottom-width: $(i)px;
     }
   }
+
+  .Bdrs\(1\,p\), .Bdrs\(1\,pt\) {
+    border-radius: 1px;
+  }
+
+  .Bdtrrs\(1\,p\), .Bdtrrs\(1\,pt\) {
+    border-top-right-radius: 1px;
+  }
+
+  .Bdtlrs\(1\,p\), .Bdtlrs\(1\,pt\) {
+    border-top-left-radius: 1px;
+  }
+
+  .Bdbrrs\(1\,p\), .Bdbrrs\(1\,pt\) {
+    border-bottom-right-radius: 1px;
+  }
+
+  .Bdblrs\(1\,p\), .Bdblrs\(1\,pt\) {
+    border-bottom-left-radius: 1px;
+  }
+
+  @for $i from 2 to 30 {
+    .Bdrs\($(i)\,p\), .Bdrs\($(i)\,pt\) {
+      border-radius: $(i)px;
+    }
+
+    .Bdtrrs\($(i)\,p\), .Bdtrrs\($(i)\,pt\) {
+      border-top-right-radius: $(i)px;
+    }
+
+    .Bdtlrs\($(i)\,p\), .Bdtlrs\($(i)\,pt\) {
+      border-top-left-radius: $(i)px;
+    }
+
+    .Bdbrrs\($(i)\,p\), .Bdbrrs\($(i)\,pt\) {
+      border-bottom-right-radius: $(i)px;
+    }
+
+    .Bdblrs\($(i)\,p\), .Bdblrs\($(i)\,pt\) {
+      border-bottom-left-radius: $(i)px;
+    }
+  }
+
+  .Bdrs\(50\%\,p\), .Bdrs\(50\%\,pt\) {
+    border-radius: 50%;
+  }
+
+  @each $name, $value in var(--color) {
+    .in\.Bdt\(1-$(name)\,p\), .in\.Bdt\(1-$(name)\,pt\) {
+      > * {
+        &:not(:first-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .in\.Bdb\(1-$(name)\,p\), .in\.Bdb\(1-$(name)\,pt\) {
+      > * {
+        &:not(:last-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    @for $i from 2 to 5 {
+      .in\.Bdt\($(i)-$(name)\,p\), .in\.Bdt\($(i)-$(name)\,pt\) {
+        > * {
+          &:not(:first-child) {
+            border-top: $(i)px solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\($(i)-$(name)\,p\), .in\.Bdb\($(i)-$(name)\,pt\) {
+        > * {
+          &:not(:last-child) {
+            border-top: $(i)px solid $(value);
+          }
+        }
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      .in\.Bdt\(1-$(name)\:$(i)\,p\), .in\.Bdt\(1-$(name)\:$(i)\,pt\) {
+        > * {
+          &:not(:first-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\(1-$(name)\:$(i)\,p\), .in\.Bdb\(1-$(name)\:$(i)\,pt\) {
+        > * {
+          &:not(:last-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      @for $j from 2 to 5 {
+        .in\.Bdt\($(j)-$(name)\:$(i)\,p\), .in\.Bdt\($(j)-$(name)\:$(i)\,pt\) {
+          > * {
+            &:not(:first-child) {
+              border-top: $(j)px solid $(value);
+            }
+          }
+        }
+
+        .in\.Bdb\($(j)-$(name)\:$(i)\,p\), .in\.Bdb\($(j)-$(name)\:$(i)\,pt\) {
+          > * {
+            &:not(:last-child) {
+              border-top: $(j)px solid $(value);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin PC {
+  .T\(0\,p\), .T\(0\,pt\) {
+    top: 0;
+  }
+
+  .R\(0\,p\), .R\(0\,pt\) {
+    right: 0;
+  }
+
+  .B\(0\,p\), .B\(0\,pt\) {
+    bottom: 0;
+  }
+
+  .L\(0\,p\), .L\(0\,pt\) {
+    left: 0;
+  }
+
+  .T\(50\%\,p\), .T\(50\%\,pt\) {
+    top: 50%;
+  }
+
+  .R\(50\%\,p\), .R\(50\%\,pt\) {
+    right: 50%;
+  }
+
+  .B\(50\%\,p\), .B\(50\%\,pt\) {
+    bottom: 50%;
+  }
+
+  .L\(50\%\,p\), .L\(50\%\,pt\) {
+    left: 50%;
+  }
+
+  .L\(-99999\,p\), .L\(-99999\,pt\) {
+    left: -99999px;
+  }
+
+  .Bdw\(1\,p\), .Bdw\(1\,pt\) {
+    border-width: 1px;
+  }
+
+  .Bdtw\(1\,p\), .Bdtw\(1\,pt\) {
+    border-top-width: 1px;
+  }
+
+  .Bdrw\(1\,p\), .Bdrw\(1\,pt\) {
+    border-right-width: 1px;
+  }
+
+  .Bdbw\(1\,p\), .Bdbw\(1\,pt\) {
+    border-bottom-width: 1px;
+  }
+
+  .Bdlw\(1\,p\), .Bdlw\(1\,pt\) {
+    border-left-width: 1px;
+  }
+
+  .Bdxw\(1\,p\), .Bdxw\(1\,pt\) {
+    border-right-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .Bdyw\(1\,p\), .Bdyw\(1\,pt\) {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+
   @each $name, $nameidx in var(--position-name) {
     @each $value, $valueidx in var(--position-value) {
       @if $nameidx == $valueidx {
@@ -2117,6 +2674,47 @@
       @if $nameidx == $valueidx {
         .Fxw\($(name)\,p\), .Fxw\($(name)\,pt\) {
           flex-wrap: $(value);
+        }
+      }
+    }
+  }
+
+  .WH\(full\,p\), .WH\(full\,pt\) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @each $name, $nameidx in var(--width-size-name) {
+    @each $value, $valueidx in var(--width-size-value) {
+      @if $nameidx == $valueidx {
+        .W\($(name)\,p\), .W\($(name)\,pt\) {
+          width: $(value);
+        }
+
+        .Maw\($(name)\,p\), .Maw\($(name)\,pt\) {
+          max-width: $(value);
+        }
+
+        .Miw\($(name)\,p\), .Miw\($(name)\,pt\) {
+          min-width: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--height-size-name) {
+    @each $value, $valueidx in var(--height-size-value) {
+      @if $nameidx == $valueidx {
+        .H\($(name)\,p\), .H\($(name)\,pt\) {
+          height: $(value);
+        }
+
+        .Mah\($(name)\,p\), .Mah\($(name)\,pt\) {
+          max-height: $(value);
+        }
+
+        .Mih\($(name)\,p\), .Mih\($(name)\,pt\) {
+          min-height: $(value);
         }
       }
     }
@@ -2160,6 +2758,16 @@
     }
   }
 
+  @each $name, $nameidx in var(--vertical-align-name) {
+    @each $value, $valueidx in var(--vertical-align-value) {
+      @if $nameidx == $valueidx {
+        .Va\($(name)\,p\), .Va\($(name)\,pt\) {
+          vertical-align: $(value);
+        }
+      }
+    }
+  }
+
   @each $name, $nameidx in var(--overflow-name) {
     @each $value, $valueidx in var(--overflow-value) {
       @if $nameidx == $valueidx {
@@ -2196,9 +2804,15 @@
     }
   }
 
+  @for $i from 1 to 23 {
+    .Col\($(i)\/24\,p\), .Col\($(i)\/24\,pt\) {
+      width: calc($(i) / 24 * 100%);
+    }
+  }
+
   @for $i from 0 to 95 by 5 {
     .Op\($(i)\,p\), .Op\($(i)\,pt\) {
-      opacity: calc($(i) / 100 * 1%);
+      opacity: calc($(i) / 100);
     }
   }
 }
@@ -2522,7 +3136,7 @@
     }
   }
 
-  @for $i from 2 to 5 {
+  @for $i from 2 to 10 {
     .Bdw\($(i)\), .Bdw\($(i)\,p\), .Bdw\($(i)\,pt\) {
       border-width: vmp($(i) px);
     }
@@ -2553,9 +3167,163 @@
       border-bottom-width: vmp($(i) px);
     }
   }
+
+  .Bdrs\(1\,p\), .Bdrs\(1\,pt\) {
+    border-radius: 1px;
+  }
+
+  .Bdtrrs\(1\,p\), .Bdtrrs\(1\,pt\) {
+    border-top-right-radius: 1px;
+  }
+
+  .Bdtlrs\(1\,p\), .Bdtlrs\(1\,pt\) {
+    border-top-left-radius: 1px;
+  }
+
+  .Bdbrrs\(1\,p\), .Bdbrrs\(1\,pt\) {
+    border-bottom-right-radius: 1px;
+  }
+
+  .Bdblrs\(1\,p\), .Bdblrs\(1\,pt\) {
+    border-bottom-left-radius: 1px;
+  }
+
+  @for $i from 2 to 30 {
+    .Bdrs\($(i)\,p\), .Bdrs\($(i)\,pt\) {
+      border-radius: vmp($(i) px);
+    }
+
+    .Bdtrrs\($(i)\,p\), .Bdtrrs\($(i)\,pt\) {
+      border-top-right-radius: vmp($(i) px);
+    }
+
+    .Bdtlrs\($(i)\,p\), .Bdtlrs\($(i)\,pt\) {
+      border-top-left-radius: vmp($(i) px);
+    }
+
+    .Bdbrrs\($(i)\,p\), .Bdbrrs\($(i)\,pt\) {
+      border-bottom-right-radius: vmp($(i) px);
+    }
+
+    .Bdblrs\($(i)\,p\), .Bdblrs\($(i)\,pt\) {
+      border-bottom-left-radius: vmp($(i) px);
+    }
+  }
+
+  .Bdrs\(50\%\,p\), .Bdrs\(50\%\,pt\) {
+    border-radius: 50%;
+  }
+
+  @each $name, $value in var(--color) {
+    .in\.Bdt\(1-$(name)\,p\), .in\.Bdt\(1-$(name)\,pt\) {
+      > * {
+        &:not(:first-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .in\.Bdb\(1-$(name)\,p\), .in\.Bdb\(1-$(name)\,pt\) {
+      > * {
+        &:not(:last-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    @for $i from 2 to 5 {
+      .in\.Bdt\($(i)-$(name)\,p\), .in\.Bdt\($(i)-$(name)\,pt\) {
+        > * {
+          &:not(:first-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\($(i)-$(name)\,p\), .in\.Bdb\($(i)-$(name)\,pt\) {
+        > * {
+          &:not(:last-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      .in\.Bdt\(1-$(name)\:$(i)\,p\), .in\.Bdt\(1-$(name)\:$(i)\,pt\) {
+        > * {
+          &:not(:first-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\(1-$(name)\:$(i)\,p\), .in\.Bdb\(1-$(name)\:$(i)\,pt\) {
+        > * {
+          &:not(:last-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      @for $j from 2 to 5 {
+        .in\.Bdt\($(j)-$(name)\:$(i)\,p\), .in\.Bdt\($(j)-$(name)\:$(i)\,pt\) {
+          > * {
+            &:not(:first-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+
+        .in\.Bdb\($(j)-$(name)\:$(i)\,p\), .in\.Bdb\($(j)-$(name)\:$(i)\,pt\) {
+          > * {
+            &:not(:last-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin T {
+  .T\(0\,pt\), .T\(0\,tm\), .T\(0\,t\) {
+    top: 0;
+  }
+
+  .R\(0\,pt\), .R\(0\,tm\), .R\(0\,t\) {
+    right: 0;
+  }
+
+  .B\(0\,pt\), .B\(0\,tm\), .B\(0\,t\) {
+    bottom: 0;
+  }
+
+  .L\(0\,pt\), .L\(0\,tm\), .L\(0\,t\) {
+    left: 0;
+  }
+
+  .T\(50\%\,pt\), .T\(50\%\,tm\), .T\(50\%\,t\) {
+    top: 50%;
+  }
+
+  .R\(50\%\,pt\), .R\(50\%\,tm\), .R\(50\%\,t\) {
+    right: 50%;
+  }
+
+  .B\(50\%\,pt\), .B\(50\%\,tm\), .B\(50\%\,t\) {
+    bottom: 50%;
+  }
+
+  .L\(50\%\,pt\), .L\(50\%\,tm\), .L\(50\%\,t\) {
+    left: 50%;
+  }
+
+  .L\(-99999\,pt\), .L\(-99999\,tm\), .L\(-99999\,t\) {
+    left: -99999px;
+  }
+
   @for $i from 2 to 12 {
     .M\(-$(i)\), .M\(-$(i)\,pt\), .M\(-$(i)\,tm\), .M\(-$(i)\,t\) {
       margin: vmt(-$(i) px);
@@ -2908,6 +3676,47 @@
     }
   }
 
+  .WH\(full\,pt\), .WH\(full\,tm\), .WH\(full\,t\) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @each $name, $nameidx in var(--width-size-name) {
+    @each $value, $valueidx in var(--width-size-value) {
+      @if $nameidx == $valueidx {
+        .W\($(name)\,p\), .W\($(name)\,tm\), .W\($(name)\,t\) {
+          width: $(value);
+        }
+
+        .Maw\($(name)\,p\), .Maw\($(name)\,tm\), .Maw\($(name)\,t\) {
+          max-width: $(value);
+        }
+
+        .Miw\($(name)\,p\), .Miw\($(name)\,tm\), .Miw\($(name)\,t\) {
+          min-width: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--height-size-name) {
+    @each $value, $valueidx in var(--height-size-value) {
+      @if $nameidx == $valueidx {
+        .H\($(name)\,pt\), .H\($(name)\,tm\), .H\($(name)\,t\) {
+          height: $(value);
+        }
+
+        .Mah\($(name)\,pt\), .Mah\($(name)\,tm\), .Mah\($(name)\,t\) {
+          max-height: $(value);
+        }
+
+        .Mih\($(name)\,pt\), .Mih\($(name)\,tm\), .Mih\($(name)\,t\) {
+          min-height: $(value);
+        }
+      }
+    }
+  }
+
   .Fxg\(pt\), .Fxg\(tm\), .Fxg\(t\) {
     flex-grow: 1;
   }
@@ -2946,6 +3755,16 @@
     }
   }
 
+  @each $name, $nameidx in var(--vertical-align-name) {
+    @each $value, $valueidx in var(--vertical-align-value) {
+      @if $nameidx == $valueidx {
+        .Va\($(name)\,pt\), .Va\($(name)\,tm\), .Va\($(name)\,t\) {
+          vertical-align: $(value);
+        }
+      }
+    }
+  }
+
   @each $name, $nameidx in var(--overflow-name) {
     @each $value, $valueidx in var(--overflow-value) {
       @if $nameidx == $valueidx {
@@ -2965,7 +3784,7 @@
   }
 
   @for $i from 1 to 4 {
-    .Col\($(i)\/5\,pt\), .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,m\) {
+    .Col\($(i)\/5\,pt\), .Col\($(i)\/5\,tm\), .Col\($(i)\/5\,t\) {
       width: calc($(i) / 5 * 100%);
     }
   }
@@ -2982,27 +3801,65 @@
     }
   }
 
+  @for $i from 1 to 23 {
+    .Col\($(i)\/24\,pt\), .Col\($(i)\/24\,tm\), .Col\($(i)\/24\,t\) {
+      width: calc($(i) / 24 * 100%);
+    }
+  }
+
   @each $desktopkey, $desktopidx in var(--desktop-fontsize) {
-    .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,pt\), .Fz\($(desktopkey)\,tm\), .Fz\($(desktopkey)\,t\) {
+    .Fz\($(desktopkey)\,all\) {
       font-size: vmt($(desktopkey) px);
     }
 
-    @each $tabletkey, $tabletidx in var(--tablet-fontsize) {
-      @if $desktopidx == $tabletidx {
-        .Fz\($(desktopkey)\) {
-          font-size: vmt($(tabletkey) px);
-        }
-      }
+    .Fz\($(desktopkey)\), .Fz\($(desktopkey)\,pt\), .Fz\($(desktopkey)\,tm\) {
+      font-size: vmt(fz(var(--desktop-fontsize), var(--tablet-fontsize), $desktopkey));
+    }
+  }
+
+  @each $tabletkey, $tabletidx in var(--tablet-fontsize) {
+    .Fz\($(tabletkey)\,t\) {
+      font-size: vmt($(tabletkey) px);
     }
   }
 
   @for $i from 0 to 95 by 5 {
     .Op\($(i)\,pt\), .Op\($(i)\,tm\), .Op\($(i)\,t\) {
-      opacity: calc($(i) / 100 * 1%);
+      opacity: calc($(i) / 100);
     }
   }
 
-  @for $i from 2 to 5 {
+  .Bdw\(1\,pt\), .Bdw\(1\,tm\), .Bdw\(1\,t\) {
+    border-width: 1px;
+  }
+
+  .Bdtw\(1\,pt\), .Bdtw\(1\,tm\), .Bdtw\(1\,t\) {
+    border-top-width: 1px;
+  }
+
+  .Bdrw\(1\,pt\), .Bdrw\(1\,tm\), .Bdrw\(1\,t\) {
+    border-right-width: 1px;
+  }
+
+  .Bdbw\(1\,pt\), .Bdbw\(1\,tm\), .Bdbw\(1\,t\) {
+    border-bottom-width: 1px;
+  }
+
+  .Bdlw\(1\,pt\), .Bdlw\(1\,tm\), .Bdlw\(1\,t\) {
+    border-left-width: 1px;
+  }
+
+  .Bdxw\(1\,pt\), .Bdxw\(1\,tm\), .Bdxw\(1\,t\) {
+    border-right-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .Bdyw\(1\,pt\), .Bdyw\(1\,tm\), .Bdyw\(1\,t\) {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+
+  @for $i from 2 to 10 {
     .Bdw\($(i)\), .Bdw\($(i)\,pt\), .Bdw\($(i)\,tm\), .Bdw\($(i)\,t\) {
       border-width: vmt($(i) px);
     }
@@ -3033,9 +3890,163 @@
       border-bottom-width: vmt($(i) px);
     }
   }
+
+  .Bdrs\(1\,pt\), .Bdrs\(1\,tm\), .Bdrs\(1\,t\) {
+    border-radius: 1px;
+  }
+
+  .Bdtrrs\(1\,pt\), .Bdtrrs\(1\,tm\), .Bdtrrs\(1\,t\) {
+    border-top-right-radius: 1px;
+  }
+
+  .Bdtlrs\(1\,pt\), .Bdtlrs\(1\,tm\), .Bdtlrs\(1\,t\) {
+    border-top-left-radius: 1px;
+  }
+
+  .Bdbrrs\(1\,pt\), .Bdbrrs\(1\,tm\), .Bdbrrs\(1\,t\) {
+    border-bottom-right-radius: 1px;
+  }
+
+  .Bdblrs\(1\,pt\), .Bdblrs\(1\,tm\), .Bdblrs\(1\,t\) {
+    border-bottom-left-radius: 1px;
+  }
+
+  @for $i from 2 to 30 {
+    .Bdrs\($(i)\,pt\), .Bdrs\($(i)\,tm\), .Bdrs\($(i)\,t\) {
+      border-radius: vmt($(i) px);
+    }
+
+    .Bdtrrs\($(i)\,pt\), .Bdtrrs\($(i)\,tm\), .Bdtrrs\($(i)\,t\) {
+      border-top-right-radius: vmt($(i) px);
+    }
+
+    .Bdtlrs\($(i)\,pt\), .Bdtlrs\($(i)\,tm\), .Bdtlrs\($(i)\,t\) {
+      border-top-left-radius: vmt($(i) px);
+    }
+
+    .Bdbrrs\($(i)\,pt\), .Bdbrrs\($(i)\,tm\), .Bdbrrs\($(i)\,t\) {
+      border-bottom-right-radius: vmt($(i) px);
+    }
+
+    .Bdblrs\($(i)\,pt\), .Bdblrs\($(i)\,tm\), .Bdblrs\($(i)\,t\) {
+      border-bottom-left-radius: vmt($(i) px);
+    }
+  }
+
+  .Bdrs\(50\%\,pt\), .Bdrs\(50\%\,tm\), .Bdrs\(50\%\,t\) {
+    border-radius: 50%;
+  }
+
+  @each $name, $value in var(--color) {
+    .in\.Bdt\(1-$(name)\,pt\), .in\.Bdt\(1-$(name)\,tm\), .in\.Bdt\(1-$(name)\,t\) {
+      > * {
+        &:not(:first-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .in\.Bdb\(1-$(name)\,pt\), .in\.Bdb\(1-$(name)\,tm\), .in\.Bdb\(1-$(name)\,t\) {
+      > * {
+        &:not(:last-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    @for $i from 2 to 5 {
+      .in\.Bdt\($(i)-$(name)\,pt\), .in\.Bdt\($(i)-$(name)\,tm\), .in\.Bdt\($(i)-$(name)\,t\) {
+        > * {
+          &:not(:first-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\($(i)-$(name)\,pt\), .in\.Bdb\($(i)-$(name)\,tm\), .in\.Bdb\($(i)-$(name)\,t\) {
+        > * {
+          &:not(:last-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      .in\.Bdt\(1-$(name)\:$(i)\,pt\), .in\.Bdt\(1-$(name)\,tm\), .in\.Bdt\(1-$(name)\,t\) {
+        > * {
+          &:not(:first-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\(1-$(name)\:$(i)\,pt\), .in\.Bdb\(1-$(name)\,tm\), .in\.Bdb\(1-$(name)\,t\) {
+        > * {
+          &:not(:last-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      @for $j from 2 to 5 {
+        .in\.Bdt\($(j)-$(name)\:$(i)\,pt\), .in\.Bdt\($(j)-$(name)\:$(i)\,tm\), .in\.Bdt\($(j)-$(name)\:$(i)\,t\) {
+          > * {
+            &:not(:first-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+
+        .in\.Bdb\($(j)-$(name)\:$(i)\,pt\), .in\.Bdb\($(j)-$(name)\:$(i)\,tm\), .in\.Bdb\($(j)-$(name)\:$(i)\,t\) {
+          > * {
+            &:not(:last-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @mixin M {
+  .T\(0\,tm\), .T\(0\,m\) {
+    top: 0;
+  }
+
+  .R\(0\,tm\), .R\(0\,m\) {
+    right: 0;
+  }
+
+  .B\(0\,tm\), .B\(0\,m\) {
+    bottom: 0;
+  }
+
+  .L\(0\,tm\), .L\(0\,m\) {
+    left: 0;
+  }
+
+  .T\(50\%\,tm\), .T\(50\%\,m\) {
+    top: 50%;
+  }
+
+  .R\(50\%\,tm\), .R\(50\%\,m\) {
+    right: 50%;
+  }
+
+  .B\(50\%\,tm\), .B\(50\%\,m\) {
+    bottom: 50%;
+  }
+
+  .L\(50\%\,tm\), .L\(50\%\,m\) {
+    left: 50%;
+  }
+
+  .L\(-99999\,tm\), .L\(-99999\,m\) {
+    left: -99999px;
+  }
+
   @for $i from 2 to 12 {
     .M\(-$(i)\), .M\(-$(i)\,tm\), .M\(-$(i)\,m\) {
       margin: vmm(-$(i) px);
@@ -3388,6 +4399,47 @@
     }
   }
 
+  .WH\(full\,tm\), .WH\(full\,m\) {
+    width: 100%;
+    height: 100%;
+  }
+
+  @each $name, $nameidx in var(--width-size-name) {
+    @each $value, $valueidx in var(--width-size-value) {
+      @if $nameidx == $valueidx {
+        .W\($(name)\,tm\), .W\($(name)\,m\) {
+          width: $(value);
+        }
+
+        .Maw\($(name)\,tm\), .Maw\($(name)\,m\) {
+          max-width: $(value);
+        }
+
+        .Miw\($(name)\,tm\), .Miw\($(name)\,m\) {
+          min-width: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--height-size-name) {
+    @each $value, $valueidx in var(--height-size-value) {
+      @if $nameidx == $valueidx {
+        .H\($(name)\,tm\), .H\($(name)\,m\) {
+          height: $(value);
+        }
+
+        .Mah\($(name)\,tm\), .Mah\($(name)\,m\) {
+          max-height: $(value);
+        }
+
+        .Mih\($(name)\,tm\), .Mih\($(name)\,m\) {
+          min-height: $(value);
+        }
+      }
+    }
+  }
+
   .Fxg\(tm\), .Fxg\(m\) {
     flex-grow: 1;
   }
@@ -3421,6 +4473,16 @@
       @if $nameidx == $valueidx {
         .Ta\($(name)\,tm\), .Ta\($(name)\,m\) {
           text-align: $(value);
+        }
+      }
+    }
+  }
+
+  @each $name, $nameidx in var(--vertical-align-name) {
+    @each $value, $valueidx in var(--vertical-align-value) {
+      @if $nameidx == $valueidx {
+        .Va\($(name)\,tm\), .Va\($(name)\,m\) {
+          vertical-align: $(value);
         }
       }
     }
@@ -3462,27 +4524,65 @@
     }
   }
 
+  @for $i from 1 to 23 {
+    .Col\($(i)\/24\,tm\), .Col\($(i)\/24\,m\) {
+      width: calc($(i) / 24 * 100%);
+    }
+  }
+
   @each $desktopkey, $desktopidx in var(--desktop-fontsize) {
-    .Fz\($(desktopkey)\,all\), .Fz\($(desktopkey)\,tm\), .Fz\($(desktopkey)\,m\) {
+    .Fz\($(desktopkey)\,all\) {
       font-size: vmm($(desktopkey) px);
     }
 
-    @each $mobilekey, $mobileidx in var(--mobile-fontsize) {
-      @if $desktopidx == $mobileidx {
-        .Fz\($(desktopkey)\) {
-          font-size: vmm($(mobilekey) px);
-        }
-      }
+    .Fz\($(desktopkey)\), .Fz\($(desktopkey)\,tm\) {
+      font-size: vmm(fz(var(--desktop-fontsize), var(--mobile-fontsize), $desktopkey));
+    }
+  }
+
+  @each $mobilekey, $mobileidx in var(--mobile-fontsize) {
+    .Fz\($(mobilekey)\,m\) {
+      font-size: vmm($(mobilekey) px);
     }
   }
 
   @for $i from 0 to 95 by 5 {
     .Op\($(i)\,tm\), .Op\($(i)\,m\) {
-      opacity: calc($(i) / 100 * 1%);
+      opacity: calc($(i) / 100);
     }
   }
 
-  @for $i from 2 to 5 {
+  .Bdw\(1\,tm\), .Bdw\(1\,m\) {
+    border-width: 1px;
+  }
+
+  .Bdtw\(1\,tm\), .Bdtw\(1\,m\) {
+    border-top-width: 1px;
+  }
+
+  .Bdrw\(1\,tm\), .Bdrw\(1\,m\) {
+    border-right-width: 1px;
+  }
+
+  .Bdbw\(1\,tm\), .Bdbw\(1\,m\) {
+    border-bottom-width: 1px;
+  }
+
+  .Bdlw\(1\,tm\), .Bdlw\(1\,m\) {
+    border-left-width: 1px;
+  }
+
+  .Bdxw\(1\,tm\), .Bdxw\(1\,m\) {
+    border-right-width: 1px;
+    border-left-width: 1px;
+  }
+
+  .Bdyw\(1\,tm\), .Bdyw\(1\,m\) {
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+
+  @for $i from 2 to 10 {
     .Bdw\($(i)\), .Bdw\($(i)\,tm\), .Bdw\($(i)\,m\) {
       border-width: vmm($(i) px);
     }
@@ -3511,6 +4611,124 @@
     .Bdyw\($(i)\), .Bdyw\($(i)\,tm\), .Bdyw\($(i)\,m\) {
       border-top-width: vmm($(i) px);
       border-bottom-width: vmm($(i) px);
+    }
+  }
+
+  .Bdrs\(1\,tm\), .Bdrs\(1\,m\) {
+    border-radius: 1px;
+  }
+
+  .Bdtrrs\(1\,tm\), .Bdtrrs\(1\,m\) {
+    border-top-right-radius: 1px;
+  }
+
+  .Bdtlrs\(1\,tm\), .Bdtlrs\(1\,m\) {
+    border-top-left-radius: 1px;
+  }
+
+  .Bdbrrs\(1\,tm\), .Bdbrrs\(1\,m\) {
+    border-bottom-right-radius: 1px;
+  }
+
+  .Bdblrs\(1\,tm\), .Bdblrs\(1\,m\) {
+    border-bottom-left-radius: 1px;
+  }
+
+  @for $i from 2 to 30 {
+    .Bdrs\($(i)\,tm\), .Bdrs\($(i)\,m\) {
+      border-radius: vmm($(i) px);
+    }
+
+    .Bdtrrs\($(i)\,tm\), .Bdtrrs\($(i)\,m\) {
+      border-top-right-radius: vmm($(i) px);
+    }
+
+    .Bdtlrs\($(i)\,tm\), .Bdtlrs\($(i)\,m\) {
+      border-top-left-radius: vmm($(i) px);
+    }
+
+    .Bdbrrs\($(i)\,tm\), .Bdbrrs\($(i)\,m\) {
+      border-bottom-right-radius: vmm($(i) px);
+    }
+
+    .Bdblrs\($(i)\,tm\), .Bdblrs\($(i)\,m\) {
+      border-bottom-left-radius: vmm($(i) px);
+    }
+  }
+
+  .Bdrs\(50\%\,tm\), .Bdrs\(50\%\,m\) {
+    border-radius: 50%;
+  }
+
+  @each $name, $value in var(--color) {
+    .in\.Bdt\(1-$(name)\,tm\), .in\.Bdt\(1-$(name)\,m\) {
+      > * {
+        &:not(:first-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    .in\.Bdb\(1-$(name)\,tm\), .in\.Bdb\(1-$(name)\,m\) {
+      > * {
+        &:not(:last-child) {
+          border-top: 1px solid $(value);
+        }
+      }
+    }
+
+    @for $i from 2 to 5 {
+      .in\.Bdt\($(i)-$(name)\,tm\), .in\.Bdt\($(i)-$(name)\,m\) {
+        > * {
+          &:not(:first-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\($(i)-$(name)\,tm\), .in\.Bdb\($(i)-$(name)\,m\) {
+        > * {
+          &:not(:last-child) {
+            border-top: vmp($(i) px) solid $(value);
+          }
+        }
+      }
+    }
+
+    @for $i from 0 to 90 by 10 {
+      .in\.Bdt\(1-$(name)\:$(i)\,tm\), .in\.Bdt\(1-$(name)\:$(i)\,m\) {
+        > * {
+          &:not(:first-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      .in\.Bdb\(1-$(name)\:$(i)\,tm\), .in\.Bdb\(1-$(name)\:$(i)\,m\) {
+        > * {
+          &:not(:last-child) {
+            border-top: 1px solid $(value);
+          }
+        }
+      }
+
+      @for $j from 2 to 5 {
+        .in\.Bdt\($(j)-$(name)\:$(i)\,tm\), .in\.Bdt\($(j)-$(name)\:$(i)\,m\) {
+          > * {
+            &:not(:first-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+
+        .in\.Bdb\($(j)-$(name)\:$(i)\,tm\), .in\.Bdb\($(j)-$(name)\:$(i)\,m\) {
+          > * {
+            &:not(:last-child) {
+              border-top: vmp($(j) px) solid $(value);
+            }
+          }
+        }
+      }
     }
   }
 }

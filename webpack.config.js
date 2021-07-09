@@ -1,3 +1,4 @@
+let IP = null;
 const CONFIG = require('./config.js');
 const PATH = require('path');
 const WEBPACKP = require('webpack');
@@ -9,21 +10,26 @@ const { HtmlWebpackSkipAssetsPlugin } = require('html-webpack-skip-assets-plugin
 const IMAGEMINIMIZERPLUGIN = require('image-minimizer-webpack-plugin');
 const COPYWEBPACKPLUGIN = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const VUELOADERPLUGIN = require('vue-loader/lib/plugin');
 
 require('dotenv').config({ path: PATH.join(__dirname, '.env') });
+
+Object.keys(require('os').networkInterfaces()).forEach(devName => {
+  const iface = require('os').networkInterfaces()[devName];
+
+  for (let i = 0; i < iface.length; i += 1) {
+    const alias = iface[i];
+    if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+      IP = alias.address;
+    }
+  }
+});
 
 const extendPlugins = () => {
   const miniCssExtractCSS = new MINiCSSEXTRACTPLUGIN({
     filename: (CONFIG.css + (CONFIG.commonCss ? `${CONFIG.commonCss}.css?[hash:8]` : '[name].css?[hash:8]'))
   });
-  const copyWebpackPlugin = CONFIG.copyStatic
-    ? new COPYWEBPACKPLUGIN({
-      patterns: [{
-        from: 'static',
-        to: 'static'
-      }]
-    })
-    : () => {};
+  let copyWebpackPlugin = {};
   const htmlWebpackPlugin = [];
   const beautifyHtmlWebpackPlugin = new BEAUTIFYHTMLWEBPACKPLUGIN();
   const webpackDefinePlugin = new WEBPACKP.DefinePlugin({
@@ -33,7 +39,7 @@ const extendPlugins = () => {
         : process.env.NODE_ENV))
     }
   });
-  const cleanWebpackPlugin = process.env.NODE_ENV === 'production'
+  const cleanWebpackPlugin = process.env.NODE_ENV !== 'development'
     ? new CleanWebpackPlugin({
       cleanOnceBeforeBuildPatterns: ['**/*']
     }) : () => {};
@@ -45,8 +51,45 @@ const extendPlugins = () => {
     obj.cache = true;
 
     htmlWebpackPlugin.push(
-      new HTMLWEBPACKPLUGIN(obj),
+      new HTMLWEBPACKPLUGIN(obj)
     );
+  }
+
+  if (CONFIG.copyStatic) {
+    const copy = [];
+    copy.push({
+      from: 'static',
+      to: 'static'
+    });
+
+    if (CONFIG.docker) {
+      copy.push({
+        from: 'docker',
+        to: ''
+      });
+    }
+
+    if (CONFIG.copyData) {
+      for (let i = 0; i < CONFIG.copyData.length; i += 1) {
+        let copyItem = CONFIG.copyData[i];
+
+        if (typeof copyItem === 'string') {
+          copy.push({
+            from: copyItem,
+            to: copyItem
+          });
+        } else if (typeof copyItem === 'object') {
+          copy.push({
+            from: copyItem.from,
+            to: copyItem.to
+          });
+        }
+      }
+    }
+
+    copyWebpackPlugin = new COPYWEBPACKPLUGIN({
+      patterns: copy
+    });
   }
 
   return [miniCssExtractCSS].concat(
@@ -55,7 +98,8 @@ const extendPlugins = () => {
     [copyWebpackPlugin],
     htmlWebpackPlugin,
     [beautifyHtmlWebpackPlugin],
-    [new HtmlWebpackSkipAssetsPlugin()]
+    [new HtmlWebpackSkipAssetsPlugin()],
+    [new VUELOADERPLUGIN()]
   );
 };
 
@@ -105,6 +149,11 @@ module.exports = {
         loader: 'ejs-easy-loader'
       }]
     }, {
+      test: /\.vue$/,
+      use: [{
+        loader: 'vue-loader'
+      }]
+    }, {
       test: /\.(tsx?|jsx?)$/,
       use: [{
         loader: 'babel-loader?cacheDirectory',
@@ -131,7 +180,7 @@ module.exports = {
           loader: MINiCSSEXTRACTPLUGIN.loader,
           options: {
             publicPath: (resourcePath, context) => {
-              return (PATH.relative(PATH.dirname(resourcePath), context).replace(/\\/g, '/')) + '/../';
+              return (PATH.relative(PATH.dirname(resourcePath), context).replace(/\\/g, '/')) + '/';
             }
           }
         },
@@ -139,15 +188,20 @@ module.exports = {
         'postcss-loader'
       ]
     }, {
-      test: /\.(jpe?g|png|gif|webp)$/i,
+      test: /\.postcss$/,
+      use: [
+        'vue-style-loader',
+        'css-loader',
+        'postcss-loader'
+      ]
+    }, {
+      test: /\.(jpe?g|png|gif)$/i,
+      type: 'asset/resource',
+      generator: {
+        filename: '[path][name][ext]?[hash:8]'
+      },
       use: [
         {
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]?[hash:8]',
-            esModule: false
-          }
-        }, {
           loader: IMAGEMINIMIZERPLUGIN.loader,
           options: {
             minimizerOptions: {
@@ -181,7 +235,7 @@ module.exports = {
           loader: IMAGEMINIMIZERPLUGIN.loader,
           options: {
             deleteOriginalAssets: false,
-            filename: '[path][name].webp',
+            filename: '[path][name].webp?[hash:8]',
             minimizerOptions: {
               plugins: [
                 ['webp', {
@@ -197,7 +251,11 @@ module.exports = {
       use: ['svg-sprite-loader', 'svgo-loader']
     }, {
       test: /\.(woff|woff2|ttf|eot)$/,
-      use: 'file-loader?name=[path][name].[ext]?[hash]'
+      type: 'asset/resource',
+      generator: {
+        filename: '[path][name][ext]?[hash:8]'
+      }
+      // use: 'file-loader?name=[path][name].[ext]?[hash]'
     }]
   },
   optimization: {
@@ -214,6 +272,7 @@ module.exports = {
       //   canPrint: true,
       // }),
       new TERSERPLUGIN({
+        extractComments: false,
         parallel: true,
         terserOptions: {
           output: {
@@ -232,7 +291,7 @@ module.exports = {
   devServer: {
     // contentBase : PATH.join(__dirname, 'dist'),
     // index            : 'index.htm',
-    host: process.env.HOST,
+    host: IP,
     hot: true,
     watchContentBase: true,
     compress: true,
@@ -254,10 +313,12 @@ module.exports = {
       children: true
     },
     before(app) {
-      app.post('*', (req, res) => {
-        res.redirect(req.originalUrl);
-      });
-    }
+      if (!CONFIG.proxy) {
+        app.post('*', (req, res) => {
+          res.redirect(req.originalUrl);
+        });
+      }
+    },
     // proxy: {
     //     "/api": {
     //         target: 'https://192.168.1.155:'+CONFIG.port+'',
@@ -266,14 +327,14 @@ module.exports = {
     //         }
     //     }
     // }
-    // proxy: {
-    //     '/VsWeb/api/*': {
-    //         target       : 'https://www.vscinemas.com.tw/',
-    //         changeOrigin : true,
-    //     },
-    // },
+    historyApiFallback: true,
+    proxy: CONFIG.proxy ? CONFIG.proxy : {}
   },
   resolve: {
-    modules: resolveModules()
+    modules: resolveModules(),
+    extensions: ['.js', '.vue'],
+    alias: {
+      vue: 'vue/dist/vue.esm.js'
+    }
   }
 };
